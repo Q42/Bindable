@@ -1,0 +1,20 @@
+{
+  "name": "Bindable",
+  "version": "0.1.0",
+  "summary": "Simple Bindable<Value> for Swift",
+  "description": "Simple `Bindable<Value>` for Swift.",
+  "homepage": "https://github.com/Q42/Bindable",
+  "license": "MIT",
+  "authors": {
+    "Tom Lokhorst": "tom@lokhorst.eu"
+  },
+  "source": {
+    "git": "https://github.com/Q42/Bindable.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "requires_arc": true,
+  "source_files": "Sources/*"
+}

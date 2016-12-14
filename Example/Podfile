@@ -1,0 +1,9 @@
+platform :ios, '9.0'
+
+use_frameworks!
+
+pod 'Bindable', :path => '../'
+# pod 'Bindable', :git => 'git@github.com:Q42/Bindable.git'
+
+target 'Test'
+

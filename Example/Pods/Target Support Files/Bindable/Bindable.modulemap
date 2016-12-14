@@ -1,0 +1,6 @@
+framework module Bindable {
+  umbrella header "Bindable-umbrella.h"
+
+  export *
+  module * { export * }
+}
