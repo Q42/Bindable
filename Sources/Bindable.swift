@@ -21,11 +21,6 @@ public struct Bindable<Value> {
   }
 
   public func subscribe(_ handler: @escaping (Value) -> Void) -> Subscription {
-    let value = source.value
-
-    source.queue.async {
-      handler(value)
-    }
 
     let h = Handler(source: source, handler: handler)
     source.handlers.append(h)

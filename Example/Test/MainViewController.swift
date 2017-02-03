@@ -13,6 +13,7 @@ import Bindable
 
 class MainViewController: UIViewController {
 
+  var disposeBag = DisposeBag()
   let presenter = MainPresenter()
 
   @IBOutlet weak var label: UILabel!
@@ -21,13 +22,27 @@ class MainViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    label.textBinding = presenter.age.map { "Age: \($0)" }
-    view.backgroundColorBinding = presenter.color
+    presenter.age.map { "Age: \($0)" }.subscribe { text in
+      self.label.text = text
+    }.disposed(by: disposeBag)
+
+    presenter.color.subscribe { color in
+      self.view.backgroundColor = color
+    }.disposed(by: disposeBag)
 
     let x = presenter.color.map { $0.cgColor.components![0] }
     let y = presenter.age.map { CGFloat($0) }
+    let z = (x || y).map { "\($0)" }
 
-    label2.textBinding = (x || y).map { "\($0)" }
+    z.subscribe { text in
+      self.label2.text = text
+    }.disposed(by: disposeBag)
+  }
+
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+
+    disposeBag = DisposeBag()
   }
 
   @IBAction func stepperAction(_ sender: UIStepper) {
@@ -80,24 +95,13 @@ class MainPresenter {
   }
 }
 
-extension UILabel {
-  var textBinding: Bindable<String> {
-    get {
-      fatalError()
-    }
-    set {
-      _ = newValue.subscribe { [weak self] in self?.text = $0 }
-    }
-  }
-}
-
 extension UIView {
   var backgroundColorBinding: Bindable<UIColor> {
     get {
       fatalError()
     }
     set {
-      _ = newValue.subscribe { [weak self] in self?.backgroundColor = $0 }
+      _ = newValue.subscribe { self.backgroundColor = $0 }
     }
   }
 }
