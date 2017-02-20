@@ -18,12 +18,14 @@ class MainViewController: UIViewController {
 
   @IBOutlet var label: UILabel!
   @IBOutlet weak var label2: UILabel!
+  @IBOutlet weak var button: UIButton!
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
     self.view.bind(backgroundColor: presenter.color)
     self.label.bind(text: presenter.age.map { "Age: \($0)" })
+    self.button.bind(attributedTitle: presenter.title, for: .normal)
 
     let x = presenter.color.map { $0.cgColor.components![0] }
     let y = presenter.age.map { CGFloat($0) }
@@ -59,10 +61,12 @@ class MainViewController: UIViewController {
 
 class MainPresenter {
   private let ageSource = BindableSource<Int>(value: 0)
-  private let colorSource = BindableSource<UIColor>(value: UIColor.red)
+  private let colorSource = BindableSource<UIColor>(value: UIColor.yellow)
+  private let titleSource = BindableSource<NSAttributedString>(value: NSAttributedString())
 
   var age: Bindable<Int> { return ageSource.bindable }
   var color: Bindable<UIColor> { return colorSource.bindable }
+  var title: Bindable<NSAttributedString> { return titleSource.bindable }
 
   var tick = false
 
@@ -82,6 +86,12 @@ class MainPresenter {
       self?.tick = !x
 
       self?.colorSource.value = UIColor(red: x ? 0.3 : 1, green: 1, blue: 1, alpha: 1)
+    }
+
+
+    Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { [weak self] _ in
+      let attrs: [String: Any] = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 15)]
+      self?.titleSource.value = NSAttributedString(string: "Close", attributes: attrs)
     }
   }
 
