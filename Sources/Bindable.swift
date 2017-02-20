@@ -31,9 +31,11 @@ public struct Bindable<Value> {
   public func map<NewValue>(_ transform: @escaping (Value) -> NewValue) -> Bindable<NewValue> {
     let resultSource = BindableSource<NewValue>(value: transform(source.value), queue: source.queue)
 
-    _ = source.bindable.subscribe { value in
+    let subscription = source.bindable.subscribe { value in
       resultSource.value = transform(value)
     }
+
+    resultSource.emptySubscriptionsHandler = subscription.unsubscribe
 
     return resultSource.bindable
   }
@@ -41,17 +43,28 @@ public struct Bindable<Value> {
   public func dispatch(on dispatchQueue: DispatchQueue) -> Bindable<Value> {
     let resultSource = BindableSource(value: source.value, queue: dispatchQueue)
 
-    _ = self.subscribe { value in
+    let subscription = self.subscribe { value in
       resultSource.value = value
     }
+
+    resultSource.emptySubscriptionsHandler = subscription.unsubscribe
 
     return resultSource.bindable
   }
 }
 
 public class BindableSource<Value> {
-  fileprivate var handlers: [Handler<Value>] = []
-  internal let queue: DispatchQueue
+  fileprivate var handlers: [Handler<Value>] = [] {
+    didSet {
+      if handlers.isEmpty {
+        emptySubscriptionsHandler?()
+        emptySubscriptionsHandler = nil
+      }
+    }
+  }
+
+  let queue: DispatchQueue
+  var emptySubscriptionsHandler: (() -> Void)?
 
   public var value: Value {
     didSet {
@@ -100,11 +113,16 @@ class Handler<Value> : Subscription {
 public func &&<A, B>(lhs: Bindable<A>, rhs: Bindable<B>) -> Bindable<(A, B)> {
   let resultSource = BindableSource<(A, B)>(value: (lhs.value, rhs.value))
 
-  _ = lhs.subscribe { _ in
+  let lhsSubscription = lhs.subscribe { _ in
     resultSource.value = (lhs.value, rhs.value)
   }
-  _ = rhs.subscribe { _ in
+  let rhsSubscription = rhs.subscribe { _ in
     resultSource.value = (lhs.value, rhs.value)
+  }
+
+  resultSource.emptySubscriptionsHandler = {
+    lhsSubscription.unsubscribe()
+    rhsSubscription.unsubscribe()
   }
 
   return resultSource.bindable
@@ -113,11 +131,16 @@ public func &&<A, B>(lhs: Bindable<A>, rhs: Bindable<B>) -> Bindable<(A, B)> {
 public func ||<A>(lhs: Bindable<A>, rhs: Bindable<A>) -> Bindable<(A)> {
   let resultSource = BindableSource<A>(value: lhs.value)
 
-  _ = lhs.subscribe { value in
+  let lhsSubscription = lhs.subscribe { value in
     resultSource.value = value
   }
-  _ = rhs.subscribe { value in
+  let rhsSubscription = rhs.subscribe { value in
     resultSource.value = value
+  }
+
+  resultSource.emptySubscriptionsHandler = {
+    lhsSubscription.unsubscribe()
+    rhsSubscription.unsubscribe()
   }
 
   return resultSource.bindable
