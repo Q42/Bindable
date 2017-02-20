@@ -16,26 +16,21 @@ class MainViewController: UIViewController {
   var disposeBag = DisposeBag()
   let presenter = MainPresenter()
 
-  @IBOutlet weak var label: UILabel!
+  @IBOutlet var label: UILabel!
   @IBOutlet weak var label2: UILabel!
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    presenter.age.map { "Age: \($0)" }.subscribe { text in
-      self.label.text = text
-    }.disposed(by: disposeBag)
-
-    presenter.color.subscribe { color in
-      self.view.backgroundColor = color
-    }.disposed(by: disposeBag)
+    self.view.bind(backgroundColor: presenter.color)
+    self.label.bind(text: presenter.age.map { "Age: \($0)" })
 
     let x = presenter.color.map { $0.cgColor.components![0] }
     let y = presenter.age.map { CGFloat($0) }
-    let z = (x || y).map { "\($0)" }
+    let z = (x || y)
 
-    z.subscribe { text in
-      self.label2.text = text
+    z.subscribe { value in
+      self.label2.text = "-\(value)-"
     }.disposed(by: disposeBag)
   }
 
@@ -64,7 +59,7 @@ class MainViewController: UIViewController {
 
 class MainPresenter {
   private let ageSource = BindableSource<Int>(value: 0)
-  private let colorSource = BindableSource<UIColor>(value: .white)
+  private let colorSource = BindableSource<UIColor>(value: UIColor.red)
 
   var age: Bindable<Int> { return ageSource.bindable }
   var color: Bindable<UIColor> { return colorSource.bindable }
@@ -92,16 +87,5 @@ class MainPresenter {
 
   deinit {
     print("MainPresenter.deinit")
-  }
-}
-
-extension UIView {
-  var backgroundColorBinding: Bindable<UIColor> {
-    get {
-      fatalError()
-    }
-    set {
-      _ = newValue.subscribe { self.backgroundColor = $0 }
-    }
   }
 }
