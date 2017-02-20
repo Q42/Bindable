@@ -19,5 +19,10 @@ Pod::Spec.new do |s|
   s.subspec "Core" do |ss|
     ss.source_files  = ["Sources/Bindable.swift", "Sources/DisposeBag.swift"]
   end
+
+  s.subspec "UIKit" do |ss|
+    ss.source_files = ["Sources/Bindable+UIKit.swift", "Sources/Bindable+NSObject.swift"]
+    ss.dependency "Bindable/Core"
+  end
 end
 
