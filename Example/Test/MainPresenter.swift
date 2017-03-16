@@ -13,15 +13,21 @@ class MainPresenter {
   private let ageSource = BindableSource<Int>(value: 0)
   private let colorSource = BindableSource<UIColor>(value: UIColor.yellow)
   private let titleSource = BindableSource<NSAttributedString>(value: NSAttributedString())
+  private let alertSource = EventSource<String>()
 
   var age: Bindable<Int> { return ageSource.bindable }
   var color: Bindable<UIColor> { return colorSource.bindable }
   var title: Bindable<NSAttributedString> { return titleSource.bindable }
+  var alert: Event<String> { return alertSource.event }
 
   var tick = false
 
   func up() {
     ageSource.value += 1
+
+    if ageSource.value == 18 {
+      alertSource.emit("Congrats! You just became an adult!")
+    }
   }
 
   func down() {

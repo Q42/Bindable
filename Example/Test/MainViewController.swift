@@ -26,6 +26,7 @@ class MainViewController: UIViewController {
     self.view.bind(backgroundColor: presenter.color)
     self.label.bind(text: presenter.age.map { "Age: \($0)" })
     self.button.bind(attributedTitle: presenter.title, for: .normal)
+    presenter.alert.subscribe(alertMessage).disposed(by: disposeBag)
 
     let x = presenter.color.map { $0.cgColor.components![0] }
     let y = presenter.age.map { CGFloat($0) }
@@ -40,6 +41,13 @@ class MainViewController: UIViewController {
     super.viewWillDisappear(animated)
 
     disposeBag = DisposeBag()
+  }
+
+  func alertMessage(_ message: String) {
+    let vc = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+    vc.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+
+    present(vc, animated: true, completion: nil)
   }
 
   @IBAction func stepperAction(_ sender: UIStepper) {

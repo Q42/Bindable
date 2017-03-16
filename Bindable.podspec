@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.default_subspec = "Core"
 
   s.subspec "Core" do |ss|
-    ss.source_files  = ["Sources/Bindable.swift", "Sources/DisposeBag.swift"]
+    ss.source_files  = ["Sources/Bindable.swift", "Sources/DisposeBag.swift", "Sources/Event.swift", "Sources/Subscription.swift"]
   end
 
   s.subspec "UIKit" do |ss|

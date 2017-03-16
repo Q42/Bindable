@@ -53,15 +53,8 @@ public struct Bindable<Value> {
   }
 }
 
-public class BindableSource<Value> {
-  fileprivate var handlers: [Handler<Value>] = [] {
-    didSet {
-      if handlers.isEmpty {
-        emptySubscriptionsHandler?()
-        emptySubscriptionsHandler = nil
-      }
-    }
-  }
+public class BindableSource<Value> : SubscriptionMaintainer {
+  fileprivate var handlers: [Handler<Value>] = []
 
   let queue: DispatchQueue
   var emptySubscriptionsHandler: (() -> Void)?
@@ -84,28 +77,17 @@ public class BindableSource<Value> {
   public var bindable: Bindable<Value> {
     return Bindable(source: self)
   }
-}
 
-public protocol Subscription {
-  func unsubscribe()
-}
-
-class Handler<Value> : Subscription {
-  weak var source: BindableSource<Value>?
-  let handler: (Value) -> Void
-
-  init(source: BindableSource<Value>, handler: @escaping (Value) -> Void) {
-    self.source = source
-    self.handler = handler
-  }
-
-  func unsubscribe() {
-    guard let source = source else { return }
-
-    for (ix, handler) in source.handlers.enumerated() {
-      if handler === self {
-        source.handlers.remove(at: ix)
+  func unsubscribe(_ subscription: Subscription) {
+    for (ix, handler) in handlers.enumerated() {
+      if handler === subscription {
+        handlers.remove(at: ix)
       }
+    }
+
+    if handlers.isEmpty {
+      emptySubscriptionsHandler?()
+      emptySubscriptionsHandler = nil
     }
   }
 }
