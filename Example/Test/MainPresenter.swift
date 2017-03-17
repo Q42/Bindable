@@ -51,6 +51,10 @@ class MainPresenter {
     }
   }
 
+  func changeColor() {
+    self.colorSource.value = .red
+  }
+
   deinit {
     print("MainPresenter.deinit")
   }

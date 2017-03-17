@@ -83,13 +83,19 @@
                                     <action selector="close:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yWI-LY-zwg"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9zZ-Kw-qQH">
+                                <rect key="frame" x="44" y="161" width="64" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="make red"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
-                        <outlet property="button" destination="RtN-Jo-xUF" id="ZGW-Be-c1R"/>
+                        <outlet property="closeButton" destination="RtN-Jo-xUF" id="3Jl-80-Dt1"/>
                         <outlet property="label" destination="IYm-Ox-O6p" id="NTx-TN-1mZ"/>
                         <outlet property="label2" destination="0Z6-fH-fJ3" id="zp6-Bn-N20"/>
+                        <outlet property="testButton" destination="9zZ-Kw-qQH" id="Qq8-2h-i5P"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

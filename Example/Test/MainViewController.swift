@@ -18,15 +18,17 @@ class MainViewController: UIViewController {
 
   @IBOutlet var label: UILabel!
   @IBOutlet weak var label2: UILabel!
-  @IBOutlet weak var button: UIButton!
+  @IBOutlet weak var testButton: UIButton!
+  @IBOutlet weak var closeButton: UIButton!
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    self.view.bind(backgroundColor: presenter.color)
-    self.label.bind(text: presenter.age.map { "Age: \($0)" })
-    self.button.bind(attributedTitle: presenter.title, for: .normal)
+    view.bind(backgroundColor: presenter.color)
+    label.bind(text: presenter.age.map { "Age: \($0)" })
+    closeButton.bind(attributedTitle: presenter.title, for: .normal)
     presenter.alert.subscribe(alertMessage).disposed(by: disposeBag)
+    testButton.on(touchUpInside: presenter.changeColor)
 
     let x = presenter.color.map { $0.cgColor.components![0] }
     let y = presenter.age.map { CGFloat($0) }

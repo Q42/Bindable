@@ -9,8 +9,8 @@
 import Foundation
 
 
-var associatedObjectHandle: UInt8 = 0
-let associationPolicy = objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC
+private var associatedObjectHandle: UInt8 = 0
+private let associationPolicy = objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC
 
 extension NSObject {
 
