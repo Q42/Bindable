@@ -17,11 +17,11 @@ Pod::Spec.new do |s|
   s.default_subspec = "Core"
 
   s.subspec "Core" do |ss|
-    ss.source_files  = ["Sources/Bindable.swift", "Sources/DisposeBag.swift", "Sources/Event.swift", "Sources/Subscription.swift"]
+    ss.source_files  = ["Sources/Core"]
   end
 
   s.subspec "UIKit" do |ss|
-    ss.source_files = ["Sources/Bindable+UIKit.swift", "Sources/Bindable+NSObject.swift", "Sources/Event+UIControl.swift", "Sources/Event+UIKit.swift"]
+    ss.source_files = ["Sources/UIKit"]
     ss.dependency "Bindable/Core"
   end
 end
