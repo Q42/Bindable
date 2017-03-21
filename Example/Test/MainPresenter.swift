@@ -18,7 +18,7 @@ class MainPresenter {
   var age: Variable<Int> { return ageSource.variable }
   var color: Variable<UIColor> { return colorSource.variable }
   var title: Variable<NSAttributedString> { return titleSource.variable }
-  var alert: Event<String> { return alertSource.event }
+  var messages: Event<String> { return alertSource.event }
 
   var tick = false
 

@@ -11,11 +11,9 @@ import UIKit
 import Bindable
 
 
-class MainViewController: UIViewController {
+class MainViewController: BindableViewController {
 
-  var disposeBag = DisposeBag()
   let presenter = MainPresenter()
-  var sub: Subscription?
 
   @IBOutlet var label: UILabel!
   @IBOutlet weak var label2: UILabel!
@@ -39,7 +37,7 @@ class MainViewController: UIViewController {
     label.bind(text: presenter.age.map { "Age: \($0)" })
     closeButton.bind(attributedTitle: presenter.title, for: .normal)
 
-    sub = presenter.alert.subscribe(alertMessage)
+    subscribe(presenter.messages, handler: self.alertMessage)
 
     testButton.on(touchUpInside: presenter.changeColor)
 
@@ -50,13 +48,6 @@ class MainViewController: UIViewController {
     z.subscribe { value in
       self.label2.text = "-\(value)-"
     }.disposed(by: disposeBag)
-  }
-
-  override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(animated)
-
-    disposeBag = DisposeBag()
-    sub?.unsubscribe()
   }
 
   func alertMessage(_ message: String) {
