@@ -16,11 +16,21 @@ extension UIControl {
     return source.event
   }
 
-  public func on(touchUpInside handler: @escaping () -> Void) {
-    _ = event(for: .touchUpInside).subscribe { _ in handler() }
+  @discardableResult
+  public func on(touchUpInside handler: @escaping () -> Void) -> Self {
+    event(for: .touchUpInside)
+      .subscribe { _ in handler() }
+      .disposed(by: eventTargets.disposeBag)
+
+    return self
   }
 
-  public func on(valueChanged handler: @escaping () -> Void) {
-    _ = event(for: .valueChanged).subscribe { _ in handler() }
+  @discardableResult
+  public func on(valueChanged handler: @escaping () -> Void) -> Self {
+    event(for: .valueChanged)
+      .subscribe { _ in handler() }
+      .disposed(by: eventTargets.disposeBag)
+
+    return self
   }
 }

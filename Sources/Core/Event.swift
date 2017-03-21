@@ -60,8 +60,10 @@ public class EventSource<Value>: SubscriptionMaintainer {
 
   public func emit(_ value: Value) {
     for h in handlers {
+      guard let handler = h.handler else { continue }
+
       queue.async {
-        h.handler(value)
+        handler(value)
       }
     }
   }

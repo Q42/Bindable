@@ -34,6 +34,7 @@ extension UIControl {
 
 class EventTargets : NSObject {
 
+  internal let disposeBag = DisposeBag()
   private var sources: [UInt: UIControlEventSource] = [:]
 
   func eventSource(for controlEvents: UIControlEvents) -> UIControlEventSource {

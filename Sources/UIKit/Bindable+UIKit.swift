@@ -23,8 +23,7 @@ extension Keys {
 extension UIView {
 
   public func bind(backgroundColor bindable: Bindable<UIColor?>) {
-    self.backgroundColor  = bindable.value
-    bindable.subscribe { [weak self] value in
+    bindableProperties.set(key: Keys.backgroundColor, bindable: bindable) { [weak self] value in
       self?.backgroundColor = value
     }
   }
@@ -36,8 +35,8 @@ extension UIView {
 
 extension UILabel {
   public func bind(text bindable: Bindable<String?>?) {
-    bindableProperties.set(key: Keys.text, bindable: bindable) { value in
-      self.text = value
+    bindableProperties.set(key: Keys.text, bindable: bindable) { [weak self] value in
+      self?.text = value
     }
   }
 
@@ -48,8 +47,8 @@ extension UILabel {
 
 extension UIButton {
   public func bind(attributedTitle bindable: Bindable<NSAttributedString?>?, for state: UIControlState) {
-    bindableProperties.set(key: Keys.attributedTitleColor, bindable: bindable) { value in
-      self.setAttributedTitle(value, for: state)
+    bindableProperties.set(key: Keys.attributedTitleColor, bindable: bindable) { [weak self] value in
+      self?.setAttributedTitle(value, for: state)
     }
   }
 

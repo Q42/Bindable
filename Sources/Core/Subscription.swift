@@ -18,7 +18,7 @@ internal protocol SubscriptionMaintainer : class {
 
 class Handler<Value> : Subscription {
   weak var source: SubscriptionMaintainer?
-  let handler: (Value) -> Void
+  private(set) var handler: ((Value) -> Void)?
 
   init(source: SubscriptionMaintainer, handler: @escaping (Value) -> Void) {
     self.source = source
@@ -27,5 +27,6 @@ class Handler<Value> : Subscription {
 
   func unsubscribe() {
     source?.unsubscribe(self)
+    handler = nil
   }
 }

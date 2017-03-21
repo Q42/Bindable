@@ -15,11 +15,22 @@ class MainViewController: UIViewController {
 
   var disposeBag = DisposeBag()
   let presenter = MainPresenter()
+  var sub: Subscription?
 
   @IBOutlet var label: UILabel!
   @IBOutlet weak var label2: UILabel!
   @IBOutlet weak var testButton: UIButton!
   @IBOutlet weak var closeButton: UIButton!
+
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+
+    print("MainViewController.init")
+  }
+
+  deinit {
+    print("MainViewController.deinit")
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -27,7 +38,9 @@ class MainViewController: UIViewController {
     view.bind(backgroundColor: presenter.color)
     label.bind(text: presenter.age.map { "Age: \($0)" })
     closeButton.bind(attributedTitle: presenter.title, for: .normal)
-    presenter.alert.subscribe(alertMessage).disposed(by: disposeBag)
+
+    sub = presenter.alert.subscribe(alertMessage)
+
     testButton.on(touchUpInside: presenter.changeColor)
 
     let x = presenter.color.map { $0.cgColor.components![0] }
@@ -43,6 +56,7 @@ class MainViewController: UIViewController {
     super.viewWillDisappear(animated)
 
     disposeBag = DisposeBag()
+    sub?.unsubscribe()
   }
 
   func alertMessage(_ message: String) {

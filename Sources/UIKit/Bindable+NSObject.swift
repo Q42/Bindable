@@ -34,6 +34,7 @@ extension NSObject {
 
 public class BindableProperties {
 
+  internal let disposeBag = DisposeBag()
   private var subscriptions: [String: Subscription] = [:]
 
   public func set<T>(key: Key<T>, bindable: Bindable<T>?, handler: @escaping (T) -> Void) {
@@ -43,16 +44,9 @@ public class BindableProperties {
     if let bindable = bindable {
       handler(bindable.value)
       let subscription = bindable.subscribe(handler)
+      disposeBag.insert(subscription)
       subscriptions[key.name] = subscription
     }
-  }
-
-  deinit {
-    for subscription in subscriptions.values {
-      subscription.unsubscribe()
-    }
-
-    subscriptions = [:]
   }
 }
 

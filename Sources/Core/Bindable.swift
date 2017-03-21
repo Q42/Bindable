@@ -61,9 +61,14 @@ public class BindableSource<Value> : SubscriptionMaintainer {
 
   public var value: Value {
     didSet {
+      // Copy for async dispatch
+      let val = value
+
       for h in handlers {
+        guard let handler = h.handler else { continue }
+
         queue.async {
-          h.handler(self.value)
+          handler(val)
         }
       }
     }
