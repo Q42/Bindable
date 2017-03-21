@@ -22,43 +22,43 @@ extension Keys {
 
 extension UIView {
 
-  public func bind(backgroundColor bindable: Bindable<UIColor?>) {
-    bindableProperties.set(key: Keys.backgroundColor, bindable: bindable) { [weak self] value in
+  public func bind(backgroundColor variable: Variable<UIColor?>) {
+    bindableProperties.set(key: Keys.backgroundColor, variable: variable) { [weak self] value in
       self?.backgroundColor = value
     }
   }
 
-  public func bind(backgroundColor bindable: Bindable<UIColor>) {
-    bind(backgroundColor: bindable.asOptional)
+  public func bind(backgroundColor variable: Variable<UIColor>) {
+    bind(backgroundColor: variable.asOptional)
   }
 }
 
 extension UILabel {
-  public func bind(text bindable: Bindable<String?>?) {
-    bindableProperties.set(key: Keys.text, bindable: bindable) { [weak self] value in
+  public func bind(text variable: Variable<String?>?) {
+    bindableProperties.set(key: Keys.text, variable: variable) { [weak self] value in
       self?.text = value
     }
   }
 
-  public func bind(text bindable: Bindable<String>) {
-    bind(text: bindable.asOptional)
+  public func bind(text variable: Variable<String>) {
+    bind(text: variable.asOptional)
   }
 }
 
 extension UIButton {
-  public func bind(attributedTitle bindable: Bindable<NSAttributedString?>?, for state: UIControlState) {
-    bindableProperties.set(key: Keys.attributedTitleColor, bindable: bindable) { [weak self] value in
+  public func bind(attributedTitle bindable: Variable<NSAttributedString?>?, for state: UIControlState) {
+    bindableProperties.set(key: Keys.attributedTitleColor, variable: bindable) { [weak self] value in
       self?.setAttributedTitle(value, for: state)
     }
   }
 
-  public func bind(attributedTitle bindable: Bindable<NSAttributedString>, for state: UIControlState) {
-    bind(attributedTitle: bindable.asOptional, for: state)
+  public func bind(attributedTitle variable: Variable<NSAttributedString>, for state: UIControlState) {
+    bind(attributedTitle: variable.asOptional, for: state)
   }
 }
 
-extension Bindable {
-  public var asOptional: Bindable<Value?> {
+extension Variable {
+  public var asOptional: Variable<Value?> {
     return map { $0 }
   }
 }

@@ -37,13 +37,13 @@ public class BindableProperties {
   internal let disposeBag = DisposeBag()
   private var subscriptions: [String: Subscription] = [:]
 
-  public func set<T>(key: Key<T>, bindable: Bindable<T>?, handler: @escaping (T) -> Void) {
+  public func set<T>(key: Key<T>, variable: Variable<T>?, handler: @escaping (T) -> Void) {
     subscriptions[key.name]?.unsubscribe()
     subscriptions[key.name] = nil
 
-    if let bindable = bindable {
-      handler(bindable.value)
-      let subscription = bindable.subscribe(handler)
+    if let variable = variable {
+      handler(variable.value)
+      let subscription = variable.subscribe(handler)
       disposeBag.insert(subscription)
       subscriptions[key.name] = subscription
     }

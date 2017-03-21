@@ -1,5 +1,5 @@
 //
-//  Bindable.swift
+//  Variable.swift
 //  Bindable
 //
 //  Created by Tom Lokhorst on 2016-12-08.
@@ -9,10 +9,10 @@
 import Foundation
 
 
-public struct Bindable<Value> {
-  private let source: BindableSource<Value>
+public struct Variable<Value> {
+  private let source: VariableSource<Value>
 
-  internal init(source: BindableSource<Value>) {
+  internal init(source: VariableSource<Value>) {
     self.source = source
   }
 
@@ -28,20 +28,20 @@ public struct Bindable<Value> {
     return h
   }
 
-  public func map<NewValue>(_ transform: @escaping (Value) -> NewValue) -> Bindable<NewValue> {
-    let resultSource = BindableSource<NewValue>(value: transform(source.value), queue: source.queue)
+  public func map<NewValue>(_ transform: @escaping (Value) -> NewValue) -> Variable<NewValue> {
+    let resultSource = VariableSource<NewValue>(value: transform(source.value), queue: source.queue)
 
-    let subscription = source.bindable.subscribe { value in
+    let subscription = source.variable.subscribe { value in
       resultSource.value = transform(value)
     }
 
     resultSource.emptySubscriptionsHandler = subscription.unsubscribe
 
-    return resultSource.bindable
+    return resultSource.variable
   }
 
-  public func dispatch(on dispatchQueue: DispatchQueue) -> Bindable<Value> {
-    let resultSource = BindableSource(value: source.value, queue: dispatchQueue)
+  public func dispatch(on dispatchQueue: DispatchQueue) -> Variable<Value> {
+    let resultSource = VariableSource(value: source.value, queue: dispatchQueue)
 
     let subscription = self.subscribe { value in
       resultSource.value = value
@@ -49,11 +49,11 @@ public struct Bindable<Value> {
 
     resultSource.emptySubscriptionsHandler = subscription.unsubscribe
 
-    return resultSource.bindable
+    return resultSource.variable
   }
 }
 
-public class BindableSource<Value> : SubscriptionMaintainer {
+public class VariableSource<Value> : SubscriptionMaintainer {
   fileprivate var handlers: [Handler<Value>] = []
 
   let queue: DispatchQueue
@@ -79,8 +79,8 @@ public class BindableSource<Value> : SubscriptionMaintainer {
     self.queue = queue
   }
 
-  public var bindable: Bindable<Value> {
-    return Bindable(source: self)
+  public var variable: Variable<Value> {
+    return Variable(source: self)
   }
 
   func unsubscribe(_ subscription: Subscription) {
@@ -97,8 +97,8 @@ public class BindableSource<Value> : SubscriptionMaintainer {
   }
 }
 
-public func &&<A, B>(lhs: Bindable<A>, rhs: Bindable<B>) -> Bindable<(A, B)> {
-  let resultSource = BindableSource<(A, B)>(value: (lhs.value, rhs.value))
+public func &&<A, B>(lhs: Variable<A>, rhs: Variable<B>) -> Variable<(A, B)> {
+  let resultSource = VariableSource<(A, B)>(value: (lhs.value, rhs.value))
 
   let lhsSubscription = lhs.subscribe { _ in
     resultSource.value = (lhs.value, rhs.value)
@@ -112,11 +112,11 @@ public func &&<A, B>(lhs: Bindable<A>, rhs: Bindable<B>) -> Bindable<(A, B)> {
     rhsSubscription.unsubscribe()
   }
 
-  return resultSource.bindable
+  return resultSource.variable
 }
 
-public func ||<A>(lhs: Bindable<A>, rhs: Bindable<A>) -> Bindable<(A)> {
-  let resultSource = BindableSource<A>(value: lhs.value)
+public func ||<A>(lhs: Variable<A>, rhs: Variable<A>) -> Variable<A> {
+  let resultSource = VariableSource<A>(value: lhs.value)
 
   let lhsSubscription = lhs.subscribe { value in
     resultSource.value = value
@@ -130,5 +130,5 @@ public func ||<A>(lhs: Bindable<A>, rhs: Bindable<A>) -> Bindable<(A)> {
     rhsSubscription.unsubscribe()
   }
 
-  return resultSource.bindable
+  return resultSource.variable
 }

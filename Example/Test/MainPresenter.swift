@@ -10,14 +10,14 @@ import UIKit
 import Bindable
 
 class MainPresenter {
-  private let ageSource = BindableSource<Int>(value: 0)
-  private let colorSource = BindableSource<UIColor>(value: UIColor.yellow)
-  private let titleSource = BindableSource<NSAttributedString>(value: NSAttributedString())
+  private let ageSource = VariableSource<Int>(value: 0)
+  private let colorSource = VariableSource<UIColor>(value: UIColor.yellow)
+  private let titleSource = VariableSource<NSAttributedString>(value: NSAttributedString())
   private let alertSource = EventSource<String>()
 
-  var age: Bindable<Int> { return ageSource.bindable }
-  var color: Bindable<UIColor> { return colorSource.bindable }
-  var title: Bindable<NSAttributedString> { return titleSource.bindable }
+  var age: Variable<Int> { return ageSource.variable }
+  var color: Variable<UIColor> { return colorSource.variable }
+  var title: Variable<NSAttributedString> { return titleSource.variable }
   var alert: Event<String> { return alertSource.event }
 
   var tick = false
