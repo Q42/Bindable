@@ -4,9 +4,10 @@ Example:
 
 ```swift
 class MainPresenter {
-  private let ageSource = BindableSource<Int>(value: 0)
+  private let ageSource = VariableSource<Int>(value: 0)
 
-  var age: Bindable<Int> { return ageSource.bindable }
+  var age: Variable<Int> { return ageSource.variable }
+  let title: Variable<String> { return ageSource.variable }
 
 
   func up() {
@@ -21,5 +22,8 @@ class MainPresenter {
 
 let p = MainPresenter()
 p.age.subscribe { print($0) }
+
+let title = age.map { "Age: \($0)" }
+titleLabel.bind(text: title)
 ```
 
