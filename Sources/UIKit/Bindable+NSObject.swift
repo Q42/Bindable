@@ -30,11 +30,17 @@ extension NSObject {
 
     return properites
   }
+
+  public var disposeBag: DisposeBag {
+    get { return bindableProperties.externalDisposeBag }
+    set { bindableProperties.externalDisposeBag = newValue }
+  }
 }
 
 public class BindableProperties {
 
-  internal let disposeBag = DisposeBag()
+  internal var externalDisposeBag = DisposeBag()
+  internal let interalDisposeBag = DisposeBag()
   private var subscriptions: [String: Subscription] = [:]
 
   public func set<T>(key: Key<T>, variable: Variable<T>?, handler: @escaping (T) -> Void) {
@@ -44,7 +50,7 @@ public class BindableProperties {
     if let variable = variable {
       handler(variable.value)
       let subscription = variable.subscribe(handler)
-      disposeBag.insert(subscription)
+      interalDisposeBag.insert(subscription)
       subscriptions[key.name] = subscription
     }
   }

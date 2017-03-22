@@ -20,7 +20,7 @@ extension UIControl {
   public func on(touchUpInside handler: @escaping () -> Void) -> Self {
     event(for: .touchUpInside)
       .subscribe { _ in handler() }
-      .disposed(by: eventTargets.disposeBag)
+      .disposed(by: eventTargets.internalDisposeBag)
 
     return self
   }
@@ -29,7 +29,7 @@ extension UIControl {
   public func on(valueChanged handler: @escaping () -> Void) -> Self {
     event(for: .valueChanged)
       .subscribe { _ in handler() }
-      .disposed(by: eventTargets.disposeBag)
+      .disposed(by: eventTargets.internalDisposeBag)
 
     return self
   }
