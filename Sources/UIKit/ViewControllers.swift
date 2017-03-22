@@ -56,6 +56,22 @@ open class BindableNavigationController : UINavigationController {
   }
 }
 
+open class BindablePageViewController : UIPageViewController {
+  override open func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+
+    disposeBag = DisposeBag()
+  }
+
+  public func subscribe<T>(_ event: Event<T>, handler: @escaping (T) -> Void) {
+    event.subscribe(handler).disposed(by: disposeBag)
+  }
+
+  public func subscribe<T>(_ variable: Variable<T>, handler: @escaping (T) -> Void) {
+    variable.subscribe(handler).disposed(by: disposeBag)
+  }
+}
+
 open class BindableTableViewController : UITableViewController {
   override open func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
