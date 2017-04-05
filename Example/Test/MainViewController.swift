@@ -37,7 +37,7 @@ class MainViewController: BindableViewController {
     label.bind(text: presenter.age.map { "Age: \($0)" })
     closeButton.bind(attributedTitle: presenter.title, for: .normal)
 
-    subscribe(presenter.messages, handler: self.alertMessage)
+    on(presenter.messages) { [weak self] in self?.alertMessage($0) }
 
     testButton.on(touchUpInside: presenter.changeColor)
 
@@ -45,8 +45,8 @@ class MainViewController: BindableViewController {
     let y = presenter.age.map { CGFloat($0) }
     let z = (x || y)
 
-    z.subscribe { value in
-      self.label2.text = "-\(value)-"
+    z.subscribe { [weak self] value in
+      self?.label2.text = "-\(value)-"
     }.disposed(by: disposeBag)
   }
 
