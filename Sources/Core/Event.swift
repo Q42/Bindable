@@ -51,18 +51,29 @@ public struct Event<Value> {
 
 public class EventSource<Value>: SubscriptionMaintainer {
   fileprivate var handlers: [Handler<Value>] = []
+  let dispatchKey = DispatchSpecificKey<Void>()
+
   let queue: DispatchQueue
   var emptySubscriptionsHandler: (() -> Void)?
 
   public init(queue: DispatchQueue = DispatchQueue.main) {
     self.queue = queue
+
+    queue.setSpecific(key: dispatchKey, value: ())
   }
 
   public func emit(_ value: Value) {
+    let async = DispatchQueue.getSpecific(key: dispatchKey) == nil
+
     for h in handlers {
       guard let handler = h.handler else { continue }
 
-      queue.async {
+      if async {
+        queue.async {
+          handler(value)
+        }
+      }
+      else {
         handler(value)
       }
     }

@@ -55,19 +55,26 @@ public struct Variable<Value> {
 
 public class VariableSource<Value> : SubscriptionMaintainer {
   fileprivate var handlers: [Handler<Value>] = []
+  let dispatchKey = DispatchSpecificKey<Void>()
 
   let queue: DispatchQueue
   var emptySubscriptionsHandler: (() -> Void)?
 
   public var value: Value {
     didSet {
-      // Copy for async dispatch
+      // Copy value for async dispatch
       let val = value
+      let async = DispatchQueue.getSpecific(key: dispatchKey) == nil
 
       for h in handlers {
         guard let handler = h.handler else { continue }
 
-        queue.async {
+        if async {
+          queue.async {
+            handler(val)
+          }
+        }
+        else {
           handler(val)
         }
       }
@@ -77,6 +84,8 @@ public class VariableSource<Value> : SubscriptionMaintainer {
   public init(value: Value, queue: DispatchQueue = DispatchQueue.main) {
     self.value = value
     self.queue = queue
+
+    queue.setSpecific(key: dispatchKey, value: ())
   }
 
   public var variable: Variable<Value> {
