@@ -1,5 +1,5 @@
 //
-//  Bindable+UIKit.swift
+//  UIKit+Variable.swift
 //  Pods
 //
 //  Created by Tom Lokhorst on 2017-01-31.

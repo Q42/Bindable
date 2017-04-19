@@ -1,5 +1,5 @@
 //
-//  Event+UIKit.swift
+//  UIKit+Event.swift
 //  Pods
 //
 //  Created by Tom Lokhorst on 2017-03-16.

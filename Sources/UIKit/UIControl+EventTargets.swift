@@ -1,5 +1,5 @@
 //
-//  Event+UIControl.swift
+//  UIControl+EventTargets.swift
 //  Pods
 //
 //  Created by Tom Lokhorst on 2017-03-16.

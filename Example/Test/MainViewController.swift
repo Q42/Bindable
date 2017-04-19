@@ -11,7 +11,7 @@ import UIKit
 import Bindable
 
 
-class MainViewController: BindableViewController {
+class MainViewController: UIViewController {
 
   let presenter = MainPresenter()
 
