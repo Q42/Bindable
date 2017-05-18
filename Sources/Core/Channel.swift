@@ -1,6 +1,6 @@
 //
-//  Event.swift
-//  Pods
+//  Channel.swift
+//  Bindable
 //
 //  Created by Tom Lokhorst on 2017-03-16.
 //
@@ -8,15 +8,14 @@
 
 import Foundation
 
+public struct Channel<Event> {
+  private let source: ChannelSource<Event>
 
-public struct Event<Value> {
-  private let source: EventSource<Value>
-
-  internal init(source: EventSource<Value>) {
+  internal init(source: ChannelSource<Event>) {
     self.source = source
   }
 
-  public func subscribe(_ handler: @escaping (Value) -> Void) -> Subscription {
+  public func subscribe(_ handler: @escaping (Event) -> Void) -> Subscription {
 
     let h = Handler(source: source, handler: handler)
     source.handlers.append(h)
@@ -24,33 +23,33 @@ public struct Event<Value> {
     return h
   }
 
-  public func map<NewValue>(_ transform: @escaping (Value) -> NewValue) -> Event<NewValue> {
-    let resultSource = EventSource<NewValue>(queue: source.queue)
+  public func map<NewEvent>(_ transform: @escaping (Event) -> NewEvent) -> Channel<NewEvent> {
+    let resultSource = ChannelSource<NewEvent>(queue: source.queue)
 
-    let subscription = source.event.subscribe { value in
-      resultSource.emit(transform(value))
+    let subscription = source.channel.subscribe { event in
+      resultSource.post(transform(event))
     }
 
     resultSource.emptySubscriptionsHandler = subscription.unsubscribe
 
-    return resultSource.event
+    return resultSource.channel
   }
 
-  public func dispatch(on dispatchQueue: DispatchQueue) -> Event<Value> {
-    let resultSource = EventSource<Value>(queue: dispatchQueue)
+  public func dispatch(on dispatchQueue: DispatchQueue) -> Channel<Event> {
+    let resultSource = ChannelSource<Event>(queue: dispatchQueue)
 
     let subscription = self.subscribe { value in
-      resultSource.emit(value)
+      resultSource.post(value)
     }
 
     resultSource.emptySubscriptionsHandler = subscription.unsubscribe
 
-    return resultSource.event
+    return resultSource.channel
   }
 }
 
-public class EventSource<Value>: SubscriptionMaintainer {
-  fileprivate var handlers: [Handler<Value>] = []
+public class ChannelSource<Event>: SubscriptionMaintainer {
+  fileprivate var handlers: [Handler<Event>] = []
   let dispatchKey = DispatchSpecificKey<Void>()
 
   let queue: DispatchQueue
@@ -62,7 +61,7 @@ public class EventSource<Value>: SubscriptionMaintainer {
     queue.setSpecific(key: dispatchKey, value: ())
   }
 
-  public func emit(_ value: Value) {
+  public func post(_ event: Event) {
     let async = DispatchQueue.getSpecific(key: dispatchKey) == nil
 
     for h in handlers {
@@ -70,17 +69,17 @@ public class EventSource<Value>: SubscriptionMaintainer {
 
       if async {
         queue.async {
-          handler(value)
+          handler(event)
         }
       }
       else {
-        handler(value)
+        handler(event)
       }
     }
   }
 
-  public var event: Event<Value> {
-    return Event(source: self)
+  public var channel: Channel<Event> {
+    return Channel(source: self)
   }
 
   func unsubscribe(_ subscription: Subscription) {
@@ -97,14 +96,14 @@ public class EventSource<Value>: SubscriptionMaintainer {
   }
 }
 
-public func ||<A>(lhs: Event<A>, rhs: Event<A>) -> Event<A> {
-  let resultSource = EventSource<A>()
+public func ||<A>(lhs: Channel<A>, rhs: Channel<A>) -> Channel<A> {
+  let resultSource = ChannelSource<A>()
 
   let lhsSubscription = lhs.subscribe { value in
-    resultSource.emit(value)
+    resultSource.post(value)
   }
   let rhsSubscription = rhs.subscribe { value in
-    resultSource.emit(value)
+    resultSource.post(value)
   }
 
   resultSource.emptySubscriptionsHandler = {
@@ -112,5 +111,5 @@ public func ||<A>(lhs: Event<A>, rhs: Event<A>) -> Event<A> {
     rhsSubscription.unsubscribe()
   }
 
-  return resultSource.event
+  return resultSource.channel
 }

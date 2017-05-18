@@ -1,6 +1,6 @@
 //
 //  UIControl+EventTargets.swift
-//  Pods
+//  Bindable
 //
 //  Created by Tom Lokhorst on 2017-03-16.
 //
@@ -14,15 +14,15 @@ private let associationPolicy = objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_N
 
 extension UIControl {
 
-  var eventTargets: EventTargets {
+  var controlEventTargets: ControlEventTargets {
     let obj = objc_getAssociatedObject(self, &associatedObjectHandle)
-    let properites: EventTargets
+    let properites: ControlEventTargets
 
-    if let obj = obj as? EventTargets {
+    if let obj = obj as? ControlEventTargets {
       properites = obj
     }
     else {
-      let obj = EventTargets()
+      let obj = ControlEventTargets()
 
       objc_setAssociatedObject(self, &associatedObjectHandle, obj, associationPolicy)
       properites = obj
@@ -32,17 +32,17 @@ extension UIControl {
   }
 }
 
-class EventTargets : NSObject {
+class ControlEventTargets : NSObject {
 
   internal let internalDisposeBag = DisposeBag()
-  private var sources: [UInt: UIControlEventSource] = [:]
+  private var sources: [UInt: UIControlChannelSource] = [:]
 
-  func eventSource(for controlEvents: UIControlEvents) -> UIControlEventSource {
+  func streamSource(for controlEvents: UIControlEvents) -> UIControlChannelSource {
     if let source = sources[controlEvents.rawValue] {
       return source
     }
 
-    let source = UIControlEventSource()
+    let source = UIControlChannelSource()
     sources[controlEvents.rawValue] = source
 
     return source
@@ -50,13 +50,13 @@ class EventTargets : NSObject {
 
 }
 
-class UIControlEventSource : EventSource<UIControl> {
+class UIControlChannelSource : ChannelSource<UIControl> {
 
   init() {
     super.init()
   }
 
   @objc func action(_ sender: UIControl) {
-    emit(sender)
+    post(sender)
   }
 }

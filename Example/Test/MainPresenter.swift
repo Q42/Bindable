@@ -13,12 +13,12 @@ class MainPresenter {
   private let ageSource = VariableSource<Int>(value: 0)
   private let colorSource = VariableSource<UIColor>(value: UIColor.yellow)
   private let titleSource = VariableSource<NSAttributedString>(value: NSAttributedString())
-  private let alertSource = EventSource<String>()
+  private let alertSource = ChannelSource<String>()
 
-  var age: Variable<Int> { return ageSource.variable }
-  var color: Variable<UIColor> { return colorSource.variable }
-  var title: Variable<NSAttributedString> { return titleSource.variable }
-  var messages: Event<String> { return alertSource.event }
+  var age: Variable<Int>
+  var color: Variable<UIColor>
+  var title: Variable<NSAttributedString>
+  var messages: Channel<String>
 
   var tick = false
 
@@ -26,7 +26,7 @@ class MainPresenter {
     ageSource.value += 1
 
     if ageSource.value == 18 {
-      alertSource.emit("Congrats! You just became an adult!")
+      alertSource.post("Congrats! You just became an adult!")
     }
   }
 
@@ -36,6 +36,11 @@ class MainPresenter {
 
   init() {
     print("MainPresenter.init")
+
+    age = ageSource.variable
+    color = colorSource.variable
+    title = titleSource.variable
+    messages = alertSource.channel
 
     Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
       let x = self?.tick ?? false

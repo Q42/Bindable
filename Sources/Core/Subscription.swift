@@ -1,6 +1,6 @@
 //
 //  Subscription.swift
-//  Pods
+//  Bindable
 //
 //  Created by Tom Lokhorst on 2017-03-16.
 //

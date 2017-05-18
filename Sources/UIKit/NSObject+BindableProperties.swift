@@ -1,6 +1,6 @@
 //
 //  NSObject+bindableProperties.swift
-//  Pods
+//  Bindable
 //
 //  Created by Tom Lokhorst on 2017-02-20.
 //

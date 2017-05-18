@@ -1,6 +1,6 @@
 //
 //  NSObject+Variable.swift
-//  Pods
+//  Bindable
 //
 //  Created by Tom Lokhorst on 2017-04-19.
 //
