@@ -38,8 +38,8 @@ public struct Channel<Event> {
   public func dispatch(on dispatchQueue: DispatchQueue) -> Channel<Event> {
     let resultSource = ChannelSource<Event>(queue: dispatchQueue)
 
-    let subscription = self.subscribe { value in
-      resultSource.post(value)
+    let subscription = self.subscribe { event in
+      resultSource.post(event)
     }
 
     resultSource.emptySubscriptionsHandler = subscription.unsubscribe
@@ -99,11 +99,11 @@ public class ChannelSource<Event>: SubscriptionMaintainer {
 public func ||<A>(lhs: Channel<A>, rhs: Channel<A>) -> Channel<A> {
   let resultSource = ChannelSource<A>()
 
-  let lhsSubscription = lhs.subscribe { value in
-    resultSource.post(value)
+  let lhsSubscription = lhs.subscribe { event in
+    resultSource.post(event)
   }
-  let rhsSubscription = rhs.subscribe { value in
-    resultSource.post(value)
+  let rhsSubscription = rhs.subscribe { event in
+    resultSource.post(event)
   }
 
   resultSource.emptySubscriptionsHandler = {

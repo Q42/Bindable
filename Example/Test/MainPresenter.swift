@@ -22,18 +22,6 @@ class MainPresenter {
 
   var tick = false
 
-  func up() {
-    ageSource.value += 1
-
-    if ageSource.value == 18 {
-      alertSource.post("Congrats! You just became an adult!")
-    }
-  }
-
-  func down() {
-    ageSource.value -= 1
-  }
-
   init() {
     print("MainPresenter.init")
 
@@ -54,6 +42,18 @@ class MainPresenter {
       let attrs: [String: Any] = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 15)]
       self?.titleSource.value = NSAttributedString(string: "Close", attributes: attrs)
     }
+  }
+
+  func up() {
+    ageSource.value += 1
+
+    if ageSource.value == 18 {
+      alertSource.post("Congrats! You just became an adult!")
+    }
+  }
+
+  func down() {
+    ageSource.value -= 1
   }
 
   func changeColor() {

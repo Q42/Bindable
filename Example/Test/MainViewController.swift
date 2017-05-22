@@ -45,8 +45,8 @@ class MainViewController: UIViewController {
     let y = presenter.age.map { CGFloat($0) }
     let z = (x || y)
 
-    z.subscribe { [weak self] value in
-      self?.label2.text = "-\(value)-"
+    z.subscribe { [weak self] event in
+      self?.label2.text = "-\(event.value)-"
     }.disposed(by: disposeBag)
   }
 
