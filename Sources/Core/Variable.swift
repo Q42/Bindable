@@ -8,6 +8,17 @@
 
 import Foundation
 
+public struct VariableEvent<Value> {
+  public let oldValue: Value
+  public let value: Value
+  public let animated: Bool
+
+  public init(oldValue: Value, value: Value, animated: Bool) {
+    self.oldValue = oldValue
+    self.value = value
+    self.animated = animated
+  }
+}
 
 public struct Variable<Value> {
   private let source: VariableSource<Value>
@@ -20,7 +31,7 @@ public struct Variable<Value> {
     return source.value
   }
 
-  public func subscribe(_ handler: @escaping (Value) -> Void) -> Subscription {
+  public func subscribe(_ handler: @escaping (VariableEvent<Value>) -> Void) -> Subscription {
 
     let h = Handler(source: source, handler: handler)
     source.handlers.append(h)
@@ -31,8 +42,8 @@ public struct Variable<Value> {
   public func map<NewValue>(_ transform: @escaping (Value) -> NewValue) -> Variable<NewValue> {
     let resultSource = VariableSource<NewValue>(value: transform(source.value), queue: source.queue)
 
-    let subscription = source.variable.subscribe { value in
-      resultSource.value = transform(value)
+    let subscription = source.variable.subscribe { event in
+      resultSource.setValue(transform(event.value), animated: event.animated)
     }
 
     resultSource.emptySubscriptionsHandler = subscription.unsubscribe
@@ -43,8 +54,8 @@ public struct Variable<Value> {
   public func dispatch(on dispatchQueue: DispatchQueue) -> Variable<Value> {
     let resultSource = VariableSource(value: source.value, queue: dispatchQueue)
 
-    let subscription = self.subscribe { value in
-      resultSource.value = value
+    let subscription = self.subscribe { event in
+      resultSource.setValue(event.value, animated: event.animated)
     }
 
     resultSource.emptySubscriptionsHandler = subscription.unsubscribe
@@ -54,42 +65,49 @@ public struct Variable<Value> {
 }
 
 public class VariableSource<Value> : SubscriptionMaintainer {
-  fileprivate var handlers: [Handler<Value>] = []
+  fileprivate var handlers: [Handler<VariableEvent<Value>>] = []
   let dispatchKey = DispatchSpecificKey<Void>()
 
   let queue: DispatchQueue
   var emptySubscriptionsHandler: (() -> Void)?
 
-  public var value: Value {
-    didSet {
-      // Copy value for async dispatch
-      let val = value
-      let async = DispatchQueue.getSpecific(key: dispatchKey) == nil
-
-      for h in handlers {
-        guard let handler = h.handler else { continue }
-
-        if async {
-          queue.async {
-            handler(val)
-          }
-        }
-        else {
-          handler(val)
-        }
-      }
-    }
-  }
+  private var _value: Value
 
   public init(value: Value, queue: DispatchQueue = DispatchQueue.main) {
-    self.value = value
+    self._value = value
     self.queue = queue
 
     queue.setSpecific(key: dispatchKey, value: ())
   }
 
+  public var value: Value {
+    get { return _value }
+    set { setValue(newValue, animated: true) }
+  }
+
   public var variable: Variable<Value> {
     return Variable(source: self)
+  }
+
+  public func setValue(_ value: Value, animated: Bool) {
+    let oldValue = _value
+    _value = value
+
+    let event = VariableEvent(oldValue: oldValue, value: value, animated: animated)
+    let async = DispatchQueue.getSpecific(key: dispatchKey) == nil
+
+    for h in handlers {
+      guard let handler = h.handler else { continue }
+
+      if async {
+        queue.async {
+          handler(event)
+        }
+      }
+      else {
+        handler(event)
+      }
+    }
   }
 
   func unsubscribe(_ subscription: Subscription) {
@@ -109,11 +127,11 @@ public class VariableSource<Value> : SubscriptionMaintainer {
 public func &&<A, B>(lhs: Variable<A>, rhs: Variable<B>) -> Variable<(A, B)> {
   let resultSource = VariableSource<(A, B)>(value: (lhs.value, rhs.value))
 
-  let lhsSubscription = lhs.subscribe { _ in
-    resultSource.value = (lhs.value, rhs.value)
+  let lhsSubscription = lhs.subscribe { event in
+    resultSource.setValue((lhs.value, rhs.value), animated: event.animated)
   }
-  let rhsSubscription = rhs.subscribe { _ in
-    resultSource.value = (lhs.value, rhs.value)
+  let rhsSubscription = rhs.subscribe { event in
+    resultSource.setValue((lhs.value, rhs.value), animated: event.animated)
   }
 
   resultSource.emptySubscriptionsHandler = {
@@ -127,11 +145,11 @@ public func &&<A, B>(lhs: Variable<A>, rhs: Variable<B>) -> Variable<(A, B)> {
 public func ||<A>(lhs: Variable<A>, rhs: Variable<A>) -> Variable<A> {
   let resultSource = VariableSource<A>(value: lhs.value)
 
-  let lhsSubscription = lhs.subscribe { value in
-    resultSource.value = value
+  let lhsSubscription = lhs.subscribe { event in
+    resultSource.setValue(event.value, animated: event.animated)
   }
-  let rhsSubscription = rhs.subscribe { value in
-    resultSource.value = value
+  let rhsSubscription = rhs.subscribe { event in
+    resultSource.setValue(event.value, animated: event.animated)
   }
 
   resultSource.emptySubscriptionsHandler = {
