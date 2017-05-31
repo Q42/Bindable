@@ -9,12 +9,12 @@
 import Foundation
 
 public struct VariableEvent<Value> {
-  public let previous: Value
+  public let oldValue: Value
   public let value: Value
   public let animated: Bool
 
-  public init(previous: Value, value: Value, animated: Bool) {
-    self.previous = previous
+  public init(oldValue: Value, value: Value, animated: Bool) {
+    self.oldValue = oldValue
     self.value = value
     self.animated = animated
   }
@@ -90,10 +90,10 @@ public class VariableSource<Value> : SubscriptionMaintainer {
   }
 
   public func setValue(_ value: Value, animated: Bool) {
-    let previous = _value
+    let oldValue = _value
     _value = value
 
-    let event = VariableEvent(previous: previous, value: value, animated: animated)
+    let event = VariableEvent(oldValue: oldValue, value: value, animated: animated)
     let async = DispatchQueue.getSpecific(key: dispatchKey) == nil
 
     for h in handlers {
