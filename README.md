@@ -11,8 +11,13 @@ API is not yet stable, use at your own risk.
 class MainPresenter {
   private let ageSource = VariableSource<Int>(value: 0)
 
-  var age: Variable<Int> { return ageSource.variable }
-  let title: Variable<String> { return ageSource.variable }
+  let age: Variable<Int>
+  let title: Variable<String>
+  
+  init() {
+    age = ageSource.variable
+    title = age.map { "Age: \($0)" }
+  }
 
 
   func up() {
@@ -30,8 +35,7 @@ p.age.subscribe { event in
   print("New age: \(event.value)")
 }
 
-let title = age.map { "Age: \($0)" }
-titleLabel.bind(text: title)
+titleLabel.bind(text: p.title)
 ```
 
 Releases
