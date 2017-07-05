@@ -82,7 +82,7 @@ public class VariableSource<Value> : SubscriptionMaintainer {
 
   public var value: Value {
     get { return _value }
-    set { setValue(newValue, animated: true) }
+    set { setValue(newValue, animated: false) }
   }
 
   public var variable: Variable<Value> {
