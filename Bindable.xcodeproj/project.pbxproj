@@ -13,6 +13,8 @@
 		E275F25D1F1C8FDC005C1A0C /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F2591F1C8FDC005C1A0C /* Variable.swift */; };
 		E275F2651F1C8FEE005C1A0C /* VariableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F2641F1C8FEE005C1A0C /* VariableTests.swift */; };
 		E275F2671F1C8FEE005C1A0C /* Bindable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E275F24A1F1C8CA0005C1A0C /* Bindable.framework */; };
+		E275F26E1F1C9446005C1A0C /* VariableSubscribeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F26D1F1C9446005C1A0C /* VariableSubscribeTests.swift */; };
+		E2D292401F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D2923F1F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,8 @@
 		E275F2621F1C8FEE005C1A0C /* BindableTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BindableTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E275F2641F1C8FEE005C1A0C /* VariableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableTests.swift; sourceTree = "<group>"; };
 		E275F2661F1C8FEE005C1A0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E275F26D1F1C9446005C1A0C /* VariableSubscribeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableSubscribeTests.swift; sourceTree = "<group>"; };
+		E2D2923F1F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableUnsubscribeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,8 +100,10 @@
 		E275F2631F1C8FEE005C1A0C /* BindableTests */ = {
 			isa = PBXGroup;
 			children = (
-				E275F2641F1C8FEE005C1A0C /* VariableTests.swift */,
 				E275F2661F1C8FEE005C1A0C /* Info.plist */,
+				E275F26D1F1C9446005C1A0C /* VariableSubscribeTests.swift */,
+				E275F2641F1C8FEE005C1A0C /* VariableTests.swift */,
+				E2D2923F1F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift */,
 			);
 			path = BindableTests;
 			sourceTree = "<group>";
@@ -224,6 +230,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E275F26E1F1C9446005C1A0C /* VariableSubscribeTests.swift in Sources */,
+				E2D292401F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift in Sources */,
 				E275F2651F1C8FEE005C1A0C /* VariableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -430,6 +438,7 @@
 				E275F26C1F1C8FEE005C1A0C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
