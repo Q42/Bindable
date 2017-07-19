@@ -1,5 +1,5 @@
 //
-//  VariableTests.swift
+//  VariableChangeTests.swift
 //  BindableTests
 //
 //  Created by Tom Lokhorst on 2017-07-17.
@@ -9,7 +9,7 @@
 import XCTest
 import Bindable
 
-class VariableTests: XCTestCase {
+class VariableChangeTests: XCTestCase {
 
   func testChange() {
     let source = VariableSource(value: 1)
