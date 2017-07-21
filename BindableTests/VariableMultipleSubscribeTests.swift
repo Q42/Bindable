@@ -1,5 +1,5 @@
 //
-//  VariableMultipleSubscribe.swift
+//  VariableMultipleSubscribeTests.swift
 //  Bindable
 //
 //  Created by Tom Lokhorst on 2017-07-19.

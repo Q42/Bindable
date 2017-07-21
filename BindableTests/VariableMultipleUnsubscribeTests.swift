@@ -1,5 +1,5 @@
 //
-//  VariableMultipleUnsubscribe.swift
+//  VariableMultipleUnsubscribeTests.swift
 //  Bindable
 //
 //  Created by Tom Lokhorst on 2017-07-19.
