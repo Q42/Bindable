@@ -16,6 +16,7 @@
 		E275F26E1F1C9446005C1A0C /* VariableSubscribeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F26D1F1C9446005C1A0C /* VariableSubscribeTests.swift */; };
 		E2D292401F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D2923F1F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift */; };
 		E2D292441F1F302800D4CBB5 /* VariableMultipleSubscribe.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D292431F1F302800D4CBB5 /* VariableMultipleSubscribe.swift */; };
+		E2D292461F1F39F600D4CBB5 /* VariableMultipleUnsubscribe.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D292451F1F39F600D4CBB5 /* VariableMultipleUnsubscribe.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		E275F26D1F1C9446005C1A0C /* VariableSubscribeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableSubscribeTests.swift; sourceTree = "<group>"; };
 		E2D2923F1F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableUnsubscribeTests.swift; sourceTree = "<group>"; };
 		E2D292431F1F302800D4CBB5 /* VariableMultipleSubscribe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableMultipleSubscribe.swift; sourceTree = "<group>"; };
+		E2D292451F1F39F600D4CBB5 /* VariableMultipleUnsubscribe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableMultipleUnsubscribe.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				E275F2661F1C8FEE005C1A0C /* Info.plist */,
 				E275F2641F1C8FEE005C1A0C /* VariableChangeTests.swift */,
 				E2D292431F1F302800D4CBB5 /* VariableMultipleSubscribe.swift */,
+				E2D292451F1F39F600D4CBB5 /* VariableMultipleUnsubscribe.swift */,
 				E275F26D1F1C9446005C1A0C /* VariableSubscribeTests.swift */,
 				E2D2923F1F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift */,
 			);
@@ -236,6 +239,7 @@
 				E275F26E1F1C9446005C1A0C /* VariableSubscribeTests.swift in Sources */,
 				E2D292401F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift in Sources */,
 				E2D292441F1F302800D4CBB5 /* VariableMultipleSubscribe.swift in Sources */,
+				E2D292461F1F39F600D4CBB5 /* VariableMultipleUnsubscribe.swift in Sources */,
 				E275F2651F1C8FEE005C1A0C /* VariableChangeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
