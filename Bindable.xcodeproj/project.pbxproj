@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E21D3C151F22318B003F2519 /* VariableHandlersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21D3C141F22318B003F2519 /* VariableHandlersTests.swift */; };
 		E275F25A1F1C8FDC005C1A0C /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F2561F1C8FDC005C1A0C /* Channel.swift */; };
 		E275F25B1F1C8FDC005C1A0C /* DisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F2571F1C8FDC005C1A0C /* DisposeBag.swift */; };
 		E275F25C1F1C8FDC005C1A0C /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F2581F1C8FDC005C1A0C /* Subscription.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E21D3C141F22318B003F2519 /* VariableHandlersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableHandlersTests.swift; sourceTree = "<group>"; };
 		E275F24A1F1C8CA0005C1A0C /* Bindable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bindable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E275F2561F1C8FDC005C1A0C /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		E275F2571F1C8FDC005C1A0C /* DisposeBag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisposeBag.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 			children = (
 				E275F2661F1C8FEE005C1A0C /* Info.plist */,
 				E275F2641F1C8FEE005C1A0C /* VariableChangeTests.swift */,
+				E21D3C141F22318B003F2519 /* VariableHandlersTests.swift */,
 				E2D292431F1F302800D4CBB5 /* VariableMultipleSubscribeTests.swift */,
 				E2D292451F1F39F600D4CBB5 /* VariableMultipleUnsubscribeTests.swift */,
 				E275F26D1F1C9446005C1A0C /* VariableSubscribeTests.swift */,
@@ -236,6 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E21D3C151F22318B003F2519 /* VariableHandlersTests.swift in Sources */,
 				E275F26E1F1C9446005C1A0C /* VariableSubscribeTests.swift in Sources */,
 				E2D292401F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift in Sources */,
 				E2D292441F1F302800D4CBB5 /* VariableMultipleSubscribeTests.swift in Sources */,
