@@ -26,11 +26,9 @@ public struct Channel<Event> {
   public func map<NewEvent>(_ transform: @escaping (Event) -> NewEvent) -> Channel<NewEvent> {
     let resultSource = ChannelSource<NewEvent>(queue: source.queue)
 
-    let subscription = source.channel.subscribe { event in
+    _ = source.channel.subscribe { event in
       resultSource.post(transform(event))
     }
-
-    resultSource.emptySubscriptionsHandler = subscription.unsubscribe
 
     return resultSource.channel
   }
@@ -38,22 +36,19 @@ public struct Channel<Event> {
   public func dispatch(on dispatchQueue: DispatchQueue) -> Channel<Event> {
     let resultSource = ChannelSource<Event>(queue: dispatchQueue)
 
-    let subscription = self.subscribe { event in
+    _ = self.subscribe { event in
       resultSource.post(event)
     }
-
-    resultSource.emptySubscriptionsHandler = subscription.unsubscribe
 
     return resultSource.channel
   }
 }
 
 public class ChannelSource<Event>: SubscriptionMaintainer {
-  fileprivate var handlers: [Handler<Event>] = []
-  let dispatchKey = DispatchSpecificKey<Void>()
+  internal var handlers: [Handler<Event>] = []
+  internal let dispatchKey = DispatchSpecificKey<Void>()
 
-  let queue: DispatchQueue
-  var emptySubscriptionsHandler: (() -> Void)?
+  internal let queue: DispatchQueue
 
   public init(queue: DispatchQueue = DispatchQueue.main) {
     self.queue = queue
@@ -88,27 +83,18 @@ public class ChannelSource<Event>: SubscriptionMaintainer {
         handlers.remove(at: ix)
       }
     }
-
-    if handlers.isEmpty {
-      emptySubscriptionsHandler?()
-      emptySubscriptionsHandler = nil
-    }
   }
 }
 
 public func ||<A>(lhs: Channel<A>, rhs: Channel<A>) -> Channel<A> {
   let resultSource = ChannelSource<A>()
 
-  let lhsSubscription = lhs.subscribe { event in
-    resultSource.post(event)
-  }
-  let rhsSubscription = rhs.subscribe { event in
+  _ = lhs.subscribe { event in
     resultSource.post(event)
   }
 
-  resultSource.emptySubscriptionsHandler = {
-    lhsSubscription.unsubscribe()
-    rhsSubscription.unsubscribe()
+  _ = rhs.subscribe { event in
+    resultSource.post(event)
   }
 
   return resultSource.channel
