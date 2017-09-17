@@ -35,7 +35,7 @@ class MainViewController: UIViewController {
 
     view.bind(\.backgroundColor, to: presenter.color)
     label.bind(\.text, to: presenter.age.map { "Age: \($0)" })
-    closeButton.bindAttributedTitle(presenter.title, for: .normal)
+    closeButton.bindAttributedTitle(presenter.title.map { $0 }, for: .normal)
 
     on(presenter.messages) { [weak self] in self?.alertMessage($0) }
 
