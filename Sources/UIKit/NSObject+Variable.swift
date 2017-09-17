@@ -8,11 +8,18 @@
 
 import Foundation
 
-extension NSObject {
-  public func bind<T: Any>(_ keyPath: String, to variable: Variable<T>) {
-    self.setValue(variable.value, forKeyPath: keyPath)
-    variable.subscribe { [weak self] value in
-      self?.setValue(variable.value, forKeyPath: keyPath)
+extension NSObjectProtocol where Self : NSObject {
+  public func bind<T>(_ keyPath: ReferenceWritableKeyPath<Self, T>, to variable: Variable<T>) {
+    self[keyPath: keyPath] = variable.value
+    variable.subscribe { [weak self] event in
+      self?[keyPath: keyPath] = event.value
+    }.disposed(by: disposeBag)
+  }
+
+  public func bind<T>(_ keyPath: ReferenceWritableKeyPath<Self, T?>, to variable: Variable<T>) {
+    self[keyPath: keyPath] = variable.value
+    variable.subscribe { [weak self] event in
+      self?[keyPath: keyPath] = event.value
     }.disposed(by: disposeBag)
   }
 }
