@@ -13,22 +13,34 @@ private let associationPolicy = objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_N
 
 extension NSObject {
 
-  public var disposeBag: DisposeBag {
-    get {
-      let obj = objc_getAssociatedObject(self, &associatedObjectHandle)
+  internal var bindableProperties: BindableProperties {
+    let obj = objc_getAssociatedObject(self, &associatedObjectHandle)
 
-      if let obj = obj as? DisposeBag {
-        return obj
-      }
-
-      let disposeBag = DisposeBag()
-      objc_setAssociatedObject(self, &associatedObjectHandle, disposeBag, associationPolicy)
-
-      return disposeBag
+    if let obj = obj as? BindableProperties {
+      return obj
     }
-    set {
-      objc_setAssociatedObject(self, &associatedObjectHandle, newValue, associationPolicy)
-    }
+
+    let bindableProperties = BindableProperties()
+    objc_setAssociatedObject(self, &associatedObjectHandle, bindableProperties, associationPolicy)
+
+    return bindableProperties
   }
 
+  public var disposeBag: DisposeBag {
+    get { return bindableProperties.disposeBag }
+    set { bindableProperties.disposeBag = newValue }
+  }
+
+}
+
+internal class BindableProperties {
+
+  internal var subscriptions: [AnyKeyPath: Subscription] = [:]
+
+  internal var disposeBag = DisposeBag() {
+    didSet {
+      subscriptions.values.forEach { $0.unsubscribe() }
+      subscriptions = [:]
+    }
+  }
 }
