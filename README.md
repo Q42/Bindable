@@ -38,6 +38,16 @@ p.age.subscribe { event in
 titleLabel.bind(text: p.title)
 ```
 
+CocoaHeadsNL presentation
+-------------------------
+
+Tom Lokhorst presented at the September 2017 CocoaHeadsNL meetup.
+Comparing several methods for reactivally updating UI's, including Bindable. The description of Bindable starts at 27:33:
+
+<a href="https://vimeo.com/237530468#t=27m33s"><img src="https://user-images.githubusercontent.com/75655/31451656-f63bfb88-aeac-11e7-8d6c-d65216dd10a1.jpg" width="560"></a>
+
+[https://vimeo.com/237530468#t=27m33s](https://vimeo.com/237530468#t=27m33s)
+
 Releases
 --------
 
