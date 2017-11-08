@@ -45,6 +45,8 @@ public struct Channel<Event> {
 }
 
 public class ChannelSource<Event>: SubscriptionMaintainer {
+  private let lock = NSLock()
+
   internal var handlers: [Handler<Event>] = []
   internal let dispatchKey = DispatchSpecificKey<Void>()
 
@@ -57,6 +59,8 @@ public class ChannelSource<Event>: SubscriptionMaintainer {
   }
 
   public func post(_ event: Event) {
+    lock.lock(); defer { lock.unlock() }
+
     let async = DispatchQueue.getSpecific(key: dispatchKey) == nil
 
     for h in handlers {
@@ -78,6 +82,8 @@ public class ChannelSource<Event>: SubscriptionMaintainer {
   }
 
   func unsubscribe(_ subscription: Subscription) {
+    lock.lock(); defer { lock.unlock() }
+
     for (ix, handler) in handlers.enumerated() {
       if handler === subscription {
         handlers.remove(at: ix)

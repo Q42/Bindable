@@ -9,12 +9,16 @@
 import Foundation
 
 public class DisposeBag {
+  private let lock = NSLock()
+
   var subscriptions: [Subscription] = []
 
   public init() { 
   }
 
   public func insert(_ subscription: Subscription) {
+    lock.lock(); defer { lock.unlock() }
+
     subscriptions.append(subscription)
   }
 

@@ -61,6 +61,8 @@ public struct Variable<Value> {
 }
 
 public class VariableSource<Value> : SubscriptionMaintainer {
+  private let lock = NSLock()
+
   private var _value: Value
 
   internal var handlers: [Handler<VariableEvent<Value>>] = []
@@ -85,6 +87,8 @@ public class VariableSource<Value> : SubscriptionMaintainer {
   }
 
   public func setValue(_ value: Value, animated: Bool) {
+    lock.lock(); defer { lock.unlock() }
+
     let oldValue = _value
     _value = value
 
@@ -106,6 +110,8 @@ public class VariableSource<Value> : SubscriptionMaintainer {
   }
 
   func unsubscribe(_ subscription: Subscription) {
+    lock.lock(); defer { lock.unlock() }
+
     for (ix, handler) in handlers.enumerated() {
       if handler === subscription {
         handlers.remove(at: ix)
