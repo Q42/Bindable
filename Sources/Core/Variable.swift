@@ -34,7 +34,7 @@ public struct Variable<Value> {
   public func subscribe(_ handler: @escaping (VariableEvent<Value>) -> Void) -> Subscription {
 
     let h = Handler(source: source, handler: handler)
-    source.handlers.append(h)
+    source.addHandler(h)
 
     return h
   }
@@ -65,8 +65,8 @@ public class VariableSource<Value> : SubscriptionMaintainer {
 
   private var _value: Value
 
-  internal var handlers: [Handler<VariableEvent<Value>>] = []
-  internal let dispatchKey = DispatchSpecificKey<Void>()
+  private var handlers: [Handler<VariableEvent<Value>>] = []
+  private let dispatchKey = DispatchSpecificKey<Void>()
 
   internal let queue: DispatchQueue
 
@@ -107,6 +107,16 @@ public class VariableSource<Value> : SubscriptionMaintainer {
         handler(event)
       }
     }
+  }
+
+  internal var handlersCount: Int {
+    return handlers.count
+  }
+
+  func addHandler(_ handler: Handler<VariableEvent<Value>>) {
+    lock.lock(); defer { lock.unlock() }
+
+    handlers.append(handler)
   }
 
   func unsubscribe(_ subscription: Subscription) {
