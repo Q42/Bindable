@@ -18,7 +18,7 @@ public struct Channel<Event> {
   public func subscribe(_ handler: @escaping (Event) -> Void) -> Subscription {
 
     let h = Handler(source: source, handler: handler)
-    source.handlers.append(h)
+    source.addHandler(h)
 
     return h
   }
@@ -45,22 +45,24 @@ public struct Channel<Event> {
 }
 
 public class ChannelSource<Event>: SubscriptionMaintainer {
-  private let lock = NSLock()
-
-  internal var handlers: [Handler<Event>] = []
-  internal let dispatchKey = DispatchSpecificKey<Void>()
+  private let dispatchKey = DispatchSpecificKey<Void>()
+  private let internalState: ChannelSourceState
 
   internal let queue: DispatchQueue
 
   public init(queue: DispatchQueue = DispatchQueue.main) {
+    self.internalState = ChannelSourceState()
     self.queue = queue
 
     queue.setSpecific(key: dispatchKey, value: ())
   }
 
-  public func post(_ event: Event) {
-    lock.lock(); defer { lock.unlock() }
+  public var channel: Channel<Event> {
+    return Channel(source: self)
+  }
 
+  public func post(_ event: Event) {
+    let handlers = internalState.getHandlers()
     let async = DispatchQueue.getSpecific(key: dispatchKey) == nil
 
     for h in handlers {
@@ -77,18 +79,42 @@ public class ChannelSource<Event>: SubscriptionMaintainer {
     }
   }
 
-  public var channel: Channel<Event> {
-    return Channel(source: self)
+  internal func addHandler(_ handler: Handler<Event>) {
+    internalState.addHandler(handler)
   }
 
   func unsubscribe(_ subscription: Subscription) {
-    lock.lock(); defer { lock.unlock() }
+    internalState.removeSubscription(subscription)
+  }
+}
 
-    for (ix, handler) in handlers.enumerated() {
-      if handler === subscription {
-        handlers.remove(at: ix)
+extension ChannelSource {
+  fileprivate class ChannelSourceState {
+    private let lock = NSLock()
+    private var handlers: [Handler<Event>] = []
+
+    func addHandler(_ handler: Handler<Event>) {
+      lock.lock(); defer { lock.unlock() }
+
+      handlers.append(handler)
+    }
+
+    func getHandlers() -> [Handler<Event>] {
+      lock.lock(); defer { lock.unlock() }
+
+      return handlers
+    }
+
+    func removeSubscription(_ subscription: Subscription) {
+      lock.lock(); defer { lock.unlock() }
+
+      for (ix, handler) in handlers.enumerated() {
+        if handler === subscription {
+          handlers.remove(at: ix)
+        }
       }
     }
+
   }
 }
 
