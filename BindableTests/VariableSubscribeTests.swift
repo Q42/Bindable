@@ -142,4 +142,30 @@ class VariableSubscribeTests: XCTestCase {
     waitForExpectations(timeout: 0.1, handler: nil)
   }
 
+  func testAddHandler() {
+    let source = VariableSource(value: 1)
+    let variable = source.variable
+
+    XCTAssertEqual(variable.value, 1)
+
+    let ex = self.expectation(description: "Expectation didn't finish")
+    _ = variable.subscribe { event in
+
+      _ = variable.subscribe { event in
+
+        XCTAssertEqual(event.value, 3)
+
+        if event.value == 3 {
+          ex.fulfill()
+        }
+      }
+
+    }
+
+    source.value = 2
+    source.value = 3
+
+    waitForExpectations(timeout: 0.1, handler: nil)
+  }
+
 }

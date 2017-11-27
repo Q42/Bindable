@@ -34,7 +34,7 @@ public struct Variable<Value> {
   public func subscribe(_ handler: @escaping (VariableEvent<Value>) -> Void) -> Subscription {
 
     let h = Handler(source: source, handler: handler)
-    source.handlers.append(h)
+    source.addHandler(h)
 
     return h
   }
@@ -61,22 +61,20 @@ public struct Variable<Value> {
 }
 
 public class VariableSource<Value> : SubscriptionMaintainer {
-  private var _value: Value
-
-  internal var handlers: [Handler<VariableEvent<Value>>] = []
-  internal let dispatchKey = DispatchSpecificKey<Void>()
+  private let dispatchKey = DispatchSpecificKey<Void>()
+  private let internalState: VariableSourceState
 
   internal let queue: DispatchQueue
 
   public init(value: Value, queue: DispatchQueue = DispatchQueue.main) {
-    self._value = value
+    self.internalState = VariableSourceState(value: value)
     self.queue = queue
 
     queue.setSpecific(key: dispatchKey, value: ())
   }
 
   public var value: Value {
-    get { return _value }
+    get { return internalState.readValue() }
     set { setValue(newValue, animated: false) }
   }
 
@@ -85,31 +83,90 @@ public class VariableSource<Value> : SubscriptionMaintainer {
   }
 
   public func setValue(_ value: Value, animated: Bool) {
-    let oldValue = _value
-    _value = value
-
-    let event = VariableEvent(oldValue: oldValue, value: value, animated: animated)
+    let action = internalState.setValue(value, animated: animated)
     let async = DispatchQueue.getSpecific(key: dispatchKey) == nil
 
-    for h in handlers {
+    for h in action.handlers {
       guard let handler = h.handler else { continue }
 
       if async {
         queue.async {
-          handler(event)
+          handler(action.event)
         }
       }
       else {
-        handler(event)
+        handler(action.event)
       }
     }
   }
 
+  internal var handlersCount: Int {
+    return internalState.handlersCount()
+  }
+
+  internal func addHandler(_ handler: Handler<VariableEvent<Value>>) {
+    internalState.addHandler(handler)
+  }
+
   func unsubscribe(_ subscription: Subscription) {
-    for (ix, handler) in handlers.enumerated() {
-      if handler === subscription {
-        handlers.remove(at: ix)
+    internalState.removeSubscription(subscription)
+  }
+}
+
+extension VariableSource {
+
+  fileprivate struct VariableSourceAction {
+    let event: VariableEvent<Value>
+    let handlers: [Handler<VariableEvent<Value>>]
+  }
+
+  fileprivate class VariableSourceState {
+    private let lock = NSLock()
+    private var handlers: [Handler<VariableEvent<Value>>] = []
+
+    private var value: Value
+
+    init(value: Value) {
+      self.value = value
+    }
+
+    func readValue() -> Value {
+      lock.lock(); defer { lock.unlock() }
+
+      return value
+    }
+
+    func handlersCount() -> Int {
+      lock.lock(); defer { lock.unlock() }
+
+      return handlers.count
+    }
+
+    func addHandler(_ handler: Handler<VariableEvent<Value>>) {
+      lock.lock(); defer { lock.unlock() }
+
+      handlers.append(handler)
+    }
+
+    func removeSubscription(_ subscription: Subscription) {
+      lock.lock(); defer { lock.unlock() }
+
+      for (ix, handler) in handlers.enumerated() {
+        if handler === subscription {
+          handlers.remove(at: ix)
+        }
       }
+    }
+
+    func setValue(_ value: Value, animated: Bool) -> VariableSourceAction {
+      lock.lock(); defer { lock.unlock() }
+
+      let oldValue = self.value
+      self.value = value
+
+      let event = VariableEvent(oldValue: oldValue, value: value, animated: animated)
+
+      return VariableSourceAction(event: event, handlers: handlers)
     }
   }
 }
