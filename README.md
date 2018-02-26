@@ -51,6 +51,7 @@ Comparing several methods for reactivally updating UI's, including Bindable. The
 Releases
 --------
 
+ - 0.2.0 - 2018-02-26 - Fix occasional "execute on wrong queue" issue
  - **0.1.0** - 2017-05-31 - Initial public release
  - 0.0.0 - 2016-12-14 - Initial private version for project at [Q42](http://q42.com)
 

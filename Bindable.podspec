@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Bindable"
-  s.version          = "0.1.0"
+  s.version          = "0.2.0"
   s.summary          = "Simple Bindable<Value> for Swift"
 
   s.description      = <<-DESC
