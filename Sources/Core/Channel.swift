@@ -57,6 +57,10 @@ public class ChannelSource<Event>: SubscriptionMaintainer {
     queue.setSpecific(key: dispatchKey, value: ())
   }
 
+  deinit {
+    queue.setSpecific(key: dispatchKey, value: nil)
+  }
+
   public var channel: Channel<Event> {
     return Channel(source: self)
   }

@@ -73,6 +73,10 @@ public class VariableSource<Value> : SubscriptionMaintainer {
     queue.setSpecific(key: dispatchKey, value: ())
   }
 
+  deinit {
+    queue.setSpecific(key: dispatchKey, value: nil)
+  }
+
   public var value: Value {
     get { return internalState.readValue() }
     set { setValue(newValue, animated: false) }
