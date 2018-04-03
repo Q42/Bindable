@@ -5,6 +5,19 @@
 This is the first development version of the Bindable UI databinding library.
 API is not yet stable, use at your own risk.
 
+## Installation
+
+Include the following line in your Podfile:
+
+```bash
+pod 'Bindable/UIKit', :git => 'git@github.com:Q42/Bindable.git'
+```
+
+Or, via HTTPS:
+```
+pod 'Bindable/UIKit', :git => 'https://github.com/Q42/Bindable.git'
+```
+
 ## Example
 
 ```swift
