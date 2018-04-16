@@ -38,4 +38,18 @@ extension NSObjectProtocol where Self : NSObject {
       self[keyPath: keyPath] = nil
     }
   }
+
+  public func unbind<T>(_ keyPath: ReferenceWritableKeyPath<Self, T>, resetTo value: T) {
+    bindableProperties.subscriptions[keyPath]?.unsubscribe()
+    bindableProperties.subscriptions[keyPath] = nil
+
+    self[keyPath: keyPath] = value
+  }
+
+  public func unbind<T>(_ keyPath: ReferenceWritableKeyPath<Self, T?>, resetTo value: T? = nil) {
+    bindableProperties.subscriptions[keyPath]?.unsubscribe()
+    bindableProperties.subscriptions[keyPath] = nil
+
+    self[keyPath: keyPath] = value
+  }
 }
