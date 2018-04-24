@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		E21D3C151F22318B003F2519 /* VariableHandlersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21D3C141F22318B003F2519 /* VariableHandlersTests.swift */; };
+		E2560C6E20850A7C009EED2A /* NSObject+Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6820850A7C009EED2A /* NSObject+Variable.swift */; };
+		E2560C6F20850A7C009EED2A /* NSObject+Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6920850A7C009EED2A /* NSObject+Channel.swift */; };
+		E2560C7020850A7C009EED2A /* UIKit+Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6A20850A7C009EED2A /* UIKit+Variable.swift */; };
+		E2560C7120850A7C009EED2A /* UIControl+EventTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6B20850A7C009EED2A /* UIControl+EventTargets.swift */; };
+		E2560C7220850A7C009EED2A /* UIKit+Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6C20850A7C009EED2A /* UIKit+Channel.swift */; };
+		E2560C7320850A7C009EED2A /* NSObject+DisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6D20850A7C009EED2A /* NSObject+DisposeBag.swift */; };
 		E275F25A1F1C8FDC005C1A0C /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F2561F1C8FDC005C1A0C /* Channel.swift */; };
 		E275F25B1F1C8FDC005C1A0C /* DisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F2571F1C8FDC005C1A0C /* DisposeBag.swift */; };
 		E275F25C1F1C8FDC005C1A0C /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F2581F1C8FDC005C1A0C /* Subscription.swift */; };
@@ -32,6 +38,12 @@
 
 /* Begin PBXFileReference section */
 		E21D3C141F22318B003F2519 /* VariableHandlersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableHandlersTests.swift; sourceTree = "<group>"; };
+		E2560C6820850A7C009EED2A /* NSObject+Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Variable.swift"; sourceTree = "<group>"; };
+		E2560C6920850A7C009EED2A /* NSObject+Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Channel.swift"; sourceTree = "<group>"; };
+		E2560C6A20850A7C009EED2A /* UIKit+Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Variable.swift"; sourceTree = "<group>"; };
+		E2560C6B20850A7C009EED2A /* UIControl+EventTargets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+EventTargets.swift"; sourceTree = "<group>"; };
+		E2560C6C20850A7C009EED2A /* UIKit+Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Channel.swift"; sourceTree = "<group>"; };
+		E2560C6D20850A7C009EED2A /* NSObject+DisposeBag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+DisposeBag.swift"; sourceTree = "<group>"; };
 		E275F24A1F1C8CA0005C1A0C /* Bindable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bindable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E275F2561F1C8FDC005C1A0C /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		E275F2571F1C8FDC005C1A0C /* DisposeBag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisposeBag.swift; sourceTree = "<group>"; };
@@ -65,10 +77,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E2560C6720850A7C009EED2A /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				E2560C6820850A7C009EED2A /* NSObject+Variable.swift */,
+				E2560C6920850A7C009EED2A /* NSObject+Channel.swift */,
+				E2560C6A20850A7C009EED2A /* UIKit+Variable.swift */,
+				E2560C6B20850A7C009EED2A /* UIControl+EventTargets.swift */,
+				E2560C6C20850A7C009EED2A /* UIKit+Channel.swift */,
+				E2560C6D20850A7C009EED2A /* NSObject+DisposeBag.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
 		E275F2401F1C8CA0005C1A0C = {
 			isa = PBXGroup;
 			children = (
-				E275F24C1F1C8CA0005C1A0C /* Bindable */,
+				E275F24C1F1C8CA0005C1A0C /* Sources */,
 				E275F2631F1C8FEE005C1A0C /* BindableTests */,
 				E275F24B1F1C8CA0005C1A0C /* Products */,
 			);
@@ -83,12 +108,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E275F24C1F1C8CA0005C1A0C /* Bindable */ = {
+		E275F24C1F1C8CA0005C1A0C /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				E275F2551F1C8FDC005C1A0C /* Core */,
+				E2560C6720850A7C009EED2A /* UIKit */,
 			);
-			path = Bindable;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		E275F2551F1C8FDC005C1A0C /* Core */ = {
@@ -99,9 +125,8 @@
 				E275F2581F1C8FDC005C1A0C /* Subscription.swift */,
 				E275F2591F1C8FDC005C1A0C /* Variable.swift */,
 			);
-			name = Core;
-			path = Sources/Core;
-			sourceTree = SOURCE_ROOT;
+			path = Core;
+			sourceTree = "<group>";
 		};
 		E275F2631F1C8FEE005C1A0C /* BindableTests */ = {
 			isa = PBXGroup;
@@ -228,10 +253,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2560C7320850A7C009EED2A /* NSObject+DisposeBag.swift in Sources */,
 				E275F25C1F1C8FDC005C1A0C /* Subscription.swift in Sources */,
+				E2560C6E20850A7C009EED2A /* NSObject+Variable.swift in Sources */,
+				E2560C7020850A7C009EED2A /* UIKit+Variable.swift in Sources */,
 				E275F25B1F1C8FDC005C1A0C /* DisposeBag.swift in Sources */,
 				E275F25A1F1C8FDC005C1A0C /* Channel.swift in Sources */,
+				E2560C7120850A7C009EED2A /* UIControl+EventTargets.swift in Sources */,
 				E275F25D1F1C8FDC005C1A0C /* Variable.swift in Sources */,
+				E2560C7220850A7C009EED2A /* UIKit+Channel.swift in Sources */,
+				E2560C6F20850A7C009EED2A /* NSObject+Channel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
