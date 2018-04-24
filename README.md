@@ -48,7 +48,7 @@ p.age.subscribe { event in
   print("New age: \(event.value)")
 }
 
-titleLabel.bind(text: p.title)
+titleLabel.bind(\.text, to: p.title)
 ```
 
 CocoaHeadsNL presentation
