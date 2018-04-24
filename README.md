@@ -20,8 +20,10 @@ pod 'Bindable/UIKit', :git => 'https://github.com/Q42/Bindable.git'
 
 ## Example
 
+Create a view model:
+
 ```swift
-class MainPresenter {
+class MainViewModel {
   private let ageSource = VariableSource<Int>(value: 0)
 
   let age: Variable<Int>
@@ -41,14 +43,20 @@ class MainPresenter {
     ageSource.value -= 1
   }
 }
+```
 
+And use it in your view controller:
 
-let p = MainPresenter()
-p.age.subscribe { event in
+```swift
+let viewModel = MainViewModel()
+
+// Manually subscribe for change events
+viewModel.age.subscribe { event in
   print("New age: \(event.value)")
 }
 
-titleLabel.bind(\.text, to: p.title)
+// Or data bind a UILabel
+titleLabel.bind(\.text, to: viewModel.title)
 ```
 
 CocoaHeadsNL presentation
