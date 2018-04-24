@@ -13,7 +13,7 @@
 		E242031C1DF94BE4008E8620 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E242031B1DF94BE4008E8620 /* Assets.xcassets */; };
 		E242031F1DF94BE4008E8620 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E242031D1DF94BE4008E8620 /* LaunchScreen.storyboard */; };
 		E24203291DF94F17008E8620 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24203281DF94F17008E8620 /* StartViewController.swift */; };
-		E2C6A5511E7B2AAF00E93732 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C6A5501E7B2AAF00E93732 /* MainPresenter.swift */; };
+		E2C6A5511E7B2AAF00E93732 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C6A5501E7B2AAF00E93732 /* MainViewModel.swift */; };
 		ED744521660CC29647177C79 /* Pods_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFD75E60CDAF8596913C7671 /* Pods_Test.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,7 +29,7 @@
 		E242031E1DF94BE4008E8620 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E24203201DF94BE4008E8620 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E24203281DF94F17008E8620 /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
-		E2C6A5501E7B2AAF00E93732 /* MainPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
+		E2C6A5501E7B2AAF00E93732 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +82,7 @@
 		E24203131DF94BE4008E8620 /* Test */ = {
 			isa = PBXGroup;
 			children = (
-				E2C6A5501E7B2AAF00E93732 /* MainPresenter.swift */,
+				E2C6A5501E7B2AAF00E93732 /* MainViewModel.swift */,
 				E24203161DF94BE4008E8620 /* MainViewController.swift */,
 				E24203281DF94F17008E8620 /* StartViewController.swift */,
 				E24203181DF94BE4008E8620 /* Main.storyboard */,
@@ -114,7 +114,6 @@
 				E242030E1DF94BE4008E8620 /* Frameworks */,
 				E242030F1DF94BE4008E8620 /* Resources */,
 				F9413A7A4C2B49C1405368C5 /* [CP] Embed Pods Frameworks */,
-				45094F380B157CA076491D84 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -132,7 +131,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Q42;
 				TargetAttributes = {
 					E24203101DF94BE4008E8620 = {
@@ -175,21 +174,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		45094F380B157CA076491D84 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Test/Pods-Test-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7DD7237D2CA1959986ECA837 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -236,7 +220,7 @@
 				E24203171DF94BE4008E8620 /* MainViewController.swift in Sources */,
 				E24203291DF94F17008E8620 /* StartViewController.swift in Sources */,
 				E24203151DF94BE4008E8620 /* AppDelegate.swift in Sources */,
-				E2C6A5511E7B2AAF00E93732 /* MainPresenter.swift in Sources */,
+				E2C6A5511E7B2AAF00E93732 /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +259,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -282,6 +267,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -332,6 +318,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -339,6 +326,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

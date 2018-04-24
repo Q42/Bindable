@@ -13,7 +13,7 @@ import Bindable
 
 class MainViewController: UIViewController {
 
-  let presenter = MainPresenter()
+  let viewModel = MainViewModel()
 
   @IBOutlet var label: UILabel!
   @IBOutlet weak var label2: UILabel!
@@ -33,16 +33,16 @@ class MainViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    view.bind(\.backgroundColor, to: presenter.color)
-    label.bind(\.text, to: presenter.age.map { "Age: \($0)" })
-    closeButton.bindAttributedTitle(presenter.title.map { $0 }, for: .normal)
+    view.bind(\.backgroundColor, to: viewModel.color)
+    label.bind(\.text, to: viewModel.age.map { "Age: \($0)" })
+    closeButton.bindAttributedTitle(viewModel.title.map { $0 }, for: .normal)
 
-    on(presenter.messages) { [weak self] in self?.alertMessage($0) }
+    on(viewModel.messages) { [weak self] in self?.alertMessage($0) }
 
-    testButton.on(touchUpInside: presenter.changeColor)
+    testButton.on(touchUpInside: viewModel.changeColor)
 
-    let x = presenter.color.map { $0.cgColor.components![0] }
-    let y = presenter.age.map { CGFloat($0) }
+    let x = viewModel.color.map { $0.cgColor.components![0] }
+    let y = viewModel.age.map { CGFloat($0) }
     let z = (x || y)
 
     z.subscribe { [weak self] event in
@@ -62,10 +62,10 @@ class MainViewController: UIViewController {
     sender.value = 0
 
     if isUp {
-      presenter.up()
+      viewModel.up()
     }
     else {
-      presenter.down()
+      viewModel.down()
     }
   }
 

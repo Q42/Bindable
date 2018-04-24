@@ -9,7 +9,7 @@
 import UIKit
 import Bindable
 
-class MainPresenter {
+class MainViewModel {
   private let ageSource = VariableSource<Int>(value: 0)
   private let colorSource = VariableSource<UIColor>(value: UIColor.yellow)
   private let titleSource = VariableSource<NSAttributedString>(value: NSAttributedString())
@@ -23,7 +23,7 @@ class MainPresenter {
   var tick = false
 
   init() {
-    print("MainPresenter.init")
+    print("MainViewModel.init")
 
     age = ageSource.variable
     color = colorSource.variable
@@ -61,6 +61,6 @@ class MainPresenter {
   }
 
   deinit {
-    print("MainPresenter.deinit")
+    print("MainViewModel.deinit")
   }
 }
