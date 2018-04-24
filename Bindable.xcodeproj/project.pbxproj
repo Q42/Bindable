@@ -8,12 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		E21D3C151F22318B003F2519 /* VariableHandlersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21D3C141F22318B003F2519 /* VariableHandlersTests.swift */; };
-		E2560C6E20850A7C009EED2A /* NSObject+Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6820850A7C009EED2A /* NSObject+Variable.swift */; };
-		E2560C6F20850A7C009EED2A /* NSObject+Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6920850A7C009EED2A /* NSObject+Channel.swift */; };
-		E2560C7020850A7C009EED2A /* UIKit+Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6A20850A7C009EED2A /* UIKit+Variable.swift */; };
 		E2560C7120850A7C009EED2A /* UIControl+EventTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6B20850A7C009EED2A /* UIControl+EventTargets.swift */; };
 		E2560C7220850A7C009EED2A /* UIKit+Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6C20850A7C009EED2A /* UIKit+Channel.swift */; };
-		E2560C7320850A7C009EED2A /* NSObject+DisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6D20850A7C009EED2A /* NSObject+DisposeBag.swift */; };
 		E275F25A1F1C8FDC005C1A0C /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F2561F1C8FDC005C1A0C /* Channel.swift */; };
 		E275F25B1F1C8FDC005C1A0C /* DisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F2571F1C8FDC005C1A0C /* DisposeBag.swift */; };
 		E275F25C1F1C8FDC005C1A0C /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F2581F1C8FDC005C1A0C /* Subscription.swift */; };
@@ -21,6 +17,9 @@
 		E275F2651F1C8FEE005C1A0C /* VariableChangeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F2641F1C8FEE005C1A0C /* VariableChangeTests.swift */; };
 		E275F2671F1C8FEE005C1A0C /* Bindable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E275F24A1F1C8CA0005C1A0C /* Bindable.framework */; };
 		E275F26E1F1C9446005C1A0C /* VariableSubscribeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F26D1F1C9446005C1A0C /* VariableSubscribeTests.swift */; };
+		E2928FBE208FAF9500A4B7B0 /* NSObject+Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2928FBB208FAF9500A4B7B0 /* NSObject+Variable.swift */; };
+		E2928FBF208FAF9500A4B7B0 /* NSObject+Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2928FBC208FAF9500A4B7B0 /* NSObject+Channel.swift */; };
+		E2928FC0208FAF9500A4B7B0 /* NSObject+DisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2928FBD208FAF9500A4B7B0 /* NSObject+DisposeBag.swift */; };
 		E2D292401F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D2923F1F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift */; };
 		E2D292441F1F302800D4CBB5 /* VariableMultipleSubscribeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D292431F1F302800D4CBB5 /* VariableMultipleSubscribeTests.swift */; };
 		E2D292461F1F39F600D4CBB5 /* VariableMultipleUnsubscribeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D292451F1F39F600D4CBB5 /* VariableMultipleUnsubscribeTests.swift */; };
@@ -38,12 +37,8 @@
 
 /* Begin PBXFileReference section */
 		E21D3C141F22318B003F2519 /* VariableHandlersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableHandlersTests.swift; sourceTree = "<group>"; };
-		E2560C6820850A7C009EED2A /* NSObject+Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Variable.swift"; sourceTree = "<group>"; };
-		E2560C6920850A7C009EED2A /* NSObject+Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Channel.swift"; sourceTree = "<group>"; };
-		E2560C6A20850A7C009EED2A /* UIKit+Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Variable.swift"; sourceTree = "<group>"; };
 		E2560C6B20850A7C009EED2A /* UIControl+EventTargets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+EventTargets.swift"; sourceTree = "<group>"; };
 		E2560C6C20850A7C009EED2A /* UIKit+Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Channel.swift"; sourceTree = "<group>"; };
-		E2560C6D20850A7C009EED2A /* NSObject+DisposeBag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+DisposeBag.swift"; sourceTree = "<group>"; };
 		E275F24A1F1C8CA0005C1A0C /* Bindable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bindable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E275F2561F1C8FDC005C1A0C /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		E275F2571F1C8FDC005C1A0C /* DisposeBag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisposeBag.swift; sourceTree = "<group>"; };
@@ -53,6 +48,9 @@
 		E275F2641F1C8FEE005C1A0C /* VariableChangeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableChangeTests.swift; sourceTree = "<group>"; };
 		E275F2661F1C8FEE005C1A0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E275F26D1F1C9446005C1A0C /* VariableSubscribeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableSubscribeTests.swift; sourceTree = "<group>"; };
+		E2928FBB208FAF9500A4B7B0 /* NSObject+Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Variable.swift"; sourceTree = "<group>"; };
+		E2928FBC208FAF9500A4B7B0 /* NSObject+Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Channel.swift"; sourceTree = "<group>"; };
+		E2928FBD208FAF9500A4B7B0 /* NSObject+DisposeBag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+DisposeBag.swift"; sourceTree = "<group>"; };
 		E2D2923F1F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableUnsubscribeTests.swift; sourceTree = "<group>"; };
 		E2D292431F1F302800D4CBB5 /* VariableMultipleSubscribeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableMultipleSubscribeTests.swift; sourceTree = "<group>"; };
 		E2D292451F1F39F600D4CBB5 /* VariableMultipleUnsubscribeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableMultipleUnsubscribeTests.swift; sourceTree = "<group>"; };
@@ -80,12 +78,8 @@
 		E2560C6720850A7C009EED2A /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				E2560C6820850A7C009EED2A /* NSObject+Variable.swift */,
-				E2560C6920850A7C009EED2A /* NSObject+Channel.swift */,
-				E2560C6A20850A7C009EED2A /* UIKit+Variable.swift */,
 				E2560C6B20850A7C009EED2A /* UIControl+EventTargets.swift */,
 				E2560C6C20850A7C009EED2A /* UIKit+Channel.swift */,
-				E2560C6D20850A7C009EED2A /* NSObject+DisposeBag.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -112,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				E275F2551F1C8FDC005C1A0C /* Core */,
+				E2928FBA208FAF9500A4B7B0 /* NSObject */,
 				E2560C6720850A7C009EED2A /* UIKit */,
 			);
 			path = Sources;
@@ -140,6 +135,16 @@
 				E2D2923F1F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift */,
 			);
 			path = BindableTests;
+			sourceTree = "<group>";
+		};
+		E2928FBA208FAF9500A4B7B0 /* NSObject */ = {
+			isa = PBXGroup;
+			children = (
+				E2928FBB208FAF9500A4B7B0 /* NSObject+Variable.swift */,
+				E2928FBC208FAF9500A4B7B0 /* NSObject+Channel.swift */,
+				E2928FBD208FAF9500A4B7B0 /* NSObject+DisposeBag.swift */,
+			);
+			path = NSObject;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,16 +258,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2560C7320850A7C009EED2A /* NSObject+DisposeBag.swift in Sources */,
+				E2928FC0208FAF9500A4B7B0 /* NSObject+DisposeBag.swift in Sources */,
 				E275F25C1F1C8FDC005C1A0C /* Subscription.swift in Sources */,
-				E2560C6E20850A7C009EED2A /* NSObject+Variable.swift in Sources */,
-				E2560C7020850A7C009EED2A /* UIKit+Variable.swift in Sources */,
 				E275F25B1F1C8FDC005C1A0C /* DisposeBag.swift in Sources */,
+				E2928FBE208FAF9500A4B7B0 /* NSObject+Variable.swift in Sources */,
 				E275F25A1F1C8FDC005C1A0C /* Channel.swift in Sources */,
 				E2560C7120850A7C009EED2A /* UIControl+EventTargets.swift in Sources */,
 				E275F25D1F1C8FDC005C1A0C /* Variable.swift in Sources */,
 				E2560C7220850A7C009EED2A /* UIKit+Channel.swift in Sources */,
-				E2560C6F20850A7C009EED2A /* NSObject+Channel.swift in Sources */,
+				E2928FBF208FAF9500A4B7B0 /* NSObject+Channel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

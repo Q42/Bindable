@@ -35,7 +35,11 @@ class MainViewController: UIViewController {
 
     view.bind(\.backgroundColor, to: viewModel.color)
     label.bind(\.text, to: viewModel.age.map { "Age: \($0)" })
-    closeButton.bindAttributedTitle(viewModel.title.map { $0 }, for: .normal)
+
+    closeButton.setAttributedTitle(viewModel.title.value, for: .normal)
+    viewModel.title.subscribe { [weak closeButton] event in
+      closeButton?.setAttributedTitle(event.value, for: .normal)
+    }.disposed(by: disposeBag)
 
     on(viewModel.messages) { [weak self] in self?.alertMessage($0) }
 

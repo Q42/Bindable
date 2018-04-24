@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
   s.name              = "Bindable"
   s.version           = "0.2.0"
-  s.summary           = "Simple Bindable<Value> for Swift"
+  s.summary           = "A Variable<Value> data binding UI"
 
   s.description       = <<-DESC
-                        Simple `Bindable<Value>` for Swift.
+                        A `Variable<Value>` data binding UI.
                         DESC
 
   s.homepage          = "https://github.com/Q42/Bindable"
@@ -21,9 +21,14 @@ Pod::Spec.new do |s|
     ss.source_files  = ["Sources/Core"]
   end
 
+  s.subspec "NSObject" do |ss|
+    ss.source_files = ["Sources/NSObject"]
+    ss.dependency "Bindable/Core"
+  end
+
   s.subspec "UIKit" do |ss|
     ss.source_files = ["Sources/UIKit"]
-    ss.dependency "Bindable/Core"
+    ss.dependency "Bindable/NSObject"
   end
 end
 
