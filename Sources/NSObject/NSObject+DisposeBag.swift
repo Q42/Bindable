@@ -35,6 +35,8 @@ extension NSObject {
 
 internal class BindableProperties {
 
+  internal var observations: [NSKeyValueObservation] = []
+
   internal var subscriptions: [AnyKeyPath: Subscription] = [:]
 
   internal var disposeBag = DisposeBag() {
