@@ -25,8 +25,25 @@ extension Variable {
   }
 }
 
-extension NSObjectProtocol {
-  public func variable<Value>(kvoKeyPath keyPath: KeyPath<Self, Value>) -> Variable<Value> where Self: NSObject {
+extension NSObjectProtocol where Self: NSObject {
+  public func variable<T>(kvoKeyPath keyPath: KeyPath<Self, T>) -> Variable<T> {
     return Variable(kvoObject: self, keyPath: keyPath)
+  }
+
+  public func bind<Object: NSObject, T>(_ keyPath: ReferenceWritableKeyPath<Self, T>, to kvoObject: Object, at kvoKeyPath: KeyPath<Object, T>) {
+    let variable =  Variable(kvoObject: kvoObject, keyPath: kvoKeyPath)
+
+    bind(keyPath, to: variable)
+  }
+
+  public func bind<Object: NSObject, T>(_ keyPath: ReferenceWritableKeyPath<Self, T?>, to kvoObject: Object?, at kvoKeyPath: KeyPath<Object, T>) {
+    let variable: Variable<T>?
+    if let kvoObject = kvoObject {
+      variable = Variable(kvoObject: kvoObject, keyPath: kvoKeyPath)
+    } else {
+      variable = nil
+    }
+
+    bind(keyPath, to: variable)
   }
 }
