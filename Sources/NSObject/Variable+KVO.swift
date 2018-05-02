@@ -1,5 +1,5 @@
 //
-//  NSObject+KVO.swift
+//  Variable+KVO.swift
 //  Bindable
 //
 //  Created by Tom Lokhorst on 2018-04-25.
@@ -22,5 +22,11 @@ extension Variable {
     kvoObject.bindableProperties.observations.append(observation)
 
     self = source.variable
+  }
+}
+
+extension NSObjectProtocol {
+  public func variable<Value>(kvoKeyPath keyPath: KeyPath<Self, Value>) -> Variable<Value> where Self: NSObject {
+    return Variable(kvoObject: self, keyPath: keyPath)
   }
 }

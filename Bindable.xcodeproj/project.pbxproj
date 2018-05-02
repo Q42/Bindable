@@ -17,7 +17,7 @@
 		E275F2651F1C8FEE005C1A0C /* VariableChangeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F2641F1C8FEE005C1A0C /* VariableChangeTests.swift */; };
 		E275F2671F1C8FEE005C1A0C /* Bindable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E275F24A1F1C8CA0005C1A0C /* Bindable.framework */; };
 		E275F26E1F1C9446005C1A0C /* VariableSubscribeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F26D1F1C9446005C1A0C /* VariableSubscribeTests.swift */; };
-		E279F27A2090DF2000F83806 /* NSObject+KVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E279F2792090DF2000F83806 /* NSObject+KVO.swift */; };
+		E279F27A2090DF2000F83806 /* Variable+KVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E279F2792090DF2000F83806 /* Variable+KVO.swift */; };
 		E2928FBE208FAF9500A4B7B0 /* NSObject+Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2928FBB208FAF9500A4B7B0 /* NSObject+Variable.swift */; };
 		E2928FBF208FAF9500A4B7B0 /* NSObject+Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2928FBC208FAF9500A4B7B0 /* NSObject+Channel.swift */; };
 		E2928FC0208FAF9500A4B7B0 /* NSObject+DisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2928FBD208FAF9500A4B7B0 /* NSObject+DisposeBag.swift */; };
@@ -49,7 +49,7 @@
 		E275F2641F1C8FEE005C1A0C /* VariableChangeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableChangeTests.swift; sourceTree = "<group>"; };
 		E275F2661F1C8FEE005C1A0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E275F26D1F1C9446005C1A0C /* VariableSubscribeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableSubscribeTests.swift; sourceTree = "<group>"; };
-		E279F2792090DF2000F83806 /* NSObject+KVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+KVO.swift"; sourceTree = "<group>"; };
+		E279F2792090DF2000F83806 /* Variable+KVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Variable+KVO.swift"; sourceTree = "<group>"; };
 		E2928FBB208FAF9500A4B7B0 /* NSObject+Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Variable.swift"; sourceTree = "<group>"; };
 		E2928FBC208FAF9500A4B7B0 /* NSObject+Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Channel.swift"; sourceTree = "<group>"; };
 		E2928FBD208FAF9500A4B7B0 /* NSObject+DisposeBag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+DisposeBag.swift"; sourceTree = "<group>"; };
@@ -144,8 +144,8 @@
 			children = (
 				E2928FBC208FAF9500A4B7B0 /* NSObject+Channel.swift */,
 				E2928FBD208FAF9500A4B7B0 /* NSObject+DisposeBag.swift */,
-				E279F2792090DF2000F83806 /* NSObject+KVO.swift */,
 				E2928FBB208FAF9500A4B7B0 /* NSObject+Variable.swift */,
+				E279F2792090DF2000F83806 /* Variable+KVO.swift */,
 			);
 			path = NSObject;
 			sourceTree = "<group>";
@@ -269,7 +269,7 @@
 				E2560C7120850A7C009EED2A /* UIControl+EventTargets.swift in Sources */,
 				E275F25D1F1C8FDC005C1A0C /* Variable.swift in Sources */,
 				E2560C7220850A7C009EED2A /* UIKit+Channel.swift in Sources */,
-				E279F27A2090DF2000F83806 /* NSObject+KVO.swift in Sources */,
+				E279F27A2090DF2000F83806 /* Variable+KVO.swift in Sources */,
 				E2928FBF208FAF9500A4B7B0 /* NSObject+Channel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
