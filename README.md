@@ -72,6 +72,7 @@ Comparing several methods for reactivally updating UI's, including Bindable. The
 Releases
 --------
 
+ - 0.4.0 - 2018-05-02 - Add Variable+KVO
  - 0.3.0 - 2018-04-24 - Split out NSObject subspec
  - 0.2.0 - 2018-02-26 - Fix occasional "execute on wrong queue" issue
  - **0.1.0** - 2017-05-31 - Initial public release
