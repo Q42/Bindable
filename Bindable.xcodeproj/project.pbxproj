@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E204040E209A40F600ED7FBA /* VariableKvoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E204040D209A40F600ED7FBA /* VariableKvoTests.swift */; };
+		E2040410209A44C100ED7FBA /* VariableNSObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E204040F209A44C100ED7FBA /* VariableNSObjectTests.swift */; };
 		E21D3C151F22318B003F2519 /* VariableHandlersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21D3C141F22318B003F2519 /* VariableHandlersTests.swift */; };
 		E2560C7120850A7C009EED2A /* UIControl+EventTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6B20850A7C009EED2A /* UIControl+EventTargets.swift */; };
 		E2560C7220850A7C009EED2A /* UIKit+Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6C20850A7C009EED2A /* UIKit+Channel.swift */; };
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E204040D209A40F600ED7FBA /* VariableKvoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableKvoTests.swift; sourceTree = "<group>"; };
+		E204040F209A44C100ED7FBA /* VariableNSObjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableNSObjectTests.swift; sourceTree = "<group>"; };
 		E21D3C141F22318B003F2519 /* VariableHandlersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableHandlersTests.swift; sourceTree = "<group>"; };
 		E2560C6B20850A7C009EED2A /* UIControl+EventTargets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+EventTargets.swift"; sourceTree = "<group>"; };
 		E2560C6C20850A7C009EED2A /* UIKit+Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Channel.swift"; sourceTree = "<group>"; };
@@ -131,8 +135,10 @@
 				E275F2661F1C8FEE005C1A0C /* Info.plist */,
 				E275F2641F1C8FEE005C1A0C /* VariableChangeTests.swift */,
 				E21D3C141F22318B003F2519 /* VariableHandlersTests.swift */,
+				E204040D209A40F600ED7FBA /* VariableKvoTests.swift */,
 				E2D292431F1F302800D4CBB5 /* VariableMultipleSubscribeTests.swift */,
 				E2D292451F1F39F600D4CBB5 /* VariableMultipleUnsubscribeTests.swift */,
+				E204040F209A44C100ED7FBA /* VariableNSObjectTests.swift */,
 				E275F26D1F1C9446005C1A0C /* VariableSubscribeTests.swift */,
 				E2D2923F1F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift */,
 			);
@@ -281,9 +287,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E21D3C151F22318B003F2519 /* VariableHandlersTests.swift in Sources */,
+				E2040410209A44C100ED7FBA /* VariableNSObjectTests.swift in Sources */,
 				E275F26E1F1C9446005C1A0C /* VariableSubscribeTests.swift in Sources */,
 				E2D292401F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift in Sources */,
 				E2D292441F1F302800D4CBB5 /* VariableMultipleSubscribeTests.swift in Sources */,
+				E204040E209A40F600ED7FBA /* VariableKvoTests.swift in Sources */,
 				E2D292461F1F39F600D4CBB5 /* VariableMultipleUnsubscribeTests.swift in Sources */,
 				E275F2651F1C8FEE005C1A0C /* VariableChangeTests.swift in Sources */,
 			);
