@@ -31,7 +31,7 @@ extension NSObjectProtocol where Self: NSObject {
   }
 
   public func bind<Object: NSObject, T>(_ keyPath: ReferenceWritableKeyPath<Self, T>, to kvoObject: Object, at kvoKeyPath: KeyPath<Object, T>) {
-    let variable =  Variable(kvoObject: kvoObject, keyPath: kvoKeyPath)
+    let variable = Variable(kvoObject: kvoObject, keyPath: kvoKeyPath)
 
     bind(keyPath, to: variable)
   }

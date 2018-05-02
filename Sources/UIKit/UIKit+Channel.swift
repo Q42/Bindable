@@ -15,22 +15,4 @@ extension UIControl {
 
     return source.channel
   }
-
-  @discardableResult
-  public func on(touchUpInside handler: @escaping () -> Void) -> Self {
-    channel(for: .touchUpInside)
-      .subscribe { _ in handler() }
-      .disposed(by: controlEventTargets.internalDisposeBag)
-
-    return self
-  }
-
-  @discardableResult
-  public func on(valueChanged handler: @escaping () -> Void) -> Self {
-    channel(for: .valueChanged)
-      .subscribe { _ in handler() }
-      .disposed(by: controlEventTargets.internalDisposeBag)
-
-    return self
-  }
 }
