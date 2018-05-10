@@ -12,7 +12,8 @@ Pod::Spec.new do |s|
   s.author            = { "Tom Lokhorst" => "tom@lokhorst.eu" }
   s.source            = { :git => "https://github.com/Q42/Bindable.git", :tag => s.version }
 
-  s.platform          = :ios, '9.0'
+  s.ios.deployment_target = '9.0'
+  s.tvos.deployment_target = '9.0'
   s.swift_version     = '4.0'
   s.default_subspec   = "Core"
   s.requires_arc      = true
