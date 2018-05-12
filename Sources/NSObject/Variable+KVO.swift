@@ -9,19 +9,19 @@
 import Foundation
 
 extension Variable {
-  public init<Object: NSObject>(kvoObject: Object, keyPath: KeyPath<Object, Value>) {
+  public convenience init<Object: NSObject>(kvoObject: Object, keyPath: KeyPath<Object, Value>) {
     let value = kvoObject[keyPath: keyPath]
     let source = VariableSource<Value>(value: value)
 
-    let observation = kvoObject.observe(keyPath, options: [.new]) { (_, change) in
+    let observation = kvoObject.observe(keyPath, options: [.new]) { [weak source] (_, change) in
       if let newValue = change.newValue {
-        source.value = newValue
+        source?.value = newValue
       }
     }
 
-    kvoObject.bindableProperties.observations.append(observation)
+    source.observations = [observation]
 
-    self = source.variable
+    self.init(source: source)
   }
 }
 

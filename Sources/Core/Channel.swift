@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Channel<Event> {
+public class Channel<Event> {
   private let source: ChannelSource<Event>
 
   internal init(source: ChannelSource<Event>) {
@@ -120,18 +120,4 @@ extension ChannelSource {
     }
 
   }
-}
-
-public func ||<A>(lhs: Channel<A>, rhs: Channel<A>) -> Channel<A> {
-  let resultSource = ChannelSource<A>()
-
-  _ = lhs.subscribe { event in
-    resultSource.post(event)
-  }
-
-  _ = rhs.subscribe { event in
-    resultSource.post(event)
-  }
-
-  return resultSource.channel
 }

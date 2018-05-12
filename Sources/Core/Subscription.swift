@@ -8,15 +8,15 @@
 
 import Foundation
 
-public protocol Subscription : class {
+public protocol Subscription: class {
   func unsubscribe()
 }
 
-internal protocol SubscriptionMaintainer : class {
+internal protocol SubscriptionMaintainer: class {
   func unsubscribe(_ subscription: Subscription)
 }
 
-class Handler<Value> : Subscription {
+class Handler<Value>: Subscription {
   weak var source: SubscriptionMaintainer?
   private(set) var handler: ((Value) -> Void)?
 

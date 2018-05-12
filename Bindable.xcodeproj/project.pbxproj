@@ -10,6 +10,7 @@
 		E204040E209A40F600ED7FBA /* VariableKvoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E204040D209A40F600ED7FBA /* VariableKvoTests.swift */; };
 		E2040410209A44C100ED7FBA /* VariableNSObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E204040F209A44C100ED7FBA /* VariableNSObjectTests.swift */; };
 		E21D3C151F22318B003F2519 /* VariableHandlersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21D3C141F22318B003F2519 /* VariableHandlersTests.swift */; };
+		E246C8ED20A5E13F001C9DBF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E246C8EC20A5E13F001C9DBF /* Extensions.swift */; };
 		E2560C7120850A7C009EED2A /* UIControl+EventTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6B20850A7C009EED2A /* UIControl+EventTargets.swift */; };
 		E2560C7220850A7C009EED2A /* UIKit+Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6C20850A7C009EED2A /* UIKit+Channel.swift */; };
 		E275F25A1F1C8FDC005C1A0C /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F2561F1C8FDC005C1A0C /* Channel.swift */; };
@@ -42,6 +43,7 @@
 		E204040D209A40F600ED7FBA /* VariableKvoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableKvoTests.swift; sourceTree = "<group>"; };
 		E204040F209A44C100ED7FBA /* VariableNSObjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableNSObjectTests.swift; sourceTree = "<group>"; };
 		E21D3C141F22318B003F2519 /* VariableHandlersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableHandlersTests.swift; sourceTree = "<group>"; };
+		E246C8EC20A5E13F001C9DBF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E2560C6B20850A7C009EED2A /* UIControl+EventTargets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+EventTargets.swift"; sourceTree = "<group>"; };
 		E2560C6C20850A7C009EED2A /* UIKit+Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Channel.swift"; sourceTree = "<group>"; };
 		E275F24A1F1C8CA0005C1A0C /* Bindable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bindable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +125,7 @@
 			children = (
 				E275F2561F1C8FDC005C1A0C /* Channel.swift */,
 				E275F2571F1C8FDC005C1A0C /* DisposeBag.swift */,
+				E246C8EC20A5E13F001C9DBF /* Extensions.swift */,
 				E275F2581F1C8FDC005C1A0C /* Subscription.swift */,
 				E275F2591F1C8FDC005C1A0C /* Variable.swift */,
 			);
@@ -271,6 +274,7 @@
 			files = (
 				E2928FC0208FAF9500A4B7B0 /* NSObject+DisposeBag.swift in Sources */,
 				E275F25C1F1C8FDC005C1A0C /* Subscription.swift in Sources */,
+				E246C8ED20A5E13F001C9DBF /* Extensions.swift in Sources */,
 				E275F25B1F1C8FDC005C1A0C /* DisposeBag.swift in Sources */,
 				E2928FBE208FAF9500A4B7B0 /* NSObject+Variable.swift in Sources */,
 				E275F25A1F1C8FDC005C1A0C /* Channel.swift in Sources */,

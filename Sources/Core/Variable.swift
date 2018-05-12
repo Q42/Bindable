@@ -20,30 +20,35 @@ public struct VariableEvent<Value> {
   }
 }
 
-public struct Variable<Value> {
-  private let source: VariableSource<Value>
-
-  internal init(source: VariableSource<Value>) {
-    self.source = source
-  }
+public class Variable<Value> {
+  internal let source: VariableSource<Value>
 
   public var value: Value {
     return source.value
   }
 
+  internal init(source: VariableSource<Value>) {
+    self.source = source
+  }
+
+  deinit {
+    source.internalState.removeVariable(self)
+  }
+
   public func subscribe(_ handler: @escaping (VariableEvent<Value>) -> Void) -> Subscription {
 
-    let h = Handler(source: source, handler: handler)
-    source.addHandler(h)
+    let h = VariableHandler(variable: self, handler: handler)
+    source.internalState.addHandler(h)
 
     return h
   }
 
   public func map<NewValue>(_ transform: @escaping (Value) -> NewValue) -> Variable<NewValue> {
     let resultSource = VariableSource<NewValue>(value: transform(source.value), queue: source.queue)
+    resultSource.observations = source.observations
 
-    _ = source.variable.subscribe { event in
-      resultSource.setValue(transform(event.value), animated: event.animated)
+    _ = self.subscribe { event in
+      resultSource.setValue(transform(self.source.value), animated: event.animated)
     }
 
     return resultSource.variable
@@ -51,20 +56,23 @@ public struct Variable<Value> {
 
   public func dispatch(on dispatchQueue: DispatchQueue) -> Variable<Value> {
     let resultSource = VariableSource(value: source.value, queue: dispatchQueue)
+    resultSource.observations = source.observations
 
     _ = self.subscribe { event in
-      resultSource.setValue(event.value, animated: event.animated)
+      resultSource.setValue(self.source.value, animated: event.animated)
     }
 
     return resultSource.variable
   }
 }
 
-public class VariableSource<Value> : SubscriptionMaintainer {
+public class VariableSource<Value> {
   private let dispatchKey = DispatchSpecificKey<Void>()
-  private let internalState: VariableSourceState
+
+  fileprivate let internalState: VariableSourceState
 
   internal let queue: DispatchQueue
+  internal var observations: [NSKeyValueObservation] = []
 
   public init(value: Value, queue: DispatchQueue = DispatchQueue.main) {
     self.internalState = VariableSourceState(value: value)
@@ -108,25 +116,18 @@ public class VariableSource<Value> : SubscriptionMaintainer {
     return internalState.handlersCount()
   }
 
-  internal func addHandler(_ handler: Handler<VariableEvent<Value>>) {
-    internalState.addHandler(handler)
-  }
-
-  func unsubscribe(_ subscription: Subscription) {
-    internalState.removeSubscription(subscription)
-  }
 }
 
 extension VariableSource {
 
   fileprivate struct VariableSourceAction {
     let event: VariableEvent<Value>
-    let handlers: [Handler<VariableEvent<Value>>]
+    let handlers: [VariableHandler<Value>]
   }
 
   fileprivate class VariableSourceState {
     private let lock = NSLock()
-    private var handlers: [Handler<VariableEvent<Value>>] = []
+    private var handlers: [VariableHandler<Value>] = []
 
     private var value: Value
 
@@ -146,7 +147,7 @@ extension VariableSource {
       return handlers.count
     }
 
-    func addHandler(_ handler: Handler<VariableEvent<Value>>) {
+    func addHandler(_ handler: VariableHandler<Value>) {
       lock.lock(); defer { lock.unlock() }
 
       handlers.append(handler)
@@ -157,6 +158,16 @@ extension VariableSource {
 
       for (ix, handler) in handlers.enumerated() {
         if handler === subscription {
+          handlers.remove(at: ix)
+        }
+      }
+    }
+
+    func removeVariable(_ variable: Variable<Value>) {
+      lock.lock(); defer { lock.unlock() }
+
+      for (ix, handler) in handlers.enumerated() {
+        if handler.variable === variable {
           handlers.remove(at: ix)
         }
       }
@@ -175,30 +186,21 @@ extension VariableSource {
   }
 }
 
-public func &&<A, B>(lhs: Variable<A>, rhs: Variable<B>) -> Variable<(A, B)> {
-  let resultSource = VariableSource<(A, B)>(value: (lhs.value, rhs.value))
+class VariableHandler<Value>: Equatable, Subscription {
+  weak var variable: Variable<Value>?
+  private(set) var handler: ((VariableEvent<Value>) -> Void)?
 
-  _ = lhs.subscribe { event in
-    resultSource.setValue((lhs.value, rhs.value), animated: event.animated)
+  init(variable: Variable<Value>, handler: @escaping (VariableEvent<Value>) -> Void) {
+    self.variable = variable
+    self.handler = handler
   }
 
-  _ = rhs.subscribe { event in
-    resultSource.setValue((lhs.value, rhs.value), animated: event.animated)
+  func unsubscribe() {
+    variable?.source.internalState.removeSubscription(self)
+    handler = nil
   }
 
-  return resultSource.variable
-}
-
-public func ||<A>(lhs: Variable<A>, rhs: Variable<A>) -> Variable<A> {
-  let resultSource = VariableSource<A>(value: lhs.value)
-
-  _ = lhs.subscribe { event in
-    resultSource.setValue(event.value, animated: event.animated)
+  static func ==(lhs: VariableHandler<Value>, rhs: VariableHandler<Value>) -> Bool {
+    return lhs === rhs
   }
-
-  _ = rhs.subscribe { event in
-    resultSource.setValue(event.value, animated: event.animated)
-  }
-
-  return resultSource.variable
 }
