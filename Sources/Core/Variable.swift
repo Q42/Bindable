@@ -186,7 +186,7 @@ extension VariableSource {
   }
 }
 
-class VariableHandler<Value>: Equatable, Subscription {
+class VariableHandler<Value>: Subscription {
   weak var variable: Variable<Value>?
   private(set) var handler: ((VariableEvent<Value>) -> Void)?
 
@@ -198,9 +198,5 @@ class VariableHandler<Value>: Equatable, Subscription {
   func unsubscribe() {
     variable?.source.internalState.removeSubscription(self)
     handler = nil
-  }
-
-  static func ==(lhs: VariableHandler<Value>, rhs: VariableHandler<Value>) -> Bool {
-    return lhs === rhs
   }
 }

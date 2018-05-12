@@ -15,7 +15,6 @@
 		E2560C7220850A7C009EED2A /* UIKit+Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6C20850A7C009EED2A /* UIKit+Channel.swift */; };
 		E275F25A1F1C8FDC005C1A0C /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F2561F1C8FDC005C1A0C /* Channel.swift */; };
 		E275F25B1F1C8FDC005C1A0C /* DisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F2571F1C8FDC005C1A0C /* DisposeBag.swift */; };
-		E275F25C1F1C8FDC005C1A0C /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F2581F1C8FDC005C1A0C /* Subscription.swift */; };
 		E275F25D1F1C8FDC005C1A0C /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F2591F1C8FDC005C1A0C /* Variable.swift */; };
 		E275F2651F1C8FEE005C1A0C /* VariableChangeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F2641F1C8FEE005C1A0C /* VariableChangeTests.swift */; };
 		E275F2671F1C8FEE005C1A0C /* Bindable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E275F24A1F1C8CA0005C1A0C /* Bindable.framework */; };
@@ -49,7 +48,6 @@
 		E275F24A1F1C8CA0005C1A0C /* Bindable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bindable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E275F2561F1C8FDC005C1A0C /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		E275F2571F1C8FDC005C1A0C /* DisposeBag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisposeBag.swift; sourceTree = "<group>"; };
-		E275F2581F1C8FDC005C1A0C /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
 		E275F2591F1C8FDC005C1A0C /* Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variable.swift; sourceTree = "<group>"; };
 		E275F2621F1C8FEE005C1A0C /* BindableTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BindableTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E275F2641F1C8FEE005C1A0C /* VariableChangeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableChangeTests.swift; sourceTree = "<group>"; };
@@ -126,7 +124,6 @@
 				E275F2561F1C8FDC005C1A0C /* Channel.swift */,
 				E275F2571F1C8FDC005C1A0C /* DisposeBag.swift */,
 				E246C8EC20A5E13F001C9DBF /* Extensions.swift */,
-				E275F2581F1C8FDC005C1A0C /* Subscription.swift */,
 				E275F2591F1C8FDC005C1A0C /* Variable.swift */,
 			);
 			path = Core;
@@ -273,7 +270,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2928FC0208FAF9500A4B7B0 /* NSObject+DisposeBag.swift in Sources */,
-				E275F25C1F1C8FDC005C1A0C /* Subscription.swift in Sources */,
 				E246C8ED20A5E13F001C9DBF /* Extensions.swift in Sources */,
 				E275F25B1F1C8FDC005C1A0C /* DisposeBag.swift in Sources */,
 				E2928FBE208FAF9500A4B7B0 /* NSObject+Variable.swift in Sources */,

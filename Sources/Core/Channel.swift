@@ -9,7 +9,7 @@
 import Foundation
 
 public class Channel<Event> {
-  private let source: ChannelSource<Event>
+  internal let source: ChannelSource<Event>
 
   internal init(source: ChannelSource<Event>) {
     self.source = source
@@ -17,8 +17,8 @@ public class Channel<Event> {
 
   public func subscribe(_ handler: @escaping (Event) -> Void) -> Subscription {
 
-    let h = Handler(source: source, handler: handler)
-    source.addHandler(h)
+    let h = ChannelHandler(channel: self, handler: handler)
+    source.internalState.addHandler(h)
 
     return h
   }
@@ -44,9 +44,10 @@ public class Channel<Event> {
   }
 }
 
-public class ChannelSource<Event>: SubscriptionMaintainer {
+public class ChannelSource<Event> {
   private let dispatchKey = DispatchSpecificKey<Void>()
-  private let internalState: ChannelSourceState
+
+  fileprivate let internalState: ChannelSourceState
 
   internal let queue: DispatchQueue
 
@@ -82,28 +83,20 @@ public class ChannelSource<Event>: SubscriptionMaintainer {
       }
     }
   }
-
-  internal func addHandler(_ handler: Handler<Event>) {
-    internalState.addHandler(handler)
-  }
-
-  func unsubscribe(_ subscription: Subscription) {
-    internalState.removeSubscription(subscription)
-  }
 }
 
 extension ChannelSource {
   fileprivate class ChannelSourceState {
     private let lock = NSLock()
-    private var handlers: [Handler<Event>] = []
+    private var handlers: [ChannelHandler<Event>] = []
 
-    func addHandler(_ handler: Handler<Event>) {
+    func addHandler(_ handler: ChannelHandler<Event>) {
       lock.lock(); defer { lock.unlock() }
 
       handlers.append(handler)
     }
 
-    func getHandlers() -> [Handler<Event>] {
+    func getHandlers() -> [ChannelHandler<Event>] {
       lock.lock(); defer { lock.unlock() }
 
       return handlers
@@ -119,5 +112,20 @@ extension ChannelSource {
       }
     }
 
+  }
+}
+
+class ChannelHandler<Value>: Subscription {
+  weak var channel: Channel<Value>?
+  private(set) var handler: ((Value) -> Void)?
+
+  init(channel: Channel<Value>, handler: @escaping (Value) -> Void) {
+    self.channel = channel
+    self.handler = handler
+  }
+
+  func unsubscribe() {
+    channel?.source.internalState.removeSubscription(self)
+    handler = nil
   }
 }
