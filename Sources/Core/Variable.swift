@@ -37,10 +37,14 @@ public class Variable<Value> {
 
   public func subscribe(_ handler: @escaping (VariableEvent<Value>) -> Void) -> Subscription {
 
-    let h = VariableHandler(variable: self, handler: handler)
-    source.internalState.addHandler(h)
+    let variableHandler = VariableHandler(variable: self, handler: handler)
+    source.internalState.addHandler(variableHandler)
 
-    return h
+    let subscription = Subscription { [source] in
+      source.internalState.removeHandler(variableHandler)
+    }
+
+    return subscription
   }
 
   public func map<NewValue>(_ transform: @escaping (Value) -> NewValue) -> Variable<NewValue> {
@@ -141,6 +145,17 @@ extension VariableSource {
       return value
     }
 
+    func setValue(_ value: Value, animated: Bool) -> VariableSourceAction {
+      lock.lock(); defer { lock.unlock() }
+
+      let oldValue = self.value
+      self.value = value
+
+      let event = VariableEvent(oldValue: oldValue, value: value, animated: animated)
+
+      return VariableSourceAction(event: event, handlers: handlers)
+    }
+
     func handlersCount() -> Int {
       lock.lock(); defer { lock.unlock() }
 
@@ -153,11 +168,11 @@ extension VariableSource {
       handlers.append(handler)
     }
 
-    func removeSubscription(_ subscription: Subscription) {
+    func removeHandler(_ handler: VariableHandler<Value>) {
       lock.lock(); defer { lock.unlock() }
 
-      for (ix, handler) in handlers.enumerated() {
-        if handler === subscription {
+      for (ix, h) in handlers.enumerated() {
+        if h === handler {
           handlers.remove(at: ix)
         }
       }
@@ -172,31 +187,15 @@ extension VariableSource {
         }
       }
     }
-
-    func setValue(_ value: Value, animated: Bool) -> VariableSourceAction {
-      lock.lock(); defer { lock.unlock() }
-
-      let oldValue = self.value
-      self.value = value
-
-      let event = VariableEvent(oldValue: oldValue, value: value, animated: animated)
-
-      return VariableSourceAction(event: event, handlers: handlers)
-    }
   }
 }
 
-class VariableHandler<Value>: Subscription {
+class VariableHandler<Value> {
   weak var variable: Variable<Value>?
   private(set) var handler: ((VariableEvent<Value>) -> Void)?
 
   init(variable: Variable<Value>, handler: @escaping (VariableEvent<Value>) -> Void) {
     self.variable = variable
     self.handler = handler
-  }
-
-  func unsubscribe() {
-    variable?.source.internalState.removeSubscription(self)
-    handler = nil
   }
 }

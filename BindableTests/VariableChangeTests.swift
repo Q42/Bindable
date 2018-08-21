@@ -28,6 +28,7 @@ class VariableChangeTests: XCTestCase {
     XCTAssertEqual(variable.value, 2)
 
     source.value = 3
+    XCTAssertEqual(source.value, 3)
     XCTAssertEqual(variable.value, 4)
   }
 

@@ -21,7 +21,7 @@ class VariableHandlersTests: XCTestCase {
 
     XCTAssertEqual(source.handlersCount, 0)
 
-    let subscription1 = variable.subscribe { event in
+    var subscription1: Subscription? = variable.subscribe { event in
     }
 
     XCTAssertEqual(source.handlersCount, 1)
@@ -32,7 +32,7 @@ class VariableHandlersTests: XCTestCase {
     XCTAssertEqual(source.handlersCount, 2)
 
     source.value += 1
-    subscription1.unsubscribe()
+    subscription1 = nil
 
     XCTAssertEqual(source.handlersCount, 1)
   }

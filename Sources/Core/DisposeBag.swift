@@ -8,30 +8,26 @@
 
 import Foundation
 
-public protocol Subscription: class {
-  func unsubscribe()
+public class Subscription {
+  public let unsubscribe: () -> Void
+
+  internal init(unsubscribe: @escaping () -> Void) {
+    self.unsubscribe = unsubscribe
+  }
+
+  deinit {
+    unsubscribe()
+  }
 }
 
 public class DisposeBag {
-  private let lock = NSLock()
-
   var subscriptions: [Subscription] = []
 
   public init() { 
   }
 
   public func insert(_ subscription: Subscription) {
-    lock.lock(); defer { lock.unlock() }
-
     subscriptions.append(subscription)
-  }
-
-  deinit {
-    for subscription in subscriptions {
-      subscription.unsubscribe()
-    }
-
-    subscriptions = []
   }
 }
 

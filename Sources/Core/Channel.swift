@@ -15,12 +15,20 @@ public class Channel<Event> {
     self.source = source
   }
 
+  deinit {
+    source.internalState.removeChannel(self)
+  }
+
   public func subscribe(_ handler: @escaping (Event) -> Void) -> Subscription {
 
-    let h = ChannelHandler(channel: self, handler: handler)
-    source.internalState.addHandler(h)
+    let channelHandler = ChannelHandler(channel: self, handler: handler)
+    source.internalState.addHandler(channelHandler)
 
-    return h
+    let subscription = Subscription { [source] in
+      source.internalState.removeHandler(channelHandler)
+    }
+
+    return subscription
   }
 
   public func map<NewEvent>(_ transform: @escaping (Event) -> NewEvent) -> Channel<NewEvent> {
@@ -102,11 +110,21 @@ extension ChannelSource {
       return handlers
     }
 
-    func removeSubscription(_ subscription: Subscription) {
+    func removeHandler(_ handler: ChannelHandler<Event>) {
+      lock.lock(); defer { lock.unlock() }
+
+      for (ix, h) in handlers.enumerated() {
+        if h === handler {
+          handlers.remove(at: ix)
+        }
+      }
+    }
+
+    func removeChannel(_ channel: Channel<Event>) {
       lock.lock(); defer { lock.unlock() }
 
       for (ix, handler) in handlers.enumerated() {
-        if handler === subscription {
+        if handler.channel === channel {
           handlers.remove(at: ix)
         }
       }
@@ -115,17 +133,12 @@ extension ChannelSource {
   }
 }
 
-class ChannelHandler<Value>: Subscription {
+class ChannelHandler<Value> {
   weak var channel: Channel<Value>?
   private(set) var handler: ((Value) -> Void)?
 
   init(channel: Channel<Value>, handler: @escaping (Value) -> Void) {
     self.channel = channel
     self.handler = handler
-  }
-
-  func unsubscribe() {
-    channel?.source.internalState.removeSubscription(self)
-    handler = nil
   }
 }

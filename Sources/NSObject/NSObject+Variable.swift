@@ -10,7 +10,6 @@ import Foundation
 
 extension NSObjectProtocol where Self : NSObject {
   public func bind<T>(_ keyPath: ReferenceWritableKeyPath<Self, T>, to variable: Variable<T>) {
-    bindableProperties.subscriptions[keyPath]?.unsubscribe()
     bindableProperties.subscriptions[keyPath] = nil
 
     self[keyPath: keyPath] = variable.value
@@ -23,7 +22,6 @@ extension NSObjectProtocol where Self : NSObject {
   }
 
   public func bind<T>(_ keyPath: ReferenceWritableKeyPath<Self, T?>, to variable: Variable<T>?) {
-    bindableProperties.subscriptions[keyPath]?.unsubscribe()
     bindableProperties.subscriptions[keyPath] = nil
 
     if let variable = variable {
@@ -40,14 +38,12 @@ extension NSObjectProtocol where Self : NSObject {
   }
 
   public func unbind<T>(_ keyPath: ReferenceWritableKeyPath<Self, T>, resetTo value: T) {
-    bindableProperties.subscriptions[keyPath]?.unsubscribe()
     bindableProperties.subscriptions[keyPath] = nil
 
     self[keyPath: keyPath] = value
   }
 
   public func unbind<T>(_ keyPath: ReferenceWritableKeyPath<Self, T?>, resetTo value: T? = nil) {
-    bindableProperties.subscriptions[keyPath]?.unsubscribe()
     bindableProperties.subscriptions[keyPath] = nil
 
     self[keyPath: keyPath] = value

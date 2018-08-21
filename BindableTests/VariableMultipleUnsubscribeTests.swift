@@ -19,7 +19,7 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
     let ex = self.expectation(description: "Expectation didn't finish")
     var callbacks = 0
 
-    let subscription1 = variable.subscribe { event in
+    var subscription1: Subscription? = variable.subscribe { event in
       callbacks += 1
     }
 
@@ -31,7 +31,7 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
     }
 
     source.value += 1
-    subscription1.unsubscribe()
+    subscription1 = nil
 
     source.value += 1
 
@@ -45,7 +45,7 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
     let ex = self.expectation(description: "Expectation didn't finish")
     var callbacks = 0
 
-    let subscription1 = variable.subscribe { event in
+    var subscription1: Subscription? = variable.subscribe { event in
       callbacks += 1
     }
 
@@ -57,7 +57,7 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
     }
 
     source.value = 3
-    subscription1.unsubscribe()
+    subscription1 = nil
 
     source.value += 1
 
@@ -72,12 +72,12 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
     let ex = self.expectation(description: "Expectation didn't finish")
     var callbacks = 0
 
-    let subscription1 = variable1.subscribe { event in
+    var subscription1: Subscription? = variable1.subscribe { event in
       callbacks += 1
     }
 
     source.value = 3
-    subscription1.unsubscribe()
+    subscription1 = nil
 
     _ = variable2.subscribe { event in
       callbacks += 1
@@ -100,12 +100,12 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
     let ex = self.expectation(description: "Expectation didn't finish")
     var callbacks = 0
 
-    let subscription1 = variable.subscribe { event in
+    var subscription1: Subscription? = variable.subscribe { event in
       callbacks += 1
     }
 
     source.value = 3
-    subscription1.unsubscribe()
+    subscription1 = nil
 
     _ = variable.subscribe { event in
       callbacks += 1
@@ -128,12 +128,12 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
     let ex = self.expectation(description: "Expectation didn't finish")
     var callbacks = 0
 
-    let subscription1 = variable1.subscribe { event in
+    var subscription1: Subscription? = variable1.subscribe { event in
       callbacks += 1
     }
 
     source.value = 3
-    subscription1.unsubscribe()
+    subscription1 = nil
 
     _ = variable2.subscribe { event in
       callbacks += 1
@@ -160,19 +160,19 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
     let ex = self.expectation(description: "Expectation didn't finish")
     var callbacks = 0
 
-    let subscription1 = variable1.subscribe { event in
+    var subscription1: Subscription? = variable1.subscribe { event in
       callbacks += 1
     }
 
     source.value = 3
-    subscription1.unsubscribe()
+    subscription1 = nil
 
-    let subscription2 = variable2.subscribe { event in
+    var subscription2: Subscription? = variable2.subscribe { event in
       callbacks += 1
     }
 
     source.value += 1
-    subscription2.unsubscribe()
+    subscription2 = nil
 
     _ = variable3.subscribe { event in
       callbacks += 1
@@ -196,11 +196,11 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
     let ex = self.expectation(description: "Expectation didn't finish")
     var callbacks = 0
 
-    let subscription1 = variable.subscribe { event in
+    var subscription1: Subscription? = variable.subscribe { event in
       callbacks += 1
     }
 
-    subscription1.unsubscribe()
+    subscription1 = nil
 
     _ = variable.subscribe { event in
       callbacks += 1
@@ -225,11 +225,11 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
     let ex = self.expectation(description: "Expectation didn't finish")
     var callbacks = 0
 
-    let subscription1 = variable.subscribe { event in
+    var subscription1: Subscription? = variable.subscribe { event in
       callbacks += 1
     }
 
-    subscription1.unsubscribe()
+    subscription1 = nil
 
     _ = variable.subscribe { event in
       callbacks += 1
