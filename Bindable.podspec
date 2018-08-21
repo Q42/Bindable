@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name              = "Bindable"
-  s.version           = "0.4.1"
+  s.version           = "0.5.0"
   s.summary           = "A Variable<Value> data binding UI"
 
   s.description       = <<-DESC
@@ -10,10 +10,13 @@ Pod::Spec.new do |s|
   s.homepage          = "https://github.com/Q42/Bindable"
   s.license           = 'MIT'
   s.author            = { "Tom Lokhorst" => "tom@lokhorst.eu" }
-  s.source            = { :git => "https://github.com/Q42/Bindable.git", :tag => s.version }
 
-  s.platform          = :ios, '9.0'
-  s.swift_version     = '4.0'
+  s.ios.deployment_target = '9.0'
+  s.osx.deployment_target = '10.11'
+  s.tvos.deployment_target = '9.0'
+  s.watchos.deployment_target = '3.0'
+
+  s.source            = { :git => "https://github.com/Q42/Bindable.git", :tag => s.version }
   s.default_subspec   = "Core"
   s.requires_arc      = true
 
