@@ -13,6 +13,7 @@ import Bindable
 class VariableMultipleUnsubscribeTests: XCTestCase {
 
   func testChange() {
+    let disposeBag = DisposeBag()
     let source = VariableSource(value: 1)
     let variable = source.variable
 
@@ -23,15 +24,16 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
       callbacks += 1
     }
 
-    _ = variable.subscribe { event in
+    variable.subscribe { event in
       callbacks += 1
       if callbacks == 3 {
         ex.fulfill()
       }
-    }
+    }.disposed(by: disposeBag)
 
     source.value += 1
     subscription1 = nil
+    subscription1?.disposed(by: disposeBag)
 
     source.value += 1
 
@@ -39,6 +41,7 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
   }
 
   func testMapChange1() {
+    let disposeBag = DisposeBag()
     let source = VariableSource(value: 1)
     let variable = source.variable.map { $0 + 1 }
 
@@ -49,15 +52,16 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
       callbacks += 1
     }
 
-    _ = variable.subscribe { event in
+    variable.subscribe { event in
       callbacks += 1
       if callbacks == 3 {
         ex.fulfill()
       }
-    }
+    }.disposed(by: disposeBag)
 
     source.value = 3
     subscription1 = nil
+    subscription1?.disposed(by: disposeBag)
 
     source.value += 1
 
@@ -65,6 +69,7 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
   }
 
   func testMapChange2() {
+    let disposeBag = DisposeBag()
     let source = VariableSource(value: 1)
     let variable1 = source.variable
     let variable2 = variable1.map { $0 + 1 }
@@ -78,13 +83,14 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
 
     source.value = 3
     subscription1 = nil
+    subscription1?.disposed(by: disposeBag)
 
-    _ = variable2.subscribe { event in
+    variable2.subscribe { event in
       callbacks += 1
       if callbacks == 2 {
         ex.fulfill()
       }
-    }
+    }.disposed(by: disposeBag)
 
     source.value += 1
 
@@ -92,6 +98,7 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
   }
 
   func testMapMapChange1() {
+    let disposeBag = DisposeBag()
     let source = VariableSource(value: 1)
     let variable = source.variable.map { $0 + 1 }.map { $0 * 10 }
 
@@ -106,13 +113,14 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
 
     source.value = 3
     subscription1 = nil
+    subscription1?.disposed(by: disposeBag)
 
-    _ = variable.subscribe { event in
+    variable.subscribe { event in
       callbacks += 1
       if callbacks == 2 {
         ex.fulfill()
       }
-    }
+    }.disposed(by: disposeBag)
 
     source.value += 1
 
@@ -120,6 +128,7 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
   }
 
   func testMapMapChange2() {
+    let disposeBag = DisposeBag()
     let source = VariableSource(value: 1)
     let variable1 = source.variable
     let variable2 = variable1.map { $0 + 1 }
@@ -134,17 +143,18 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
 
     source.value = 3
     subscription1 = nil
+    subscription1?.disposed(by: disposeBag)
 
-    _ = variable2.subscribe { event in
+    variable2.subscribe { event in
       callbacks += 1
-    }
+    }.disposed(by: disposeBag)
 
-    _ = variable3.subscribe { event in
+    variable3.subscribe { event in
       callbacks += 1
       if callbacks == 2 {
         ex.fulfill()
       }
-    }
+    }.disposed(by: disposeBag)
 
     source.value += 1
 
@@ -152,6 +162,7 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
   }
 
   func testMapMapChange3() {
+    let disposeBag = DisposeBag()
     let source = VariableSource(value: 1)
     let variable1 = source.variable
     let variable2 = variable1.map { $0 + 1 }
@@ -166,6 +177,7 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
 
     source.value = 3
     subscription1 = nil
+    subscription1?.disposed(by: disposeBag)
 
     var subscription2: Subscription? = variable2.subscribe { event in
       callbacks += 1
@@ -173,13 +185,14 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
 
     source.value += 1
     subscription2 = nil
+    subscription2?.disposed(by: disposeBag)
 
-    _ = variable3.subscribe { event in
+    variable3.subscribe { event in
       callbacks += 1
       if callbacks == 3 {
         ex.fulfill()
       }
-    }
+    }.disposed(by: disposeBag)
 
     source.value += 1
 
@@ -187,6 +200,7 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
   }
 
   func testAndChange() {
+    let disposeBag = DisposeBag()
     let leftSource = VariableSource(value: 1)
     let rightSource = VariableSource(value: true)
     let variableL = leftSource.variable
@@ -201,13 +215,14 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
     }
 
     subscription1 = nil
+    subscription1?.disposed(by: disposeBag)
 
-    _ = variable.subscribe { event in
+    variable.subscribe { event in
       callbacks += 1
       if callbacks == 2 {
         ex.fulfill()
       }
-    }
+    }.disposed(by: disposeBag)
 
     leftSource.value = 3
     rightSource.value = false
@@ -216,6 +231,7 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
   }
 
   func testOrChange() {
+    let disposeBag = DisposeBag()
     let leftSource = VariableSource(value: 1)
     let rightSource = VariableSource(value: -1)
     let variableL = leftSource.variable
@@ -230,13 +246,14 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
     }
 
     subscription1 = nil
+    subscription1?.disposed(by: disposeBag)
 
-    _ = variable.subscribe { event in
+    variable.subscribe { event in
       callbacks += 1
       if callbacks == 2 {
         ex.fulfill()
       }
-    }
+    }.disposed(by: disposeBag)
 
     leftSource.value = 3
     rightSource.value = -2

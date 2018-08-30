@@ -22,13 +22,15 @@ public struct VariableEvent<Value> {
 
 public class Variable<Value> {
   internal let source: VariableSource<Value>
+  internal let relatedSubscription: Subscription?
 
   public var value: Value {
     return source.value
   }
 
-  internal init(source: VariableSource<Value>) {
+  internal init(source: VariableSource<Value>, relatedSubscription: Subscription?) {
     self.source = source
+    self.relatedSubscription = relatedSubscription
   }
 
   deinit {
@@ -40,8 +42,8 @@ public class Variable<Value> {
     let variableHandler = VariableHandler(variable: self, handler: handler)
     source.internalState.addHandler(variableHandler)
 
-    let subscription = Subscription { [source] in
-      source.internalState.removeHandler(variableHandler)
+    let subscription = Subscription { [self] in
+      self.source.internalState.removeHandler(variableHandler)
     }
 
     return subscription
@@ -49,26 +51,25 @@ public class Variable<Value> {
 
   public func map<NewValue>(_ transform: @escaping (Value) -> NewValue) -> Variable<NewValue> {
     let resultSource = VariableSource<NewValue>(value: transform(source.value), queue: source.queue)
-    resultSource.observations = source.observations
 
-    _ = self.subscribe { event in
+    let subscription = self.subscribe { event in
       resultSource.setValue(transform(self.source.value), animated: event.animated)
     }
 
-    return resultSource.variable
+    return Variable<NewValue>(source: resultSource, relatedSubscription: subscription)
   }
 
   public func dispatch(on dispatchQueue: DispatchQueue) -> Variable<Value> {
     let resultSource = VariableSource(value: source.value, queue: dispatchQueue)
-    resultSource.observations = source.observations
 
-    _ = self.subscribe { event in
+    let subscription = self.subscribe { event in
       resultSource.setValue(self.source.value, animated: event.animated)
     }
 
-    return resultSource.variable
+    return Variable(source: resultSource, relatedSubscription: subscription)
   }
 }
+
 
 public class VariableSource<Value> {
   private let dispatchKey = DispatchSpecificKey<Void>()
@@ -76,7 +77,6 @@ public class VariableSource<Value> {
   fileprivate let internalState: VariableSourceState
 
   internal let queue: DispatchQueue
-  internal var observations: [NSKeyValueObservation] = []
 
   public init(value: Value, queue: DispatchQueue = DispatchQueue.main) {
     self.internalState = VariableSourceState(value: value)
@@ -95,7 +95,7 @@ public class VariableSource<Value> {
   }
 
   public var variable: Variable<Value> {
-    return Variable(source: self)
+    return Variable(source: self, relatedSubscription: nil)
   }
 
   public func setValue(_ value: Value, animated: Bool) {

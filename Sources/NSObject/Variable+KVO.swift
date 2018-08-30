@@ -19,9 +19,11 @@ extension Variable {
       }
     }
 
-    source.observations = [observation]
+    let subscription = Subscription {
+      observation.invalidate()
+    }
 
-    self.init(source: source)
+    self.init(source: source, relatedSubscription: subscription)
   }
 }
 

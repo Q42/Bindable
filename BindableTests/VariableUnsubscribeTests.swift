@@ -12,6 +12,7 @@ import Bindable
 class VariableUnsubscribeTests: XCTestCase {
 
   func testChange() {
+    let disposeBag = DisposeBag()
     let source = VariableSource(value: 1)
     let variable = source.variable
 
@@ -29,9 +30,12 @@ class VariableUnsubscribeTests: XCTestCase {
     XCTAssertNotNil(weakObj)
     subscription = nil
     XCTAssertNil(weakObj)
+
+    subscription?.disposed(by: disposeBag)
   }
 
   func testMapChange() {
+    let disposeBag = DisposeBag()
     let source = VariableSource(value: 1)
     let variable1 = source.variable
     let variable2 = variable1.map { $0 + 1 }
@@ -65,6 +69,9 @@ class VariableUnsubscribeTests: XCTestCase {
     XCTAssertNotNil(weakObj2)
     subscription2 = nil
     XCTAssertNil(weakObj2)
+
+    subscription1?.disposed(by: disposeBag)
+    subscription2?.disposed(by: disposeBag)
   }
 
   func testMapMapChange() {
@@ -117,6 +124,10 @@ class VariableUnsubscribeTests: XCTestCase {
     XCTAssertNotNil(weakObj3)
     subscription3 = nil
     XCTAssertNil(weakObj3)
+
+    subscription1?.disposed(by: disposeBag)
+    subscription2?.disposed(by: disposeBag)
+    subscription3?.disposed(by: disposeBag)
   }
 
 }

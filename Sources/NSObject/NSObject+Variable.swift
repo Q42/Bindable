@@ -17,7 +17,6 @@ extension NSObjectProtocol where Self : NSObject {
       self?[keyPath: keyPath] = event.value
     }
 
-    bindableProperties.disposeBag.insert(subscription)
     bindableProperties.subscriptions[keyPath] = subscription
   }
 
@@ -29,7 +28,6 @@ extension NSObjectProtocol where Self : NSObject {
       let subscription = variable.subscribe { [weak self] event in
         self?[keyPath: keyPath] = event.value
       }
-      bindableProperties.disposeBag.insert(subscription)
       bindableProperties.subscriptions[keyPath] = subscription
     }
     else {
