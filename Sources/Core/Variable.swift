@@ -33,17 +33,13 @@ public class Variable<Value> {
     self.relatedSubscription = relatedSubscription
   }
 
-  deinit {
-    source.internalState.removeVariable(self)
-  }
-
   public func subscribe(_ handler: @escaping (VariableEvent<Value>) -> Void) -> Subscription {
 
-    let variableHandler = VariableHandler(variable: self, handler: handler)
-    source.internalState.addHandler(variableHandler)
+    let handler = Handler(handler: handler)
+    source.internalState.addHandler(handler)
 
     let subscription = Subscription { [self] in
-      self.source.internalState.removeHandler(variableHandler)
+      self.source.internalState.removeHandler(handler)
     }
 
     return subscription
@@ -126,12 +122,12 @@ extension VariableSource {
 
   fileprivate struct VariableSourceAction {
     let event: VariableEvent<Value>
-    let handlers: [VariableHandler<Value>]
+    let handlers: [Handler<VariableEvent<Value>>]
   }
 
   fileprivate class VariableSourceState {
     private let lock = NSLock()
-    private var handlers: [VariableHandler<Value>] = []
+    private var handlers: [Handler<VariableEvent<Value>>] = []
 
     private var value: Value
 
@@ -162,13 +158,13 @@ extension VariableSource {
       return handlers.count
     }
 
-    func addHandler(_ handler: VariableHandler<Value>) {
+    func addHandler(_ handler: Handler<VariableEvent<Value>>) {
       lock.lock(); defer { lock.unlock() }
 
       handlers.append(handler)
     }
 
-    func removeHandler(_ handler: VariableHandler<Value>) {
+    func removeHandler(_ handler: Handler<VariableEvent<Value>>) {
       lock.lock(); defer { lock.unlock() }
 
       for (ix, h) in handlers.enumerated() {
@@ -178,24 +174,5 @@ extension VariableSource {
       }
     }
 
-    func removeVariable(_ variable: Variable<Value>) {
-      lock.lock(); defer { lock.unlock() }
-
-      for (ix, handler) in handlers.enumerated() {
-        if handler.variable === variable {
-          handlers.remove(at: ix)
-        }
-      }
-    }
-  }
-}
-
-class VariableHandler<Value> {
-  weak var variable: Variable<Value>?
-  private(set) var handler: ((VariableEvent<Value>) -> Void)?
-
-  init(variable: Variable<Value>, handler: @escaping (VariableEvent<Value>) -> Void) {
-    self.variable = variable
-    self.handler = handler
   }
 }

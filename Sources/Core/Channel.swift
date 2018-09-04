@@ -17,17 +17,13 @@ public class Channel<Event> {
     self.relatedSubscription = relatedSubscription
   }
 
-  deinit {
-    source.internalState.removeChannel(self)
-  }
-
   public func subscribe(_ handler: @escaping (Event) -> Void) -> Subscription {
 
-    let channelHandler = ChannelHandler(channel: self, handler: handler)
-    source.internalState.addHandler(channelHandler)
+    let handler = Handler(handler: handler)
+    source.internalState.addHandler(handler)
 
     let subscription = Subscription { [self] in
-      self.source.internalState.removeHandler(channelHandler)
+      self.source.internalState.removeHandler(handler)
     }
 
     return subscription
@@ -100,21 +96,21 @@ public class ChannelSource<Event> {
 extension ChannelSource {
   fileprivate class ChannelSourceState {
     private let lock = NSLock()
-    private var handlers: [ChannelHandler<Event>] = []
+    private var handlers: [Handler<Event>] = []
 
-    func addHandler(_ handler: ChannelHandler<Event>) {
+    func addHandler(_ handler: Handler<Event>) {
       lock.lock(); defer { lock.unlock() }
 
       handlers.append(handler)
     }
 
-    func getHandlers() -> [ChannelHandler<Event>] {
+    func getHandlers() -> [Handler<Event>] {
       lock.lock(); defer { lock.unlock() }
 
       return handlers
     }
 
-    func removeHandler(_ handler: ChannelHandler<Event>) {
+    func removeHandler(_ handler: Handler<Event>) {
       lock.lock(); defer { lock.unlock() }
 
       for (ix, h) in handlers.enumerated() {
@@ -124,25 +120,5 @@ extension ChannelSource {
       }
     }
 
-    func removeChannel(_ channel: Channel<Event>) {
-      lock.lock(); defer { lock.unlock() }
-
-      for (ix, handler) in handlers.enumerated() {
-        if handler.channel === channel {
-          handlers.remove(at: ix)
-        }
-      }
-    }
-
-  }
-}
-
-class ChannelHandler<Value> {
-  weak var channel: Channel<Value>?
-  private(set) var handler: ((Value) -> Void)?
-
-  init(channel: Channel<Value>, handler: @escaping (Value) -> Void) {
-    self.channel = channel
-    self.handler = handler
   }
 }

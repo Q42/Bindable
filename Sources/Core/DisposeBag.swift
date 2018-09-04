@@ -29,10 +29,22 @@ public class DisposeBag {
   public func insert(_ subscription: Subscription) {
     subscriptions.append(subscription)
   }
+
+  internal func removeAll() {
+    subscriptions.removeAll()
+  }
 }
 
 extension Subscription {
   public func disposed(by disposeBag: DisposeBag) {
     disposeBag.insert(self)
+  }
+}
+
+internal class Handler<Value> {
+  private(set) var handler: ((Value) -> Void)?
+
+  init(handler: @escaping (Value) -> Void) {
+    self.handler = handler
   }
 }
