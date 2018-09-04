@@ -26,8 +26,8 @@ public class Channel<Event> {
     let channelHandler = ChannelHandler(channel: self, handler: handler)
     source.internalState.addHandler(channelHandler)
 
-    let subscription = Subscription { [source] in
-      source.internalState.removeHandler(channelHandler)
+    let subscription = Subscription { [self] in
+      self.source.internalState.removeHandler(channelHandler)
     }
 
     return subscription
@@ -36,7 +36,8 @@ public class Channel<Event> {
   public func map<NewEvent>(_ transform: @escaping (Event) -> NewEvent) -> Channel<NewEvent> {
     let resultSource = ChannelSource<NewEvent>(queue: source.queue)
 
-    let subscription = source.channel.subscribe { event in
+    let subscription = source.channel.subscribe { [self] event in
+      _ = self
       resultSource.post(transform(event))
     }
 
@@ -46,7 +47,8 @@ public class Channel<Event> {
   public func dispatch(on dispatchQueue: DispatchQueue) -> Channel<Event> {
     let resultSource = ChannelSource<Event>(queue: dispatchQueue)
 
-    let subscription = self.subscribe { event in
+    let subscription = self.subscribe { [self] event in
+      _ = self
       resultSource.post(event)
     }
 
