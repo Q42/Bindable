@@ -21,16 +21,15 @@ public struct VariableEvent<Value> {
 }
 
 public class Variable<Value> {
+  internal let disposeBag = DisposeBag()
   internal let source: VariableSource<Value>
-  internal let relatedSubscription: Subscription?
 
   public var value: Value {
     return source.value
   }
 
-  internal init(source: VariableSource<Value>, relatedSubscription: Subscription?) {
+  internal init(source: VariableSource<Value>) {
     self.source = source
-    self.relatedSubscription = relatedSubscription
   }
 
   public func subscribe(_ handler: @escaping (VariableEvent<Value>) -> Void) -> Subscription {
@@ -47,22 +46,28 @@ public class Variable<Value> {
 
   public func map<NewValue>(_ transform: @escaping (Value) -> NewValue) -> Variable<NewValue> {
     let resultSource = VariableSource<NewValue>(value: transform(source.value), queue: source.queue)
+    let resultVariable = resultSource.variable
 
     let subscription = self.subscribe { event in
       resultSource.setValue(transform(self.source.value), animated: event.animated)
     }
 
-    return Variable<NewValue>(source: resultSource, relatedSubscription: subscription)
+    resultVariable.disposeBag.insert(subscription)
+
+    return resultVariable
   }
 
   public func dispatch(on dispatchQueue: DispatchQueue) -> Variable<Value> {
     let resultSource = VariableSource(value: source.value, queue: dispatchQueue)
+    let resultVariable = resultSource.variable
 
     let subscription = self.subscribe { event in
       resultSource.setValue(self.source.value, animated: event.animated)
     }
 
-    return Variable(source: resultSource, relatedSubscription: subscription)
+    resultVariable.disposeBag.insert(subscription)
+
+    return resultVariable
   }
 }
 
@@ -91,7 +96,7 @@ public class VariableSource<Value> {
   }
 
   public var variable: Variable<Value> {
-    return Variable(source: self, relatedSubscription: nil)
+    return Variable(source: self)
   }
 
   public func setValue(_ value: Value, animated: Bool) {

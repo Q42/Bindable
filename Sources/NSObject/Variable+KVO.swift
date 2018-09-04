@@ -23,7 +23,9 @@ extension Variable {
       observation.invalidate()
     }
 
-    self.init(source: source, relatedSubscription: subscription)
+    self.init(source: source)
+
+    disposeBag.insert(subscription)
   }
 }
 

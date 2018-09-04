@@ -9,12 +9,11 @@
 import Foundation
 
 public class Channel<Event> {
+  internal let disposeBag = DisposeBag()
   internal let source: ChannelSource<Event>
-  internal let relatedSubscription: Subscription?
 
-  internal init(source: ChannelSource<Event>, relatedSubscription: Subscription?) {
+  internal init(source: ChannelSource<Event>) {
     self.source = source
-    self.relatedSubscription = relatedSubscription
   }
 
   public func subscribe(_ handler: @escaping (Event) -> Void) -> Subscription {
@@ -31,24 +30,30 @@ public class Channel<Event> {
 
   public func map<NewEvent>(_ transform: @escaping (Event) -> NewEvent) -> Channel<NewEvent> {
     let resultSource = ChannelSource<NewEvent>(queue: source.queue)
+    let resultChannel = resultSource.channel
 
     let subscription = source.channel.subscribe { [self] event in
       _ = self
       resultSource.post(transform(event))
     }
 
-    return Channel<NewEvent>(source: resultSource, relatedSubscription: subscription)
+    resultChannel.disposeBag.insert(subscription)
+
+    return resultChannel
   }
 
   public func dispatch(on dispatchQueue: DispatchQueue) -> Channel<Event> {
     let resultSource = ChannelSource<Event>(queue: dispatchQueue)
+    let resultChannel = resultSource.channel
 
     let subscription = self.subscribe { [self] event in
       _ = self
       resultSource.post(event)
     }
 
-    return Channel(source: resultSource, relatedSubscription: subscription)
+    resultChannel.disposeBag.insert(subscription)
+
+    return resultChannel
   }
 }
 
@@ -71,7 +76,7 @@ public class ChannelSource<Event> {
   }
 
   public var channel: Channel<Event> {
-    return Channel(source: self, relatedSubscription: nil)
+    return Channel(source: self)
   }
 
   public func post(_ event: Event) {
