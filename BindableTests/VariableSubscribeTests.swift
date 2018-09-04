@@ -26,7 +26,7 @@ class VariableSubscribeTests: XCTestCase {
       if event.value == 2 {
         ex.fulfill()
       }
-    }.disposed(by: disposeBag)
+      }.disposed(by: disposeBag)
 
     source.value += 1
 

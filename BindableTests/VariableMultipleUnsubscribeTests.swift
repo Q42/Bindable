@@ -100,31 +100,17 @@ class VariableMultipleUnsubscribeTests: XCTestCase {
   func testMapMapChange1() {
     let disposeBag = DisposeBag()
     let source = VariableSource(value: 1)
-    let variable = source.variable.map { $0 + 1 }.map { $0 * 10 }
+    var out = 0
 
-    XCTAssertEqual(variable.value, 20)
-
-    let ex = self.expectation(description: "Expectation didn't finish")
-    var callbacks = 0
-
-    var subscription1: Subscription? = variable.subscribe { event in
-      callbacks += 1
+    var subscription1: Subscription? = source.variable.map { $0 + 1 }.map { $0 * 10 }.subscribe { event in
+      out = event.value
     }
 
+    XCTAssertEqual(out, 0)
     source.value = 3
+    XCTAssertEqual(out, 40)
     subscription1 = nil
     subscription1?.disposed(by: disposeBag)
-
-    variable.subscribe { event in
-      callbacks += 1
-      if callbacks == 2 {
-        ex.fulfill()
-      }
-    }.disposed(by: disposeBag)
-
-    source.value += 1
-
-    waitForExpectations(timeout: 0.1, handler: nil)
   }
 
   func testMapMapChange2() {
