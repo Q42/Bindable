@@ -29,10 +29,6 @@ public class DisposeBag {
   public func insert(_ subscription: Subscription) {
     subscriptions.append(subscription)
   }
-
-  internal func removeAll() {
-    subscriptions.removeAll()
-  }
 }
 
 extension Subscription {

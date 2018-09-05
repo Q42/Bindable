@@ -21,8 +21,9 @@ public class Channel<Event> {
     let handler = Handler(handler: handler)
     source.internalState.addHandler(handler)
 
-    let subscription = Subscription { [self] in
-      self.source.internalState.removeHandler(handler)
+    let subscription = Subscription { [disposeBag, source] in
+      _ = disposeBag
+      source.internalState.removeHandler(handler)
     }
 
     return subscription
@@ -32,8 +33,8 @@ public class Channel<Event> {
     let resultSource = ChannelSource<NewEvent>(queue: source.queue)
     let resultChannel = resultSource.channel
 
-    let subscription = source.channel.subscribe { [self] event in
-      _ = self
+    let subscription = source.channel.subscribe { [disposeBag] event in
+      _ = disposeBag
       resultSource.post(transform(event))
     }
 
@@ -46,8 +47,8 @@ public class Channel<Event> {
     let resultSource = ChannelSource<Event>(queue: dispatchQueue)
     let resultChannel = resultSource.channel
 
-    let subscription = self.subscribe { [self] event in
-      _ = self
+    let subscription = self.subscribe { [disposeBag] event in
+      _ = disposeBag
       resultSource.post(event)
     }
 

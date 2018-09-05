@@ -37,8 +37,9 @@ public class Variable<Value> {
     let handler = Handler(handler: handler)
     source.internalState.addHandler(handler)
 
-    let subscription = Subscription { [self] in
-      self.source.internalState.removeHandler(handler)
+    let subscription = Subscription { [disposeBag, source] in
+      _ = disposeBag
+      source.internalState.removeHandler(handler)
     }
 
     return subscription
@@ -48,8 +49,9 @@ public class Variable<Value> {
     let resultSource = VariableSource<NewValue>(value: transform(source.value), queue: source.queue)
     let resultVariable = resultSource.variable
 
-    let subscription = self.subscribe { event in
-      resultSource.setValue(transform(self.source.value), animated: event.animated)
+    let subscription = self.subscribe { [disposeBag, source] event in
+      _ = disposeBag
+      resultSource.setValue(transform(source.value), animated: event.animated)
     }
 
     resultVariable.disposeBag.insert(subscription)
@@ -61,8 +63,9 @@ public class Variable<Value> {
     let resultSource = VariableSource(value: source.value, queue: dispatchQueue)
     let resultVariable = resultSource.variable
 
-    let subscription = self.subscribe { event in
-      resultSource.setValue(self.source.value, animated: event.animated)
+    let subscription = self.subscribe { [disposeBag, source] event in
+      _ = disposeBag
+      resultSource.setValue(source.value, animated: event.animated)
     }
 
     resultVariable.disposeBag.insert(subscription)
