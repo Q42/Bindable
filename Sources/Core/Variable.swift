@@ -21,15 +21,16 @@ public struct VariableEvent<Value> {
 }
 
 public class Variable<Value> {
-  internal let disposeBag = DisposeBag()
-  internal let source: VariableSource<Value>
+  private let subscriptions: [Subscription]
+  private let source: VariableSource<Value>
 
   public var value: Value {
     return source.value
   }
 
-  internal init(source: VariableSource<Value>) {
+  internal init(source: VariableSource<Value>, subscriptions: [Subscription]) {
     self.source = source
+    self.subscriptions = subscriptions
   }
 
   public func subscribe(_ handler: @escaping (VariableEvent<Value>) -> Void) -> Subscription {
@@ -37,8 +38,8 @@ public class Variable<Value> {
     let handler = Handler(handler: handler)
     source.internalState.addHandler(handler)
 
-    let subscription = Subscription { [disposeBag, source] in
-      _ = disposeBag
+    let subscription = Subscription { [subscriptions, source] in
+      _ = subscriptions
       source.internalState.removeHandler(handler)
     }
 
@@ -47,30 +48,22 @@ public class Variable<Value> {
 
   public func map<NewValue>(_ transform: @escaping (Value) -> NewValue) -> Variable<NewValue> {
     let resultSource = VariableSource<NewValue>(value: transform(source.value), queue: source.queue)
-    let resultVariable = resultSource.variable
 
-    let subscription = self.subscribe { [disposeBag, source] event in
-      _ = disposeBag
-      resultSource.setValue(transform(source.value), animated: event.animated)
+    let subscription = self.subscribe { event in
+      resultSource.setValue(transform(event.value), animated: event.animated)
     }
 
-    resultVariable.disposeBag.insert(subscription)
-
-    return resultVariable
+    return Variable<NewValue>(source: resultSource, subscriptions: [subscription])
   }
 
   public func dispatch(on dispatchQueue: DispatchQueue) -> Variable<Value> {
     let resultSource = VariableSource(value: source.value, queue: dispatchQueue)
-    let resultVariable = resultSource.variable
 
-    let subscription = self.subscribe { [disposeBag, source] event in
-      _ = disposeBag
-      resultSource.setValue(source.value, animated: event.animated)
+    let subscription = self.subscribe { event in
+      resultSource.setValue(event.value, animated: event.animated)
     }
 
-    resultVariable.disposeBag.insert(subscription)
-
-    return resultVariable
+    return Variable(source: resultSource, subscriptions: [subscription])
   }
 }
 
@@ -99,7 +92,7 @@ public class VariableSource<Value> {
   }
 
   public var variable: Variable<Value> {
-    return Variable(source: self)
+    return Variable(source: self, subscriptions: [])
   }
 
   public func setValue(_ value: Value, animated: Bool) {

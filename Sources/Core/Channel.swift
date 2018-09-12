@@ -9,11 +9,12 @@
 import Foundation
 
 public class Channel<Event> {
-  internal let disposeBag = DisposeBag()
-  internal let source: ChannelSource<Event>
+  private let subscriptions: [Subscription]
+  private let source: ChannelSource<Event>
 
-  internal init(source: ChannelSource<Event>) {
+  internal init(source: ChannelSource<Event>, subscriptions: [Subscription]) {
     self.source = source
+    self.subscriptions = subscriptions
   }
 
   public func subscribe(_ handler: @escaping (Event) -> Void) -> Subscription {
@@ -21,8 +22,8 @@ public class Channel<Event> {
     let handler = Handler(handler: handler)
     source.internalState.addHandler(handler)
 
-    let subscription = Subscription { [disposeBag, source] in
-      _ = disposeBag
+    let subscription = Subscription { [subscriptions, source] in
+      _ = subscriptions
       source.internalState.removeHandler(handler)
     }
 
@@ -31,30 +32,22 @@ public class Channel<Event> {
 
   public func map<NewEvent>(_ transform: @escaping (Event) -> NewEvent) -> Channel<NewEvent> {
     let resultSource = ChannelSource<NewEvent>(queue: source.queue)
-    let resultChannel = resultSource.channel
 
-    let subscription = source.channel.subscribe { [disposeBag] event in
-      _ = disposeBag
+    let subscription = self.subscribe { event in
       resultSource.post(transform(event))
     }
 
-    resultChannel.disposeBag.insert(subscription)
-
-    return resultChannel
+    return Channel<NewEvent>(source: resultSource, subscriptions: [subscription])
   }
 
   public func dispatch(on dispatchQueue: DispatchQueue) -> Channel<Event> {
     let resultSource = ChannelSource<Event>(queue: dispatchQueue)
-    let resultChannel = resultSource.channel
 
-    let subscription = self.subscribe { [disposeBag] event in
-      _ = disposeBag
+    let subscription = self.subscribe { event in
       resultSource.post(event)
     }
 
-    resultChannel.disposeBag.insert(subscription)
-
-    return resultChannel
+    return Channel(source: resultSource, subscriptions: [subscription])
   }
 }
 
@@ -77,7 +70,7 @@ public class ChannelSource<Event> {
   }
 
   public var channel: Channel<Event> {
-    return Channel(source: self)
+    return Channel(source: self, subscriptions: [])
   }
 
   public func post(_ event: Event) {
