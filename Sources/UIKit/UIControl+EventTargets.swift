@@ -37,7 +37,7 @@ class ControlEventTargets : NSObject {
   internal let internalDisposeBag = DisposeBag()
   private var sources: [UInt: UIControlChannelSource] = [:]
 
-  func streamSource(for controlEvents: UIControlEvents) -> UIControlChannelSource {
+  func streamSource(for controlEvents: UIControl.Event) -> UIControlChannelSource {
     if let source = sources[controlEvents.rawValue] {
       return source
     }

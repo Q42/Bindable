@@ -39,7 +39,7 @@ class MainViewModel {
 
 
     Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { [weak self] _ in
-      let attrs: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 15)]
+      let attrs: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)]
       self?.titleSource.value = NSAttributedString(string: "Close", attributes: attrs)
     }
   }

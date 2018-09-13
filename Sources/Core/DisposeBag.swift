@@ -8,6 +8,10 @@
 
 import Foundation
 
+public protocol Subscription: class {
+  func unsubscribe()
+}
+
 public class DisposeBag {
   private let lock = NSLock()
 
