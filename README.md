@@ -51,7 +51,7 @@ And use it in your view controller:
 let viewModel = MainViewModel()
 
 // Manually subscribe for change events
-viewModel.age.subscribe { event in
+ageSubscription = viewModel.age.subscribe { event in
   print("New age: \(event.value)")
 }
 
@@ -72,6 +72,7 @@ Comparing several methods for reactivally updating UI's, including Bindable. The
 Releases
 --------
 
+ - **0.6.0** - 2019-04-25 - Strong references to subscriptions are now required.
  - **0.5.0** - 2018-09-13 - Update to Swift 4.2, refactor internal to use classes
  - 0.4.1 - 2018-05-02 - Add Variable+KVO
  - 0.3.0 - 2018-04-24 - Split out NSObject subspec
