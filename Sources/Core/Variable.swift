@@ -21,16 +21,16 @@ public struct VariableEvent<Value> {
 }
 
 public class Variable<Value> {
-  private let subscriptions: [Subscription]
   private let source: VariableSource<Value>
+  private let sourceSubscription: Subscription
 
   public var value: Value {
     return source.value
   }
 
-  internal init(source: VariableSource<Value>, subscriptions: [Subscription]) {
+  internal init(source: VariableSource<Value>, sourceSubscription: Subscription) {
     self.source = source
-    self.subscriptions = subscriptions
+    self.sourceSubscription = sourceSubscription
   }
 
   public func subscribe(_ handler: @escaping (VariableEvent<Value>) -> Void) -> Subscription {
@@ -38,9 +38,11 @@ public class Variable<Value> {
     let handler = Handler(handler: handler)
     source.internalState.addHandler(handler)
 
-    let subscription = Subscription { [subscriptions, source] in
-      _ = subscriptions
+    let subscription = Subscription { [source, sourceSubscription] in
       source.internalState.removeHandler(handler)
+
+      // Captures orignial sourceSubscription, so source will be updated
+      _ = sourceSubscription
     }
 
     return subscription
@@ -49,21 +51,21 @@ public class Variable<Value> {
   public func map<NewValue>(_ transform: @escaping (Value) -> NewValue) -> Variable<NewValue> {
     let resultSource = VariableSource<NewValue>(value: transform(source.value), queue: source.queue)
 
-    let subscription = self.subscribe { event in
+    let resultSubscription = self.subscribe { event in
       resultSource.setValue(transform(event.value), animated: event.animated)
     }
 
-    return Variable<NewValue>(source: resultSource, subscriptions: [subscription])
+    return Variable<NewValue>(source: resultSource, sourceSubscription: resultSubscription)
   }
 
   public func dispatch(on dispatchQueue: DispatchQueue) -> Variable<Value> {
     let resultSource = VariableSource(value: source.value, queue: dispatchQueue)
 
-    let subscription = self.subscribe { event in
+    let resultSubscription = self.subscribe { event in
       resultSource.setValue(event.value, animated: event.animated)
     }
 
-    return Variable(source: resultSource, subscriptions: [subscription])
+    return Variable(source: resultSource, sourceSubscription: resultSubscription)
   }
 }
 
@@ -92,7 +94,7 @@ public class VariableSource<Value> {
   }
 
   public var variable: Variable<Value> {
-    return Variable(source: self, subscriptions: [])
+    return Variable(source: self, sourceSubscription: Subscription {})
   }
 
   public func setValue(_ value: Value, animated: Bool) {

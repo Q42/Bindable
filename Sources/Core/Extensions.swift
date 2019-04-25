@@ -21,7 +21,13 @@ public func &&<A, B>(lhs: Variable<A>, rhs: Variable<B>) -> Variable<(A, B)> {
     resultSource.setValue((lhs.value, rhs.value), animated: event.animated)
   }
 
-  return Variable(source: resultSource, subscriptions: [s1, s2])
+  let resultSubscription = Subscription {
+    // Capture required subscriptions
+    _ = s1
+    _ = s2
+  }
+
+  return Variable(source: resultSource, sourceSubscription: resultSubscription)
 }
 
 public func ||<A>(lhs: Variable<A>, rhs: Variable<A>) -> Variable<A> {
@@ -35,7 +41,13 @@ public func ||<A>(lhs: Variable<A>, rhs: Variable<A>) -> Variable<A> {
     resultSource.setValue(rhs.value, animated: event.animated)
   }
 
-  return Variable(source: resultSource, subscriptions: [s1, s2])
+  let resultSubscription = Subscription {
+    // Capture required subscriptions
+    _ = s1
+    _ = s2
+  }
+
+  return Variable(source: resultSource, sourceSubscription: resultSubscription)
 }
 
 // MARK: Channel
@@ -51,7 +63,13 @@ public func ||<A>(lhs: Channel<A>, rhs: Channel<A>) -> Channel<A> {
     resultSource.post(event)
   }
 
-  return Channel(source: resultSource, subscriptions: [s1, s2])
+  let resultSubscription = Subscription {
+    // Capture required subscriptions
+    _ = s1
+    _ = s2
+  }
+
+  return Channel(source: resultSource, sourceSubscription: resultSubscription)
 }
 
 extension ChannelSource where Event == Void {

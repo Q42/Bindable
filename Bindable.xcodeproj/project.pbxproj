@@ -27,7 +27,7 @@
 		E279F27A2090DF2000F83806 /* Variable+KVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E279F2792090DF2000F83806 /* Variable+KVO.swift */; };
 		E28AF290213D70F5007D1F8F /* ChannelMultipleSubscribeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28AF28F213D70F5007D1F8F /* ChannelMultipleSubscribeTests.swift */; };
 		E2928FBE208FAF9500A4B7B0 /* NSObject+Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2928FBB208FAF9500A4B7B0 /* NSObject+Variable.swift */; };
-		E2928FBF208FAF9500A4B7B0 /* NSObject+Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2928FBC208FAF9500A4B7B0 /* NSObject+Channel.swift */; };
+		E2928FBF208FAF9500A4B7B0 /* NSObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2928FBC208FAF9500A4B7B0 /* NSObject+Extensions.swift */; };
 		E2928FC0208FAF9500A4B7B0 /* NSObject+DisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2928FBD208FAF9500A4B7B0 /* NSObject+DisposeBag.swift */; };
 		E2D292401F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D2923F1F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift */; };
 		E2D292441F1F302800D4CBB5 /* VariableMultipleSubscribeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D292431F1F302800D4CBB5 /* VariableMultipleSubscribeTests.swift */; };
@@ -67,7 +67,7 @@
 		E279F2792090DF2000F83806 /* Variable+KVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Variable+KVO.swift"; sourceTree = "<group>"; };
 		E28AF28F213D70F5007D1F8F /* ChannelMultipleSubscribeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelMultipleSubscribeTests.swift; sourceTree = "<group>"; };
 		E2928FBB208FAF9500A4B7B0 /* NSObject+Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Variable.swift"; sourceTree = "<group>"; };
-		E2928FBC208FAF9500A4B7B0 /* NSObject+Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Channel.swift"; sourceTree = "<group>"; };
+		E2928FBC208FAF9500A4B7B0 /* NSObject+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Extensions.swift"; sourceTree = "<group>"; };
 		E2928FBD208FAF9500A4B7B0 /* NSObject+DisposeBag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+DisposeBag.swift"; sourceTree = "<group>"; };
 		E2D2923F1F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableUnsubscribeTests.swift; sourceTree = "<group>"; };
 		E2D292431F1F302800D4CBB5 /* VariableMultipleSubscribeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableMultipleSubscribeTests.swift; sourceTree = "<group>"; };
@@ -166,8 +166,8 @@
 		E2928FBA208FAF9500A4B7B0 /* NSObject */ = {
 			isa = PBXGroup;
 			children = (
-				E2928FBC208FAF9500A4B7B0 /* NSObject+Channel.swift */,
 				E2928FBD208FAF9500A4B7B0 /* NSObject+DisposeBag.swift */,
+				E2928FBC208FAF9500A4B7B0 /* NSObject+Extensions.swift */,
 				E2928FBB208FAF9500A4B7B0 /* NSObject+Variable.swift */,
 				E279F2792090DF2000F83806 /* Variable+KVO.swift */,
 			);
@@ -242,7 +242,7 @@
 					E275F2611F1C8FEE005C1A0C = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = LC3Y92HQQ3;
-						LastSwiftMigration = 0930;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -297,7 +297,7 @@
 				E275F25D1F1C8FDC005C1A0C /* Variable.swift in Sources */,
 				E2560C7220850A7C009EED2A /* UIKit+Channel.swift in Sources */,
 				E279F27A2090DF2000F83806 /* Variable+KVO.swift in Sources */,
-				E2928FBF208FAF9500A4B7B0 /* NSObject+Channel.swift in Sources */,
+				E2928FBF208FAF9500A4B7B0 /* NSObject+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,7 +498,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.q42.BindableTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -510,7 +510,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.q42.BindableTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

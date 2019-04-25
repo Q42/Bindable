@@ -10,20 +10,20 @@ import Foundation
 
 extension Variable {
   public convenience init<Object: NSObject>(kvoObject: Object, keyPath: KeyPath<Object, Value>) {
-    let value = kvoObject[keyPath: keyPath]
-    let source = VariableSource<Value>(value: value)
+    let initialValue = kvoObject[keyPath: keyPath]
+    let resultSource = VariableSource<Value>(value: initialValue)
 
-    let observation = kvoObject.observe(keyPath, options: [.new]) { [weak source] (_, change) in
+    let observation = kvoObject.observe(keyPath, options: [.new]) { [weak resultSource] (_, change) in
       if let newValue = change.newValue {
-        source?.value = newValue
+        resultSource?.value = newValue
       }
     }
 
-    let subscription = Subscription {
+    let resultSubscription = Subscription {
       observation.invalidate()
     }
 
-    self.init(source: source, subscriptions: [subscription])
+    self.init(source: resultSource, sourceSubscription: resultSubscription)
   }
 }
 
