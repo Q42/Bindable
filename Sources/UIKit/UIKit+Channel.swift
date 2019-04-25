@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIControl {
-  public func channel(for controlEvents: UIControlEvents) -> Channel<UIControl> {
+  public func channel(for controlEvents: UIControl.Event) -> Channel<UIControl> {
     let source = controlEventTargets.streamSource(for: controlEvents)
     addTarget(source, action: #selector(UIControlChannelSource.action(_:)), for: controlEvents)
 

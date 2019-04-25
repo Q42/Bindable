@@ -1,8 +1,8 @@
 PODS:
-  - Bindable/Core (0.3.0)
-  - Bindable/NSObject (0.3.0):
+  - Bindable/Core (0.4.1)
+  - Bindable/NSObject (0.4.1):
     - Bindable/Core
-  - Bindable/UIKit (0.3.0):
+  - Bindable/UIKit (0.4.1):
     - Bindable/NSObject
 
 DEPENDENCIES:
@@ -13,8 +13,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Bindable: b73c9a3372428f19a6f34bff07c6c0d4690730a2
+  Bindable: 39de34d9481934760150cd9dff19e08e325d2bc7
 
 PODFILE CHECKSUM: 17abd4ad67c8c8b65b7934119827dc3fab26a55f
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3
