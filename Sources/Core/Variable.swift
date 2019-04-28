@@ -8,18 +8,6 @@
 
 import Foundation
 
-public struct VariableEvent<Value> {
-  public let oldValue: Value
-  public let value: Value
-  public let animated: Bool
-
-  public init(oldValue: Value, value: Value, animated: Bool) {
-    self.oldValue = oldValue
-    self.value = value
-    self.animated = animated
-  }
-}
-
 public class Variable<Value> {
   private let source: VariableSource<Value>
   private let sourceSubscription: Subscription
@@ -66,6 +54,18 @@ public class Variable<Value> {
     }
 
     return Variable(source: resultSource, sourceSubscription: resultSubscription)
+  }
+}
+
+public struct VariableEvent<Value> {
+  public let oldValue: Value
+  public let value: Value
+  public let animated: Bool
+
+  public init(oldValue: Value, value: Value, animated: Bool) {
+    self.oldValue = oldValue
+    self.value = value
+    self.animated = animated
   }
 }
 

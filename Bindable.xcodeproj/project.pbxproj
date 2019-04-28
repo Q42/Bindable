@@ -15,6 +15,7 @@
 		E221B6A0213EA0EB00D7DB36 /* ChannelMapMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E221B69F213EA0EB00D7DB36 /* ChannelMapMapTests.swift */; };
 		E22354AB213D0DA200668865 /* ChannelPostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22354AA213D0DA200668865 /* ChannelPostTests.swift */; };
 		E22354AD213D12A000668865 /* VariableDisposeBagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22354AC213D12A000668865 /* VariableDisposeBagTests.swift */; };
+		E244E6C52275CB880091A207 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = E244E6C42275CB880091A207 /* README.md */; };
 		E246C8ED20A5E13F001C9DBF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E246C8EC20A5E13F001C9DBF /* Extensions.swift */; };
 		E2560C7120850A7C009EED2A /* UIControl+EventTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6B20850A7C009EED2A /* UIControl+EventTargets.swift */; };
 		E2560C7220850A7C009EED2A /* UIKit+Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6C20850A7C009EED2A /* UIKit+Channel.swift */; };
@@ -53,6 +54,7 @@
 		E221B69F213EA0EB00D7DB36 /* ChannelMapMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelMapMapTests.swift; sourceTree = "<group>"; };
 		E22354AA213D0DA200668865 /* ChannelPostTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelPostTests.swift; sourceTree = "<group>"; };
 		E22354AC213D12A000668865 /* VariableDisposeBagTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableDisposeBagTests.swift; sourceTree = "<group>"; };
+		E244E6C42275CB880091A207 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E246C8EC20A5E13F001C9DBF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E2560C6B20850A7C009EED2A /* UIControl+EventTargets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+EventTargets.swift"; sourceTree = "<group>"; };
 		E2560C6C20850A7C009EED2A /* UIKit+Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Channel.swift"; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 		E275F2401F1C8CA0005C1A0C = {
 			isa = PBXGroup;
 			children = (
+				E244E6C42275CB880091A207 /* README.md */,
 				E275F24C1F1C8CA0005C1A0C /* Sources */,
 				E275F2631F1C8FEE005C1A0C /* BindableTests */,
 				E275F24B1F1C8CA0005C1A0C /* Products */,
@@ -271,6 +274,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E244E6C52275CB880091A207 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

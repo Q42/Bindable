@@ -16,4 +16,9 @@ extension NSObject {
   public func subscribe<T>(_ variable: Variable<T>, handler: @escaping (VariableEvent<T>) -> Void) {
     variable.subscribe(handler).disposed(by: disposeBag)
   }
+
+  public func bind<T>(_ variable: Variable<T>, handler: @escaping (T) -> Void) {
+    variable.subscribe { handler($0.value) }.disposed(by: disposeBag)
+    handler(variable.value)
+  }
 }

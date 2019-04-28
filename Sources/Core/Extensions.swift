@@ -73,7 +73,7 @@ public func ||<A>(lhs: Channel<A>, rhs: Channel<A>) -> Channel<A> {
 }
 
 extension ChannelSource where Event == Void {
-  func post() {
+  public func post() {
     self.post(())
   }
 }
