@@ -10,6 +10,11 @@
 		E204040E209A40F600ED7FBA /* VariableKvoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E204040D209A40F600ED7FBA /* VariableKvoTests.swift */; };
 		E2040410209A44C100ED7FBA /* VariableNSObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E204040F209A44C100ED7FBA /* VariableNSObjectTests.swift */; };
 		E21D3C151F22318B003F2519 /* VariableHandlersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21D3C141F22318B003F2519 /* VariableHandlersTests.swift */; };
+		E221B69A213E544400D7DB36 /* ChannelMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E221B699213E544400D7DB36 /* ChannelMapTests.swift */; };
+		E221B69C213E5CD500D7DB36 /* VariableUnsubscribeVariableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E221B69B213E5CD500D7DB36 /* VariableUnsubscribeVariableTests.swift */; };
+		E221B6A0213EA0EB00D7DB36 /* ChannelMapMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E221B69F213EA0EB00D7DB36 /* ChannelMapMapTests.swift */; };
+		E22354AB213D0DA200668865 /* ChannelPostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22354AA213D0DA200668865 /* ChannelPostTests.swift */; };
+		E22354AD213D12A000668865 /* VariableDisposeBagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22354AC213D12A000668865 /* VariableDisposeBagTests.swift */; };
 		E246C8ED20A5E13F001C9DBF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E246C8EC20A5E13F001C9DBF /* Extensions.swift */; };
 		E2560C7120850A7C009EED2A /* UIControl+EventTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6B20850A7C009EED2A /* UIControl+EventTargets.swift */; };
 		E2560C7220850A7C009EED2A /* UIKit+Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2560C6C20850A7C009EED2A /* UIKit+Channel.swift */; };
@@ -20,8 +25,9 @@
 		E275F2671F1C8FEE005C1A0C /* Bindable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E275F24A1F1C8CA0005C1A0C /* Bindable.framework */; };
 		E275F26E1F1C9446005C1A0C /* VariableSubscribeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275F26D1F1C9446005C1A0C /* VariableSubscribeTests.swift */; };
 		E279F27A2090DF2000F83806 /* Variable+KVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E279F2792090DF2000F83806 /* Variable+KVO.swift */; };
+		E28AF290213D70F5007D1F8F /* ChannelMultipleSubscribeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28AF28F213D70F5007D1F8F /* ChannelMultipleSubscribeTests.swift */; };
 		E2928FBE208FAF9500A4B7B0 /* NSObject+Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2928FBB208FAF9500A4B7B0 /* NSObject+Variable.swift */; };
-		E2928FBF208FAF9500A4B7B0 /* NSObject+Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2928FBC208FAF9500A4B7B0 /* NSObject+Channel.swift */; };
+		E2928FBF208FAF9500A4B7B0 /* NSObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2928FBC208FAF9500A4B7B0 /* NSObject+Extensions.swift */; };
 		E2928FC0208FAF9500A4B7B0 /* NSObject+DisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2928FBD208FAF9500A4B7B0 /* NSObject+DisposeBag.swift */; };
 		E2D292401F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D2923F1F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift */; };
 		E2D292441F1F302800D4CBB5 /* VariableMultipleSubscribeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D292431F1F302800D4CBB5 /* VariableMultipleSubscribeTests.swift */; };
@@ -42,6 +48,11 @@
 		E204040D209A40F600ED7FBA /* VariableKvoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableKvoTests.swift; sourceTree = "<group>"; };
 		E204040F209A44C100ED7FBA /* VariableNSObjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableNSObjectTests.swift; sourceTree = "<group>"; };
 		E21D3C141F22318B003F2519 /* VariableHandlersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableHandlersTests.swift; sourceTree = "<group>"; };
+		E221B699213E544400D7DB36 /* ChannelMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelMapTests.swift; sourceTree = "<group>"; };
+		E221B69B213E5CD500D7DB36 /* VariableUnsubscribeVariableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableUnsubscribeVariableTests.swift; sourceTree = "<group>"; };
+		E221B69F213EA0EB00D7DB36 /* ChannelMapMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelMapMapTests.swift; sourceTree = "<group>"; };
+		E22354AA213D0DA200668865 /* ChannelPostTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelPostTests.swift; sourceTree = "<group>"; };
+		E22354AC213D12A000668865 /* VariableDisposeBagTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableDisposeBagTests.swift; sourceTree = "<group>"; };
 		E246C8EC20A5E13F001C9DBF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E2560C6B20850A7C009EED2A /* UIControl+EventTargets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+EventTargets.swift"; sourceTree = "<group>"; };
 		E2560C6C20850A7C009EED2A /* UIKit+Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Channel.swift"; sourceTree = "<group>"; };
@@ -54,8 +65,9 @@
 		E275F2661F1C8FEE005C1A0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E275F26D1F1C9446005C1A0C /* VariableSubscribeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableSubscribeTests.swift; sourceTree = "<group>"; };
 		E279F2792090DF2000F83806 /* Variable+KVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Variable+KVO.swift"; sourceTree = "<group>"; };
+		E28AF28F213D70F5007D1F8F /* ChannelMultipleSubscribeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelMultipleSubscribeTests.swift; sourceTree = "<group>"; };
 		E2928FBB208FAF9500A4B7B0 /* NSObject+Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Variable.swift"; sourceTree = "<group>"; };
-		E2928FBC208FAF9500A4B7B0 /* NSObject+Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Channel.swift"; sourceTree = "<group>"; };
+		E2928FBC208FAF9500A4B7B0 /* NSObject+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Extensions.swift"; sourceTree = "<group>"; };
 		E2928FBD208FAF9500A4B7B0 /* NSObject+DisposeBag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+DisposeBag.swift"; sourceTree = "<group>"; };
 		E2D2923F1F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableUnsubscribeTests.swift; sourceTree = "<group>"; };
 		E2D292431F1F302800D4CBB5 /* VariableMultipleSubscribeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableMultipleSubscribeTests.swift; sourceTree = "<group>"; };
@@ -132,8 +144,13 @@
 		E275F2631F1C8FEE005C1A0C /* BindableTests */ = {
 			isa = PBXGroup;
 			children = (
+				E221B69F213EA0EB00D7DB36 /* ChannelMapMapTests.swift */,
+				E221B699213E544400D7DB36 /* ChannelMapTests.swift */,
+				E28AF28F213D70F5007D1F8F /* ChannelMultipleSubscribeTests.swift */,
+				E22354AA213D0DA200668865 /* ChannelPostTests.swift */,
 				E275F2661F1C8FEE005C1A0C /* Info.plist */,
 				E275F2641F1C8FEE005C1A0C /* VariableChangeTests.swift */,
+				E22354AC213D12A000668865 /* VariableDisposeBagTests.swift */,
 				E21D3C141F22318B003F2519 /* VariableHandlersTests.swift */,
 				E204040D209A40F600ED7FBA /* VariableKvoTests.swift */,
 				E2D292431F1F302800D4CBB5 /* VariableMultipleSubscribeTests.swift */,
@@ -141,6 +158,7 @@
 				E204040F209A44C100ED7FBA /* VariableNSObjectTests.swift */,
 				E275F26D1F1C9446005C1A0C /* VariableSubscribeTests.swift */,
 				E2D2923F1F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift */,
+				E221B69B213E5CD500D7DB36 /* VariableUnsubscribeVariableTests.swift */,
 			);
 			path = BindableTests;
 			sourceTree = "<group>";
@@ -148,8 +166,8 @@
 		E2928FBA208FAF9500A4B7B0 /* NSObject */ = {
 			isa = PBXGroup;
 			children = (
-				E2928FBC208FAF9500A4B7B0 /* NSObject+Channel.swift */,
 				E2928FBD208FAF9500A4B7B0 /* NSObject+DisposeBag.swift */,
+				E2928FBC208FAF9500A4B7B0 /* NSObject+Extensions.swift */,
 				E2928FBB208FAF9500A4B7B0 /* NSObject+Variable.swift */,
 				E279F2792090DF2000F83806 /* Variable+KVO.swift */,
 			);
@@ -224,7 +242,7 @@
 					E275F2611F1C8FEE005C1A0C = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = LC3Y92HQQ3;
-						LastSwiftMigration = 0930;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -279,7 +297,7 @@
 				E275F25D1F1C8FDC005C1A0C /* Variable.swift in Sources */,
 				E2560C7220850A7C009EED2A /* UIKit+Channel.swift in Sources */,
 				E279F27A2090DF2000F83806 /* Variable+KVO.swift in Sources */,
-				E2928FBF208FAF9500A4B7B0 /* NSObject+Channel.swift in Sources */,
+				E2928FBF208FAF9500A4B7B0 /* NSObject+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,11 +308,17 @@
 				E21D3C151F22318B003F2519 /* VariableHandlersTests.swift in Sources */,
 				E2040410209A44C100ED7FBA /* VariableNSObjectTests.swift in Sources */,
 				E275F26E1F1C9446005C1A0C /* VariableSubscribeTests.swift in Sources */,
+				E28AF290213D70F5007D1F8F /* ChannelMultipleSubscribeTests.swift in Sources */,
 				E2D292401F1E8F6D00D4CBB5 /* VariableUnsubscribeTests.swift in Sources */,
 				E2D292441F1F302800D4CBB5 /* VariableMultipleSubscribeTests.swift in Sources */,
+				E221B69A213E544400D7DB36 /* ChannelMapTests.swift in Sources */,
+				E22354AB213D0DA200668865 /* ChannelPostTests.swift in Sources */,
+				E22354AD213D12A000668865 /* VariableDisposeBagTests.swift in Sources */,
+				E221B69C213E5CD500D7DB36 /* VariableUnsubscribeVariableTests.swift in Sources */,
 				E204040E209A40F600ED7FBA /* VariableKvoTests.swift in Sources */,
 				E2D292461F1F39F600D4CBB5 /* VariableMultipleUnsubscribeTests.swift in Sources */,
 				E275F2651F1C8FEE005C1A0C /* VariableChangeTests.swift in Sources */,
+				E221B6A0213EA0EB00D7DB36 /* ChannelMapMapTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,7 +498,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.q42.BindableTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -486,7 +510,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.q42.BindableTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

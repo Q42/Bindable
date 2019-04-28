@@ -9,38 +9,47 @@
 import Foundation
 
 public class Channel<Event> {
-  internal let source: ChannelSource<Event>
+  private let source: ChannelSource<Event>
+  private let sourceSubscription: Subscription
 
-  internal init(source: ChannelSource<Event>) {
+  internal init(source: ChannelSource<Event>, sourceSubscription: Subscription) {
     self.source = source
+    self.sourceSubscription = sourceSubscription
   }
 
   public func subscribe(_ handler: @escaping (Event) -> Void) -> Subscription {
 
-    let h = ChannelHandler(channel: self, handler: handler)
-    source.internalState.addHandler(h)
+    let handler = Handler(handler: handler)
+    source.internalState.addHandler(handler)
 
-    return h
+    let subscription = Subscription { [source, sourceSubscription] in
+      source.internalState.removeHandler(handler)
+
+      // Captures orignial sourceSubscription, so source will be updated
+      _ = sourceSubscription
+    }
+
+    return subscription
   }
 
   public func map<NewEvent>(_ transform: @escaping (Event) -> NewEvent) -> Channel<NewEvent> {
     let resultSource = ChannelSource<NewEvent>(queue: source.queue)
 
-    _ = source.channel.subscribe { event in
+    let resultSubscription = self.subscribe { event in
       resultSource.post(transform(event))
     }
 
-    return resultSource.channel
+    return Channel<NewEvent>(source: resultSource, sourceSubscription: resultSubscription)
   }
 
   public func dispatch(on dispatchQueue: DispatchQueue) -> Channel<Event> {
     let resultSource = ChannelSource<Event>(queue: dispatchQueue)
 
-    _ = self.subscribe { event in
+    let resultSubscription = self.subscribe { event in
       resultSource.post(event)
     }
 
-    return resultSource.channel
+    return Channel(source: resultSource, sourceSubscription: resultSubscription)
   }
 }
 
@@ -63,7 +72,7 @@ public class ChannelSource<Event> {
   }
 
   public var channel: Channel<Event> {
-    return Channel(source: self)
+    return Channel(source: self, sourceSubscription: Subscription {})
   }
 
   public func post(_ event: Event) {
@@ -88,44 +97,29 @@ public class ChannelSource<Event> {
 extension ChannelSource {
   fileprivate class ChannelSourceState {
     private let lock = NSLock()
-    private var handlers: [ChannelHandler<Event>] = []
+    private var handlers: [Handler<Event>] = []
 
-    func addHandler(_ handler: ChannelHandler<Event>) {
+    func addHandler(_ handler: Handler<Event>) {
       lock.lock(); defer { lock.unlock() }
 
       handlers.append(handler)
     }
 
-    func getHandlers() -> [ChannelHandler<Event>] {
+    func getHandlers() -> [Handler<Event>] {
       lock.lock(); defer { lock.unlock() }
 
       return handlers
     }
 
-    func removeSubscription(_ subscription: Subscription) {
+    func removeHandler(_ handler: Handler<Event>) {
       lock.lock(); defer { lock.unlock() }
 
-      for (ix, handler) in handlers.enumerated() {
-        if handler === subscription {
+      for (ix, h) in handlers.enumerated() {
+        if h === handler {
           handlers.remove(at: ix)
         }
       }
     }
 
-  }
-}
-
-class ChannelHandler<Value>: Subscription {
-  weak var channel: Channel<Value>?
-  private(set) var handler: ((Value) -> Void)?
-
-  init(channel: Channel<Value>, handler: @escaping (Value) -> Void) {
-    self.channel = channel
-    self.handler = handler
-  }
-
-  func unsubscribe() {
-    channel?.source.internalState.removeSubscription(self)
-    handler = nil
   }
 }

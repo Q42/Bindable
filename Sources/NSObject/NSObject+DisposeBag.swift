@@ -34,13 +34,6 @@ extension NSObject {
 }
 
 internal class BindableProperties {
-
   internal var subscriptions: [AnyKeyPath: Subscription] = [:]
-
-  internal var disposeBag = DisposeBag() {
-    didSet {
-      subscriptions.values.forEach { $0.unsubscribe() }
-      subscriptions = [:]
-    }
-  }
+  internal var disposeBag = DisposeBag()
 }

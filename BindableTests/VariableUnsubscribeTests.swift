@@ -12,6 +12,7 @@ import Bindable
 class VariableUnsubscribeTests: XCTestCase {
 
   func testChange() {
+    let disposeBag = DisposeBag()
     let source = VariableSource(value: 1)
     let variable = source.variable
 
@@ -21,17 +22,20 @@ class VariableUnsubscribeTests: XCTestCase {
     var strongObject: NSObject? = NSObject()
     weak var weakObj = strongObject
 
-    let subscription = variable.subscribe { [strongObject] event in
+    var subscription: Subscription? = variable.subscribe { [strongObject] event in
       XCTAssertNotNil(strongObject)
     }
     strongObject = nil
 
     XCTAssertNotNil(weakObj)
-    subscription.unsubscribe()
+    subscription = nil
     XCTAssertNil(weakObj)
+
+    subscription?.disposed(by: disposeBag)
   }
 
   func testMapChange() {
+    let disposeBag = DisposeBag()
     let source = VariableSource(value: 1)
     let variable1 = source.variable
     let variable2 = variable1.map { $0 + 1 }
@@ -42,13 +46,13 @@ class VariableUnsubscribeTests: XCTestCase {
     var strongObject1: NSObject? = NSObject()
     weak var weakObj1 = strongObject1
 
-    let subscription1 = variable1.subscribe { [strongObject1] event in
+    var subscription1: Subscription? = variable1.subscribe { [strongObject1] event in
       XCTAssertNotNil(strongObject1)
     }
     strongObject1 = nil
 
     XCTAssertNotNil(weakObj1)
-    subscription1.unsubscribe()
+    subscription1 = nil
     XCTAssertNil(weakObj1)
 
 
@@ -57,14 +61,17 @@ class VariableUnsubscribeTests: XCTestCase {
     var strongObject2: NSObject? = NSObject()
     weak var weakObj2 = strongObject2
 
-    let subscription2 = variable2.subscribe { [strongObject2] event in
+    var subscription2: Subscription? = variable2.subscribe { [strongObject2] event in
       XCTAssertNotNil(strongObject2)
     }
     strongObject2 = nil
 
     XCTAssertNotNil(weakObj2)
-    subscription2.unsubscribe()
+    subscription2 = nil
     XCTAssertNil(weakObj2)
+
+    subscription1?.disposed(by: disposeBag)
+    subscription2?.disposed(by: disposeBag)
   }
 
   func testMapMapChange() {
@@ -79,13 +86,13 @@ class VariableUnsubscribeTests: XCTestCase {
     var strongObject1: NSObject? = NSObject()
     weak var weakObj1 = strongObject1
 
-    let subscription1 = variable1.subscribe { [strongObject1] event in
+    var subscription1: Subscription? = variable1.subscribe { [strongObject1] event in
       XCTAssertNotNil(strongObject1)
     }
     strongObject1 = nil
 
     XCTAssertNotNil(weakObj1)
-    subscription1.unsubscribe()
+    subscription1 = nil
     XCTAssertNil(weakObj1)
 
 
@@ -94,13 +101,13 @@ class VariableUnsubscribeTests: XCTestCase {
     var strongObject2: NSObject? = NSObject()
     weak var weakObj2 = strongObject2
 
-    let subscription2 = variable2.subscribe { [strongObject2] event in
+    var subscription2: Subscription? = variable2.subscribe { [strongObject2] event in
       XCTAssertNotNil(strongObject2)
     }
     strongObject2 = nil
 
     XCTAssertNotNil(weakObj2)
-    subscription2.unsubscribe()
+    subscription2 = nil
     XCTAssertNil(weakObj2)
 
 
@@ -109,14 +116,18 @@ class VariableUnsubscribeTests: XCTestCase {
     var strongObject3: NSObject? = NSObject()
     weak var weakObj3 = strongObject3
 
-    let subscription3 = variable3.subscribe { [strongObject3] event in
+    var subscription3: Subscription? = variable3.subscribe { [strongObject3] event in
       XCTAssertNotNil(strongObject3)
     }
     strongObject3 = nil
 
     XCTAssertNotNil(weakObj3)
-    subscription3.unsubscribe()
+    subscription3 = nil
     XCTAssertNil(weakObj3)
+
+    subscription1?.disposed(by: disposeBag)
+    subscription2?.disposed(by: disposeBag)
+    subscription3?.disposed(by: disposeBag)
   }
 
 }
