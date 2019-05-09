@@ -14,7 +14,9 @@ extension NSObjectProtocol where Self : NSObject {
 
     self[keyPath: keyPath] = variable.value
     let subscription = variable.subscribe { [weak self] event in
-      self?[keyPath: keyPath] = event.value
+      guard let self = self else { return }
+
+      self[keyPath: keyPath] = event.value
     }
 
     bindableProperties.subscriptions[keyPath] = subscription
@@ -26,7 +28,9 @@ extension NSObjectProtocol where Self : NSObject {
     if let variable = variable {
       self[keyPath: keyPath] = variable.value
       let subscription = variable.subscribe { [weak self] event in
-        self?[keyPath: keyPath] = event.value
+        guard let self = self else { return }
+
+        self[keyPath: keyPath] = event.value
       }
       bindableProperties.subscriptions[keyPath] = subscription
     }
