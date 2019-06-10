@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name              = "Bindable"
-  s.version           = "0.6.2"
+  s.version           = "0.7.0"
   s.summary           = "A Variable<Value> data binding UI"
 
   s.description       = <<-DESC
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
 
   s.source            = { :git => "https://github.com/Q42/Bindable.git", :tag => s.version }
   s.default_subspec   = "Core"
-  s.swift_version     = '4.2'
+  s.swift_version     = '5.1'
 
   s.pod_target_xcconfig = { 'APPLICATION_EXTENSION_API_ONLY' => 'YES' }
 
