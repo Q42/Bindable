@@ -56,7 +56,7 @@ class MainViewModel {
     ageSource.value -= 1
   }
 
-  func changeColor() {
+  @objc func changeColor() {
     self.colorSource.value = .red
   }
 

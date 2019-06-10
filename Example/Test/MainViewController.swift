@@ -43,7 +43,7 @@ class MainViewController: UIViewController {
 
     on(viewModel.messages) { [weak self] in self?.alertMessage($0) }
 
-    on(testButton.channel(for: .touchUpInside)) { [weak viewModel] _ in viewModel?.changeColor() }
+    testButton.addTarget(viewModel, action: #selector(MainViewModel.changeColor), for: .touchUpInside)
 
     let x = viewModel.color.map { $0.cgColor.components![0] }
     let y = viewModel.age.map { CGFloat($0) }

@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   s.watchos.deployment_target = '4.0'
 
   s.subspec "Core" do |ss|
-    ss.source_files  = ["Sources/Core"]
+    ss.source_files  = ["Sources/Bindable"]
   end
 
   s.subspec "NSObject" do |ss|
@@ -32,16 +32,8 @@ Pod::Spec.new do |s|
     ss.tvos.deployment_target = '9.0'
     ss.watchos.deployment_target = '4.0'
 
-    ss.source_files = ["Sources/NSObject"]
+    ss.source_files = ["Sources/BindableNSObject"]
     ss.dependency "Bindable/Core"
-  end
-
-  s.subspec "UIKit" do |ss|
-    ss.ios.deployment_target = '9.0'
-    ss.tvos.deployment_target = '9.0'
-
-    ss.source_files = ["Sources/UIKit"]
-    ss.dependency "Bindable/NSObject"
   end
 end
 

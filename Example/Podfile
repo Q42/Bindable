@@ -2,8 +2,7 @@ platform :ios, '9.0'
 
 use_frameworks!
 
-pod 'Bindable/UIKit', :path => '../'
-# pod 'Bindable/UIKit', :git => 'git@github.com:Q42/Bindable.git'
+pod 'Bindable/NSObject', :path => '../'
 
 target 'Test'
 
