@@ -9,6 +9,8 @@
 
 import XCTest
 @testable import Bindable
+import BindableNSObject
+
 
 private class Person: NSObject {
   @objc dynamic var name: String = ""

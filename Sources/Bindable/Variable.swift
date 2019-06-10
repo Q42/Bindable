@@ -21,6 +21,10 @@ public class Variable<Value> {
     self.sourceSubscription = sourceSubscription
   }
 
+  public static func makeVariable(source: VariableSource<Value>, sourceSubscription: Subscription) -> Variable<Value> {
+    return Variable(source: source, sourceSubscription: sourceSubscription)
+  }
+
   public func subscribe(_ handler: @escaping (VariableEvent<Value>) -> Void) -> Subscription {
 
     let handler = Handler(handler: handler)

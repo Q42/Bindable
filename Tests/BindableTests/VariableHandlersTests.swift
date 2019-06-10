@@ -9,6 +9,8 @@
 
 import XCTest
 @testable import Bindable
+import BindableNSObject
+
 
 class VariableHandlersTests: XCTestCase {
 

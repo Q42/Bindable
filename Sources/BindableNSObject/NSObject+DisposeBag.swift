@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Bindable
 
 private var associatedObjectHandle: UInt8 = 0
 private let associationPolicy = objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC

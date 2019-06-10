@@ -8,6 +8,8 @@
 
 import XCTest
 @testable import Bindable
+import BindableNSObject
+
 
 class VariableUnsubscribeVariableTests: XCTestCase {
 

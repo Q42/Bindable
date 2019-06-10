@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Bindable
 
 extension NSObject {
   public func on<T>(_ channel: Channel<T>, handler: @escaping (T) -> Void) {

@@ -72,7 +72,7 @@ Comparing several methods for reactivally updating UI's, including Bindable. The
 Releases
 --------
 
- - 0.7.0 - 2019-06-10 - Swift 5.1 in podspec
+ - 0.7.0 - 2019-06-10 - Swift 5.1 in podspec, remove UIKit extension
  - 0.6.2 - 2019-05-09 - Change retain logic of NSObject.bind
  - 0.6.1 - 2019-04-28 - Add convenient extension functions
  - **0.6.0** - 2019-04-25 - Strong references to subscriptions are now required

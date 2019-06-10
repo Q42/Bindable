@@ -17,6 +17,10 @@ public class Channel<Event> {
     self.sourceSubscription = sourceSubscription
   }
 
+  public static func makeChannel(source: ChannelSource<Event>, sourceSubscription: Subscription) -> Channel<Event> {
+    return Channel(source: source, sourceSubscription: sourceSubscription)
+  }
+
   public func subscribe(_ handler: @escaping (Event) -> Void) -> Subscription {
 
     let handler = Handler(handler: handler)

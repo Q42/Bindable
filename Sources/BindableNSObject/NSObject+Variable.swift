@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Bindable
 
 extension NSObjectProtocol where Self : NSObject {
   public func bind<T>(_ keyPath: ReferenceWritableKeyPath<Self, T>, to variable: Variable<T>) {

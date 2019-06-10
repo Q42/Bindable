@@ -8,6 +8,8 @@
 
 import XCTest
 import Bindable
+import BindableNSObject
+
 
 class VariableDisposeBagTests: XCTestCase {
 

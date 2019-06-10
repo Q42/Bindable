@@ -9,6 +9,8 @@
 
 import XCTest
 import Bindable
+import BindableNSObject
+
 
 class VariableMultipleUnsubscribeTests: XCTestCase {
 

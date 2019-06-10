@@ -11,7 +11,7 @@ import Foundation
 public class Subscription {
   public let unsubscribe: () -> Void
 
-  internal init(unsubscribe: @escaping () -> Void) {
+  public init(unsubscribe: @escaping () -> Void) {
     self.unsubscribe = unsubscribe
   }
 
