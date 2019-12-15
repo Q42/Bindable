@@ -59,6 +59,43 @@ ageSubscription = viewModel.age.subscribe { event in
 titleLabel.bind(\.text, to: viewModel.title)
 ```
 
+Since `0.0.8` it is also possible to use `@Bindable` instead of a source. Using the same example:
+
+```swift
+class MainViewModel {
+  @Bindable var age: Int = 0  
+  
+  let title: Variable<String>
+  
+  init() {
+    title = $age.map { "Age: \($0)" }
+  }
+
+
+  func up() {
+    age += 1
+  }
+
+  func down() {
+    age -= 1
+  }
+}
+```
+The variable's will be exposed by using:
+
+```
+```swift
+let viewModel = MainViewModel()
+
+// Manually subscribe for change events
+ageSubscription = viewModel.$age.subscribe { event in
+  print("New age: \(event.value)")
+}
+
+// Or data bind a UILabel
+titleLabel.bind(\.text, to: viewModel.$title)
+```
+
 CocoaHeadsNL presentation
 -------------------------
 

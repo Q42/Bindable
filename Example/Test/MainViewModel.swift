@@ -10,14 +10,11 @@ import UIKit
 import Bindable
 
 class MainViewModel {
-  private let ageSource = VariableSource<Int>(value: 0)
-  private let colorSource = VariableSource<UIColor>(value: UIColor.yellow)
-  private let titleSource = VariableSource<NSAttributedString>(value: NSAttributedString())
   private let alertSource = ChannelSource<String>()
 
-  var age: Variable<Int>
-  var color: Variable<UIColor>
-  var title: Variable<NSAttributedString>
+  @Bindable private(set) var age: Int = 0
+  @Bindable private(set) var color: UIColor = .yellow
+  @Bindable private(set) var title: NSAttributedString = NSAttributedString()
   var messages: Channel<String>
 
   var tick = false
@@ -25,39 +22,36 @@ class MainViewModel {
   init() {
     print("MainViewModel.init")
 
-    age = ageSource.variable
-    color = colorSource.variable
-    title = titleSource.variable
     messages = alertSource.channel
 
     Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
       let x = self?.tick ?? false
       self?.tick = !x
 
-      self?.colorSource.value = UIColor(red: x ? 0.3 : 1, green: 1, blue: 1, alpha: 1)
+      self?.color = UIColor(red: x ? 0.3 : 1, green: 1, blue: 1, alpha: 1)
     }
 
 
     Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { [weak self] _ in
       let attrs: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)]
-      self?.titleSource.value = NSAttributedString(string: "Close", attributes: attrs)
+      self?.title = NSAttributedString(string: "Close", attributes: attrs)
     }
   }
 
   func up() {
-    ageSource.value += 1
+    age += 1
 
-    if ageSource.value == 18 {
+    if age == 18 {
       alertSource.post("Congrats! You just became an adult!")
     }
   }
 
   func down() {
-    ageSource.value -= 1
+    age -= 1
   }
 
   @objc func changeColor() {
-    self.colorSource.value = .red
+    self.color = .red
   }
 
   deinit {

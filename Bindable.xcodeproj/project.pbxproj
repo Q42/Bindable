@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		2B149FB823A6E4470064447C /* BindableProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B149FB723A6E4470064447C /* BindableProperty.swift */; };
+		2B149FBB23A6EA6A0064447C /* BindablePropertyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B149FB923A6E8D90064447C /* BindablePropertyTests.swift */; };
 		OBJ_52 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Channel.swift */; };
 		OBJ_53 /* DisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* DisposeBag.swift */; };
 		OBJ_54 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* Extensions.swift */; };
@@ -65,6 +67,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B149FB723A6E4470064447C /* BindableProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableProperty.swift; sourceTree = "<group>"; };
+		2B149FB923A6E8D90064447C /* BindablePropertyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindablePropertyTests.swift; sourceTree = "<group>"; };
 		"Bindable::Bindable::Product" /* Bindable.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bindable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Bindable::BindableNSObject::Product" /* BindableNSObject.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BindableNSObject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Bindable::BindableTests::Product" /* BindableTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = BindableTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_23 /* Info.plist */,
+				2B149FB923A6E8D90064447C /* BindablePropertyTests.swift */,
 				OBJ_24 /* ChannelMapMapTests.swift */,
 				OBJ_25 /* ChannelMapTests.swift */,
 				OBJ_26 /* ChannelMultipleSubscribeTests.swift */,
@@ -186,7 +191,7 @@
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -198,7 +203,6 @@
 				OBJ_45 /* README.md */,
 				OBJ_46 /* Bindable.podspec */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -217,6 +221,7 @@
 				OBJ_10 /* DisposeBag.swift */,
 				OBJ_11 /* Extensions.swift */,
 				OBJ_12 /* Variable.swift */,
+				2B149FB723A6E4470064447C /* BindableProperty.swift */,
 			);
 			name = Bindable;
 			path = Sources/Bindable;
@@ -321,7 +326,7 @@
 				English,
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_38 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -348,6 +353,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				2B149FB823A6E4470064447C /* BindableProperty.swift in Sources */,
 				OBJ_52 /* Channel.swift in Sources */,
 				OBJ_53 /* DisposeBag.swift in Sources */,
 				OBJ_54 /* Extensions.swift in Sources */,
@@ -378,6 +384,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				2B149FBB23A6EA6A0064447C /* BindablePropertyTests.swift in Sources */,
 				OBJ_83 /* ChannelMapMapTests.swift in Sources */,
 				OBJ_84 /* ChannelMapTests.swift in Sources */,
 				OBJ_85 /* ChannelMultipleSubscribeTests.swift in Sources */,
