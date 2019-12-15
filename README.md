@@ -83,7 +83,6 @@ class MainViewModel {
 ```
 The variable's will be exposed by using:
 
-```
 ```swift
 let viewModel = MainViewModel()
 
