@@ -23,6 +23,8 @@
 /* Begin PBXBuildFile section */
 		2B149FB823A6E4470064447C /* BindableProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B149FB723A6E4470064447C /* BindableProperty.swift */; };
 		2B149FBB23A6EA6A0064447C /* BindablePropertyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B149FB923A6E8D90064447C /* BindablePropertyTests.swift */; };
+		E2656D1023CE198100A71051 /* BindableChannelProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2656D0F23CE198100A71051 /* BindableChannelProperty.swift */; };
+		E2656D1223CE1A7D00A71051 /* BindableChannelPropertyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2656D1123CE1A7D00A71051 /* BindableChannelPropertyTests.swift */; };
 		OBJ_52 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Channel.swift */; };
 		OBJ_53 /* DisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* DisposeBag.swift */; };
 		OBJ_54 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* Extensions.swift */; };
@@ -73,6 +75,8 @@
 		"Bindable::BindableNSObject::Product" /* BindableNSObject.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BindableNSObject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Bindable::BindableTests::Product" /* BindableTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = BindableTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Bindable::BindableUIKit::Product" /* BindableUIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BindableUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2656D0F23CE198100A71051 /* BindableChannelProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableChannelProperty.swift; sourceTree = "<group>"; };
+		E2656D1123CE1A7D00A71051 /* BindableChannelPropertyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableChannelPropertyTests.swift; sourceTree = "<group>"; };
 		OBJ_10 /* DisposeBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisposeBag.swift; sourceTree = "<group>"; };
 		OBJ_11 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		OBJ_12 /* Variable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Variable.swift; sourceTree = "<group>"; };
@@ -159,12 +163,13 @@
 		OBJ_22 /* BindableTests */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_23 /* Info.plist */,
+				E2656D1123CE1A7D00A71051 /* BindableChannelPropertyTests.swift */,
 				2B149FB923A6E8D90064447C /* BindablePropertyTests.swift */,
 				OBJ_24 /* ChannelMapMapTests.swift */,
 				OBJ_25 /* ChannelMapTests.swift */,
 				OBJ_26 /* ChannelMultipleSubscribeTests.swift */,
 				OBJ_27 /* ChannelPostTests.swift */,
+				OBJ_23 /* Info.plist */,
 				OBJ_28 /* VariableChangeTests.swift */,
 				OBJ_29 /* VariableDisposeBagTests.swift */,
 				OBJ_30 /* VariableHandlersTests.swift */,
@@ -222,6 +227,7 @@
 				OBJ_11 /* Extensions.swift */,
 				OBJ_12 /* Variable.swift */,
 				2B149FB723A6E4470064447C /* BindableProperty.swift */,
+				E2656D0F23CE198100A71051 /* BindableChannelProperty.swift */,
 			);
 			name = Bindable;
 			path = Sources/Bindable;
@@ -354,6 +360,7 @@
 			buildActionMask = 0;
 			files = (
 				2B149FB823A6E4470064447C /* BindableProperty.swift in Sources */,
+				E2656D1023CE198100A71051 /* BindableChannelProperty.swift in Sources */,
 				OBJ_52 /* Channel.swift in Sources */,
 				OBJ_53 /* DisposeBag.swift in Sources */,
 				OBJ_54 /* Extensions.swift in Sources */,
@@ -386,6 +393,7 @@
 			files = (
 				2B149FBB23A6EA6A0064447C /* BindablePropertyTests.swift in Sources */,
 				OBJ_83 /* ChannelMapMapTests.swift in Sources */,
+				E2656D1223CE1A7D00A71051 /* BindableChannelPropertyTests.swift in Sources */,
 				OBJ_84 /* ChannelMapTests.swift in Sources */,
 				OBJ_85 /* ChannelMultipleSubscribeTests.swift in Sources */,
 				OBJ_86 /* ChannelPostTests.swift in Sources */,
