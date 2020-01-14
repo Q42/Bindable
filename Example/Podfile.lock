@@ -1,6 +1,6 @@
 PODS:
-  - Bindable/Core (0.7.0)
-  - Bindable/NSObject (0.7.0):
+  - Bindable/Core (0.8.0)
+  - Bindable/NSObject (0.8.0):
     - Bindable/Core
 
 DEPENDENCIES:
@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Bindable: 42dd95d7cc00778a340b5f8fc1d8701d0d9a403c
+  Bindable: bfa03cd226799820a5b588a42f75c27fa092214a
 
 PODFILE CHECKSUM: 203f21f88e063c48cdd78df10e33585994b3c367
 

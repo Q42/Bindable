@@ -10,19 +10,15 @@ import UIKit
 import Bindable
 
 class MainViewModel {
-  private let alertSource = ChannelSource<String>()
-
   @Bindable private(set) var age: Int = 0
   @Bindable private(set) var color: UIColor = .yellow
   @Bindable private(set) var title: NSAttributedString = NSAttributedString()
-  var messages: Channel<String>
+  @BindableChannel var messages: Channel<String>
 
   var tick = false
 
   init() {
     print("MainViewModel.init")
-
-    messages = alertSource.channel
 
     Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
       let x = self?.tick ?? false
@@ -42,7 +38,7 @@ class MainViewModel {
     age += 1
 
     if age == 18 {
-      alertSource.post("Congrats! You just became an adult!")
+      _messages.post("Congrats! You just became an adult!")
     }
   }
 
