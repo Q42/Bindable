@@ -33,11 +33,11 @@ class MainViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    view.bind(\.backgroundColor, to: viewModel.color)
-    label.bind(\.text, to: viewModel.age.map { "Age: \($0)" })
+    view.bind(\.backgroundColor, to: viewModel.$color)
+    label.bind(\.text, to: viewModel.$age.map { "Age: \($0)" })
 
-    closeButton.setAttributedTitle(viewModel.title.value, for: .normal)
-    viewModel.title.subscribe { [weak closeButton] event in
+    closeButton.setAttributedTitle(viewModel.$title.value, for: .normal)
+    viewModel.$title.subscribe { [weak closeButton] event in
       closeButton?.setAttributedTitle(event.value, for: .normal)
     }.disposed(by: disposeBag)
 
@@ -45,8 +45,8 @@ class MainViewController: UIViewController {
 
     testButton.addTarget(viewModel, action: #selector(MainViewModel.changeColor), for: .touchUpInside)
 
-    let x = viewModel.color.map { $0.cgColor.components![0] }
-    let y = viewModel.age.map { CGFloat($0) }
+    let x = viewModel.$color.map { $0.cgColor.components![0] }
+    let y = viewModel.$age.map { CGFloat($0) }
     let z = (x || y)
 
     z.subscribe { [weak self] event in
