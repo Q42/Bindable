@@ -64,6 +64,20 @@
 			remoteGlobalIDString = "Bindable::BindableTests";
 			remoteInfo = BindableTests;
 		};
+		E2D2855123D83BED00D6BF23 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Bindable::BindableNSObject";
+			remoteInfo = BindableNSObject;
+		};
+		E2D2855323D83BF900D6BF23 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Bindable::Bindable";
+			remoteInfo = Bindable;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -256,6 +270,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				E2D2855423D83BF900D6BF23 /* PBXTargetDependency */,
 			);
 			name = BindableNSObject;
 			productName = BindableNSObject;
@@ -272,6 +287,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				E2D2855223D83BED00D6BF23 /* PBXTargetDependency */,
 				OBJ_99 /* PBXTargetDependency */,
 			);
 			name = BindableTests;
@@ -405,6 +421,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		E2D2855223D83BED00D6BF23 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Bindable::BindableNSObject" /* BindableNSObject */;
+			targetProxy = E2D2855123D83BED00D6BF23 /* PBXContainerItemProxy */;
+		};
+		E2D2855423D83BF900D6BF23 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Bindable::Bindable" /* Bindable */;
+			targetProxy = E2D2855323D83BF900D6BF23 /* PBXContainerItemProxy */;
+		};
 		OBJ_77 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "Bindable::BindableTests" /* BindableTests */;
