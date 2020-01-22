@@ -32,4 +32,14 @@ class BindablePropertyTests: XCTestCase {
 
     XCTAssertEqual(model.$age.value, 1)
   }
+
+  func testExclusiveAccess() {
+    let model = MockModel(age: 0)
+    model.$age.subscribe { _ in
+      print(model.age)
+    }.disposed(by: disposeBag)
+    model.age = 1
+
+    XCTAssertEqual(model.$age.value, 1)
+  }
 }

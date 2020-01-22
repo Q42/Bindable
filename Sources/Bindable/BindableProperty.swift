@@ -8,7 +8,7 @@
 import Foundation
 
 @propertyWrapper
-public struct Bindable<Value> {
+public class Bindable<Value> {
   private let source: VariableSource<Value>
 
   public let projectedValue: Variable<Value>
