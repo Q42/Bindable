@@ -108,6 +108,7 @@ Comparing several methods for reactivally updating UI's, including Bindable. The
 Releases
 --------
 
+ - 0.8.1 - 2020-01-22 - Use class for property wrapper
  - 0.8.0 - 2020-01-15 - Add `@Bindable` property wrapper
  - 0.7.0 - 2019-06-10 - Swift 5.1 in podspec, remove UIKit extension
  - 0.6.2 - 2019-05-09 - Change retain logic of NSObject.bind
